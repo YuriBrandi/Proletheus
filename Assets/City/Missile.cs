@@ -1,47 +1,55 @@
 using UnityEngine;
 
-public class Missile : MonoBehaviour
+public class MissileCircularMotion : MonoBehaviour
 {
-    public float radius = 50f;         // Raggio della parabola circolare
-    public float speed = 0.1f;         // Velocità del missile
-    public float heightMultiplier = 30f; // Fattore di altezza per la parabola
-    public float rotationSpeed = 100f; // Velocità di rotazione per il missile
-    public Vector3 direction = Vector3.forward; // Direzione principale del movimento
+    [Header("Missile Parameters")]
+    [Tooltip("Speed at which the missile moves around the circle.")]
+    public float angularSpeed = 30f; // Degrees per second
 
-    private float angle = 0f;          // Angolo corrente nella traiettoria
+    [Tooltip("Radius of the circle in which the missile travels.")]
+    public float radius = 10f;
+
+    [Tooltip("Height at which the missile travels.")]
+    public float height = 5f;
+
+    [Header("Center of Circle")]
+    [Tooltip("The center point of the circle around which the missile moves.")]
+    public Vector3 centerPoint = new Vector3(0f, 0f, 0f);
+
+    private float angle; // Current angle in degrees
+    private Vector3 previousPosition; // Track previous position for direction calculation
 
     void Start()
     {
-        // Impostiamo la posizione iniziale a (0, 0, 500)
-        transform.position = new Vector3(0, 500, 0);
+        // Initialize previous position to the starting position
+        float radian = angle * Mathf.Deg2Rad;
+        Vector3 offset = new Vector3(Mathf.Cos(radian) * radius, height, Mathf.Sin(radian) * radius);
+        previousPosition = centerPoint + offset;
+        transform.position = previousPosition;
     }
 
     void Update()
     {
-        // Aggiorna l'angolo in base alla velocità e al tempo
-        angle += speed * Time.deltaTime;
+        // Update the angle based on angular speed
+        angle += angularSpeed * Time.deltaTime;
+        if (angle >= 360f) angle -= 360f;
 
-        // Calcola le coordinate della traiettoria orizzontale (su X e Z)
-        float x = Mathf.Cos(angle) * radius;      // Posizione lungo l'arco circolare in X
-        float z = Mathf.Sin(angle) * radius;      // Posizione lungo l'arco circolare in Z
+        // Calculate the new position
+        float radian = angle * Mathf.Deg2Rad;
+        Vector3 offset = new Vector3(Mathf.Cos(radian) * radius, height, Mathf.Sin(radian) * radius);
+        Vector3 newPosition = centerPoint + offset;
 
-        // Calcola l'altezza come una funzione del tempo, in base a heightMultiplier
-        float y = Mathf.Sin(angle) * heightMultiplier; // Aumentato per far volare più in alto
-
-        // Aggiorna la posizione del missile
-        Vector3 newPosition = new Vector3(x, y, z);
+        // Update the missile's position
         transform.position = newPosition;
 
-        // Calcoliamo la direzione del movimento
-        Vector3 movementDirection = newPosition - transform.position;
-
-        if (movementDirection != Vector3.zero)
+        // Make the missile point in the direction of movement
+        Vector3 direction = (newPosition - previousPosition).normalized;
+        if (direction != Vector3.zero)
         {
-            // Calcoliamo la rotazione in base alla direzione di movimento
-            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-
-            // Applichiamo la rotazione in modo fluido
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         }
+
+        // Update the previous position for the next frame
+        previousPosition = newPosition;
     }
 }
