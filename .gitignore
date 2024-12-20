@@ -27,6 +27,9 @@
 .vs/
 .vsconfig
 
+# Mono crash
+mono_crash.mem.*
+
 # Gradle cache directory
 .gradle/
 
