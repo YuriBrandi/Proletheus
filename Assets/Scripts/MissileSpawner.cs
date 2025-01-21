@@ -7,7 +7,8 @@ public class MissileController : MonoBehaviour
         N, S, E, W, NE, NW, SE, SW, RANDOM
     }
 
-    [Header("Missile Settings")] 
+    [Header("Missile Settings")]
+    public GameObject missilePrefab;
     public float minSpeed = 10f; // Minimum speed
     public float maxSpeed = 20f; // Maximum speed
     public float minHeight = 5f; // Minimum height for the arc
@@ -24,6 +25,7 @@ public class MissileController : MonoBehaviour
     public Direction chosenDirection;
     public float offset = 200f; // Origin offset (makes missile appear from farther).
 
+    private GameObject missile;
     private Vector3 startPoint;
     private Vector3 endPoint;
     private Vector3 controlPoint;
@@ -32,6 +34,16 @@ public class MissileController : MonoBehaviour
 
     void Start()
     {
+        if (missilePrefab == null)
+        {
+            Debug.LogError("Missile prefab is not assigned.");
+            return;
+        }
+
+        // Instantiate the missile
+        missile = Instantiate(missilePrefab);
+        missile.name = "enemy_missile";
+
         Vector3 endPoint = GetRandomPointInBoxCollider(targetCollider);
         Debug.Log("Missile End Point (XZ): " + endPoint);
 
@@ -53,6 +65,11 @@ public class MissileController : MonoBehaviour
 
     void Update()
     {
+        if (missile == null)
+        {
+            return;
+        }
+
         // Increment progress based on speed and distance
         t += Time.deltaTime * speed / Vector3.Distance(startPoint, endPoint);
 
@@ -64,13 +81,13 @@ public class MissileController : MonoBehaviour
                            + 2 * (1 - t) * t * controlPoint
                            + Mathf.Pow(t, 2) * endPoint;
 
-        transform.position = position;
+        missile.transform.position = position;
 
         // Rotate missile to face movement direction using tangent
         if (t < 1)
         {
             Vector3 tangent = 2 * (1 - t) * (controlPoint - startPoint) + 2 * t * (endPoint - controlPoint);
-            transform.forward = tangent.normalized;
+            missile.transform.forward = tangent.normalized;
         }
         else
         {
