@@ -30,7 +30,7 @@ public class CollisionDetection : MonoBehaviour
         {
 
             missilePosition = other.transform.position;
-            Destroy(other);
+            Destroy(other.gameObject);
             DrawHitSphere(missilePosition, sphereDiam);
             enabled = false;
         }
