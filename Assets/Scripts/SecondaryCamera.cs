@@ -3,7 +3,8 @@ using UnityEngine;
 public class SecondaryCameraFollow : MonoBehaviour
 {
     public string targetName = "TargetName"; // The name of the target to find
-    public Vector3 offset = new Vector3(0, 10, -10); // Offset from the target position
+    public Vector3 offset = new Vector3(20f, 10f, 0f); // Lateral offset from the target position (adjusted for side view)
+    public float rotationSpeed = 5f; // Speed at which the camera rotates to follow the missile
 
     private Transform target; // The object the camera will follow
 
@@ -16,11 +17,13 @@ public class SecondaryCameraFollow : MonoBehaviour
     {
         if (target != null)
         {
-            // Set the camera position to follow the target with the offset
+            // Set the camera position to follow the target with the new lateral offset
             transform.position = target.position + offset;
-            
-            // Make the camera look at the target, but maintain the camera's rotation
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, target.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+            // Make the camera smoothly rotate to face the target's position
+            Vector3 directionToTarget = target.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
         {

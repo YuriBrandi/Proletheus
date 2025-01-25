@@ -15,12 +15,12 @@ public class MissileController : MonoBehaviour
     public float maxHeight = 15f; // Maximum height for the arc
 
     [Header("City Corners")]
-    public Transform A;   //Angle A
-    public Transform B;   //Angle B
-    public Transform C;   //Angle C
-    public Transform D;   //Angle D
+    public Transform A;   // Angle A
+    public Transform B;   // Angle B
+    public Transform C;   // Angle C
+    public Transform D;   // Angle D
 
-    [Header("Trip Settings")] 
+    [Header("Trip Settings")]
     public BoxCollider targetCollider;
     public Direction chosenDirection;
     public float offset = 200f; // Origin offset (makes missile appear from farther).
@@ -44,7 +44,7 @@ public class MissileController : MonoBehaviour
         missile = Instantiate(missilePrefab);
         missile.name = "enemy_missile";
 
-        Vector3 endPoint = GetRandomPointInBoxCollider(targetCollider);
+        endPoint = GetRandomPointInBoxCollider(targetCollider);
         Debug.Log("Missile End Point (XZ): " + endPoint);
 
         // Initialize starting point
@@ -58,7 +58,7 @@ public class MissileController : MonoBehaviour
         // Apply to startPoint
         startPoint.y = height;
 
-        // Calculate control point for the arc
+        // Calculate control point for the arc (midpoint is raised)
         Vector3 midPoint = (startPoint + endPoint) / 2;
         controlPoint = midPoint + Vector3.up * height;
     }
@@ -76,7 +76,7 @@ public class MissileController : MonoBehaviour
         // Clamp t to 1 to avoid overshooting
         t = Mathf.Clamp01(t);
 
-        // Calculate position using quadratic Bezier curve
+        // Calculate position using quadratic Bézier curve (parabolic path)
         Vector3 position = Mathf.Pow(1 - t, 2) * startPoint
                            + 2 * (1 - t) * t * controlPoint
                            + Mathf.Pow(t, 2) * endPoint;
@@ -93,8 +93,10 @@ public class MissileController : MonoBehaviour
         {
             enabled = false; // Stop updating once the target is reached
         }
+
+        // Optionally modify speed as a function of progress
+        speed = Mathf.Lerp(minSpeed, maxSpeed, t); // Speed changes as the missile progresses
     }
-    
 
     Vector3 GetRandomPointInBoxCollider(BoxCollider collider)
     {
@@ -106,7 +108,6 @@ public class MissileController : MonoBehaviour
         float randomX = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
         float randomZ = Random.Range(center.z - size.z / 2, center.z + size.z / 2);
 
-        // Get the coordinate with 
         return new Vector3(randomX, center.y, randomZ);
     }
 
@@ -138,7 +139,7 @@ public class MissileController : MonoBehaviour
                 result = B.position + new Vector3(-offset, 0, offset);
                 break;
             case Direction.NW:
-                result = A.position + new Vector3(-offset, 0 -offset);
+                result = A.position + new Vector3(-offset, 0, -offset);
                 break;
             case Direction.SE:
                 result = C.position + new Vector3(offset, 0, offset);
@@ -150,5 +151,4 @@ public class MissileController : MonoBehaviour
 
         return result;
     }
-
 }
