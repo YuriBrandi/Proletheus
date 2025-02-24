@@ -813,10 +813,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 10405962620331361, guid: 4966798991e6c4ab48196065720dae73, type: 3}
-  minSpeed: 200
-  maxSpeed: 300
-  minHeight: 100
-  maxHeight: 200
+  minSpeed: 100
+  maxSpeed: 200
+  minHeight: 1000
+  maxHeight: 2000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
@@ -870,7 +870,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 20.784609
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 3
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -1176,8 +1176,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -1191,12 +1191,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 3
+    m_Quality: 4
     m_FrameInfluence: 0.1
     m_JitterScale: 1
     m_MipBias: 0
     m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
+    m_ContrastAdaptiveSharpening: 1
 --- !u!20 &490266868
 Camera:
   m_ObjectHideFlags: 0
@@ -1229,11 +1229,11 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 3000
+  far clip plane: 20000
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1276,7 +1276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetName: enemy_missile
-  offset: {x: -20, y: 5, z: -5}
+  offset: {x: 0, y: 200, z: 200}
+  rotationSpeed: 5
 --- !u!1 &563958190 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
@@ -2403,8 +2404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -125, y: -75}
-  m_SizeDelta: {x: 250, y: 150}
+  m_AnchoredPosition: {x: -301, y: -170}
+  m_SizeDelta: {x: 600, y: 337.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1205821305
 MonoBehaviour:
