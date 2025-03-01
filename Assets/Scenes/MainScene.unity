@@ -1013,6 +1013,141 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &405343323
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1256
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 148.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -424
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value:
+      objectReference: {fileID: 2100000, guid: 78425207f4f0ff6018b8521bb473af32, type: 2}
+    - target: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_Name
+      value: radarTowerPlaceholder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405343326}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405343325}
+  m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+--- !u!1 &405343324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+  m_PrefabInstance: {fileID: 405343323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &405343325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405343324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ce791c5a1bdc84db18981cb668308a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  detectionRange: 8000
+  minAltitude: 80
+  minSpeed: 1
+  maxObservedObjects: 10
+--- !u!114 &405343326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405343324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  m_BrainParameters:
+    VectorObservationSize: 80
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 02000000020000000200000002000000020000000200000002000000020000000200000002000000
+    VectorActionSize: 02000000020000000200000002000000020000000200000002000000020000000200000002000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: missileIdentification
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,6 +1822,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereDiam: 200
   animationDuration: 0.5
+  missileTag: targetMissile
+  collisionMat: {fileID: 2100000, guid: 4806cba8e7f0b54d59e29b97d891533d, type: 2}
 --- !u!4 &729271683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
@@ -1753,7 +1890,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereDiam: 200
-  animationDuration: 0.5
+  animationDuration: 0.08
+  missileTag: targetMissile
+  collisionMat: {fileID: 2100000, guid: 4806cba8e7f0b54d59e29b97d891533d, type: 2}
 --- !u!1 &740490868
 GameObject:
   m_ObjectHideFlags: 0
@@ -3139,3 +3278,4 @@ SceneRoots:
   - {fileID: 628039390}
   - {fileID: 490266869}
   - {fileID: 1780333167}
+  - {fileID: 405343323}

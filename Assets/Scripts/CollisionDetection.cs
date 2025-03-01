@@ -5,8 +5,8 @@ public class CollisionDetection : MonoBehaviour
 {
     public float sphereDiam = 200f; // Radius of the red circle
     public float animationDuration = .5f;
-
-    private string materialName = "hit_radius";
+    public string missileTag;
+    public Material collisionMat;
 
     private Vector3 missilePosition;
 
@@ -26,7 +26,7 @@ public class CollisionDetection : MonoBehaviour
     {
         Debug.Log("Entered trigger zone");
         // Check if missile hit the target
-        if (other.tag == "missile")
+        if (other.tag == missileTag)
         {
 
             missilePosition = other.transform.position;
@@ -39,7 +39,7 @@ public class CollisionDetection : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         Debug.Log("Entered collision");
-        if (col.gameObject.tag == "missile")
+        if (col.gameObject.tag == missileTag)
         {
             Debug.Log("Entered collision with building");
 
@@ -64,14 +64,11 @@ public class CollisionDetection : MonoBehaviour
         //sphere.transform.localScale = Vector3.one * diameter;
         sphere.transform.localScale = Vector3.zero;
 
-        // Load the material from the "Materials" folder
-        Material material = Resources.Load<Material>("materials/" + materialName);
-
-        if (material != null)
+        if (collisionMat != null)
         {
             // Apply the material to the sphere
             Renderer renderer = sphere.GetComponent<Renderer>();
-            renderer.material = material;
+            renderer.material = collisionMat;
         }
         else
         {
