@@ -1,0 +1,29 @@
+{
+    "missileIdentification": {
+        "checkpoints": [
+            {
+                "steps": 5,
+                "file_path": "results\\missileRun\\missileIdentification\\missileIdentification-5.onnx",
+                "reward": 0.0,
+                "creation_time": 1740936776.0719447,
+                "auxillary_file_paths": [
+                    "results\\missileRun\\missileIdentification\\missileIdentification-5.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 5,
+            "file_path": "results\\missileRun\\missileIdentification.onnx",
+            "reward": 0.0,
+            "creation_time": 1740936776.0719447,
+            "auxillary_file_paths": [
+                "results\\missileRun\\missileIdentification\\missileIdentification-5.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

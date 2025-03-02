@@ -12,6 +12,33 @@ public class RadarAgent : Agent
     public float minAltitude = 10f; // Minimum height to consider an object
     public float minSpeed = 1f; // Minimum speed to consider an object moving
     public int maxObservedObjects = 10; // Fixed number of closest objects to observe
+    [Header("Verify TAG (used for reward only)")]
+    public string missileTag;
+    public MissileController missileSpawner;
+    
+    private float timer;
+    private const float STEP_INTERVAL = 10f;
+
+    void Start()
+    {
+        Academy.Instance.AutomaticSteppingEnabled = false;
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer > STEP_INTERVAL)
+        {
+            Academy.Instance.EnvironmentStep();
+            timer = 0;
+        }
+    }
+
+    public override void OnEpisodeBegin()
+    {
+        timer = 0f;
+        missileSpawner.SpawnMissile();
+    }
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -100,7 +127,7 @@ public class RadarAgent : Agent
             int prediction = actions.DiscreteActions[i]; // Access discrete actions
 
             // Use tag only for reward calculation and debugging
-            bool isEnemy = hit.CompareTag("Enemy");
+            bool isEnemy = hit.CompareTag(missileTag);
             bool correctPrediction = (prediction == 1 && isEnemy) || (prediction == 0 && !isEnemy);
 
             // Calculate reward with distance-based scaling
@@ -121,6 +148,8 @@ public class RadarAgent : Agent
         }
 
         AddReward(totalReward);
+        
+        EndEpisode();
     }
 
     /*public override void Heuristic(in ActionBuffers actionsOut)

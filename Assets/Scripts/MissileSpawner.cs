@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using Unity.MLAgents;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MissileController : MonoBehaviour
@@ -7,12 +10,15 @@ public class MissileController : MonoBehaviour
         N, S, E, W, NE, NW, SE, SW, RANDOM
     }
 
-    [Header("Missile Settings")]
+    [Header("Global Missile Settings")]
     public GameObject missilePrefab;
     public float minSpeed = 10f; // Minimum speed
     public float maxSpeed = 20f; // Maximum speed
     public float minHeight = 5f; // Minimum height for the arc
     public float maxHeight = 15f; // Maximum height for the arc
+    public float offset = 200f; // Origin offset (makes missile appear from farther).
+    public Direction chosenDirection;
+    public BoxCollider targetCollider;
 
     [Header("City Corners")]
     public Transform A;   // Angle A
@@ -20,82 +26,30 @@ public class MissileController : MonoBehaviour
     public Transform C;   // Angle C
     public Transform D;   // Angle D
 
-    [Header("Trip Settings")]
-    public BoxCollider targetCollider;
-    public Direction chosenDirection;
-    public float offset = 200f; // Origin offset (makes missile appear from farther).
-
-    private GameObject missile;
-    private Vector3 startPoint;
-    private Vector3 endPoint;
-    private Vector3 controlPoint;
-    private float speed;
-    private float t = 0f;
-
     void Start()
     {
-        if (missilePrefab == null)
-        {
-            Debug.LogError("Missile prefab is not assigned.");
-            return;
-        }
-
-        // Instantiate the missile
-        missile = Instantiate(missilePrefab);
-        missile.name = "enemy_missile";
-
-        endPoint = GetRandomPointInBoxCollider(targetCollider);
-        Debug.Log("Missile End Point (XZ): " + endPoint);
-
-        // Initialize starting point
-        startPoint = GetPointByDirection(chosenDirection, offset);
-        Debug.Log($"Missile Starting Point ({chosenDirection}): {startPoint}");
-
-        // Randomize speed and height
-        speed = Random.Range(minSpeed, maxSpeed);
-        float height = Random.Range(minHeight, maxHeight);
-
-        // Apply to startPoint
-        startPoint.y = height;
-
-        // Calculate control point for the arc (midpoint is raised)
-        Vector3 midPoint = (startPoint + endPoint) / 2;
-        controlPoint = midPoint + Vector3.up * height;
+        //SpawnMissile();
     }
 
-    void Update()
+    public void SpawnMissile()
     {
-        if (missile == null)
-        {
-            return;
+        if(missilePrefab == null) {
+            print("MissilePrefab is null");
+            return; 
         }
 
-        // Increment progress based on speed and distance
-        t += Time.deltaTime * speed / Vector3.Distance(startPoint, endPoint);
+        // Instanzia il missile prefab
+        GameObject missileObject = Instantiate(missilePrefab, GetPointByDirection(chosenDirection, offset), Quaternion.identity);
 
-        // Clamp t to 1 to avoid overshooting
-        t = Mathf.Clamp01(t);
+        // Aggiungi lo script Missile al GameObject istanziato
+        Missile missileScript = missileObject.AddComponent<Missile>();
 
-        // Calculate position using quadratic Bézier curve (parabolic path)
-        Vector3 position = Mathf.Pow(1 - t, 2) * startPoint
-                           + 2 * (1 - t) * t * controlPoint
-                           + Mathf.Pow(t, 2) * endPoint;
+        // Randomizza la velocità e l'altezza
+        float speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
-        missile.transform.position = position;
-
-        // Rotate missile to face movement direction using tangent
-        if (t < 1)
-        {
-            Vector3 tangent = 2 * (1 - t) * (controlPoint - startPoint) + 2 * t * (endPoint - controlPoint);
-            missile.transform.forward = tangent.normalized;
-        }
-        else
-        {
-            enabled = false; // Stop updating once the target is reached
-        }
-
-        // Optionally modify speed as a function of progress
-        speed = Mathf.Lerp(minSpeed, maxSpeed, t); // Speed changes as the missile progresses
+        // Inizializza il missile con i parametri necessari
+        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInBoxCollider(targetCollider), speed, height);
     }
 
     Vector3 GetRandomPointInBoxCollider(BoxCollider collider)

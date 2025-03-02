@@ -813,17 +813,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 10405962620331361, guid: 4966798991e6c4ab48196065720dae73, type: 3}
-  minSpeed: 100
-  maxSpeed: 200
+  minSpeed: 800
+  maxSpeed: 1000
   minHeight: 1000
   maxHeight: 2000
+  offset: 3000
+  chosenDirection: 8
+  targetCollider: {fileID: 729271685}
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
   D: {fileID: 1297289335}
-  targetCollider: {fileID: 729271685}
-  chosenDirection: 3
-  offset: 3000
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,11 +1075,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 78425207f4f0ff6018b8521bb473af32, type: 2}
     - target: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       propertyPath: m_Name
       value: radarTowerPlaceholder
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1091,6 +1095,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 405343325}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405343328}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!1 &405343324 stripped
 GameObject:
@@ -1107,16 +1114,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3ce791c5a1bdc84db18981cb668308a, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 10000
   detectionRange: 8000
   minAltitude: 80
   minSpeed: 1
   maxObservedObjects: 10
+  missileTag: targetMissile
+  missileSpawner: {fileID: 285783977}
 --- !u!114 &405343326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,8 +1136,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 80
     NumStackedVectorObservations: 1
@@ -1148,6 +1157,21 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &405343328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405343324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
