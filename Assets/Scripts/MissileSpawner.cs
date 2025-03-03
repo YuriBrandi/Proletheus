@@ -26,6 +26,8 @@ public class MissileController : MonoBehaviour
     public Transform C;   // Angle C
     public Transform D;   // Angle D
 
+    public MissileCounter missileCounter;
+
     void Start()
     {
         //SpawnMissile();
@@ -50,6 +52,8 @@ public class MissileController : MonoBehaviour
 
         // Inizializza il missile con i parametri necessari
         missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInBoxCollider(targetCollider), speed, height);
+
+        missileCounter.missileCounterIncrement();
     }
 
     Vector3 GetRandomPointInBoxCollider(BoxCollider collider)

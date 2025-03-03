@@ -8,6 +8,8 @@ public class CollisionDetection : MonoBehaviour
     public string missileTag;
     public Material collisionMat;
 
+    public MissileCounter missileCounter;
+
     private Vector3 missilePosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,28 +26,26 @@ public class CollisionDetection : MonoBehaviour
 
      void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entered trigger zone");
         // Check if missile hit the target
         if (other.tag == missileTag)
         {
 
             missilePosition = other.transform.position;
             Destroy(other.gameObject);
-            DrawHitSphere(missilePosition, sphereDiam);
+            missileCounter.missileCounterDecrement();
+            //DrawHitSphere(missilePosition, sphereDiam); TODO: scommentare quando completeremo il progetto e gestire come il caso dei missili (entità distinte)
             enabled = false;
         }
     }
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("Entered collision");
         if (col.gameObject.tag == missileTag)
         {
-            Debug.Log("Entered collision with building");
-
             missilePosition = col.gameObject.transform.position;
             Destroy(col.gameObject);
-            DrawHitSphere(missilePosition, sphereDiam);
+            missileCounter.missileCounterDecrement();
+            //DrawHitSphere(missilePosition, sphereDiam);
         }
     }
 

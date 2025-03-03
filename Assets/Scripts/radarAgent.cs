@@ -16,15 +16,15 @@ public class RadarAgent : Agent
     public string missileTag;
     public MissileController missileSpawner;
     
-    private float timer;
-    private const float STEP_INTERVAL = 10f;
+    //private float timer;
+    //private const float STEP_INTERVAL = 10f;
 
     void Start()
     {
-        Academy.Instance.AutomaticSteppingEnabled = false;
+        //Academy.Instance.AutomaticSteppingEnabled = true;
     }
 
-    void Update()
+    /*void Update()
     {
         timer += Time.deltaTime;
         if (timer > STEP_INTERVAL)
@@ -32,11 +32,11 @@ public class RadarAgent : Agent
             Academy.Instance.EnvironmentStep();
             timer = 0;
         }
-    }
+    }*/
 
     public override void OnEpisodeBegin()
     {
-        timer = 0f;
+        //timer = 0f;
         missileSpawner.SpawnMissile();
     }
 

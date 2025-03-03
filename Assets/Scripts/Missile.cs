@@ -24,8 +24,6 @@ public class Missile : MonoBehaviour
         startPoint = startPoint_;
         endPoint = endPoint_;
 
-        Debug.Log("Missile End Point (XZ): " + endPoint);
-
         // Applica al punto di partenza
         startPoint.y = height_;
 
@@ -53,8 +51,6 @@ public class Missile : MonoBehaviour
 
         // Clamp t to 1 to avoid overshooting
         t = Mathf.Clamp01(t);
-
-        print("StartPoint: " + startPoint + " | ControlPoint: " + controlPoint + " | endPoint: " + endPoint);
 
         // Calculate position using quadratic B�zier curve (parabolic path)
         Vector3 position = Mathf.Pow(1 - t, 2) * startPoint

@@ -2,22 +2,49 @@
     "missileIdentification": {
         "checkpoints": [
             {
-                "steps": 5,
-                "file_path": "results\\missileRun\\missileIdentification\\missileIdentification-5.onnx",
-                "reward": 0.0,
-                "creation_time": 1740936776.0719447,
+                "steps": 13284,
+                "file_path": "results\\MissileRun\\missileIdentification\\missileIdentification-13284.onnx",
+                "reward": 0.4091904239017165,
+                "creation_time": 1741016214.4631598,
                 "auxillary_file_paths": [
-                    "results\\missileRun\\missileIdentification\\missileIdentification-5.pt"
+                    "results\\MissileRun\\missileIdentification\\missileIdentification-13284.pt"
+                ]
+            },
+            {
+                "steps": 14561,
+                "file_path": "results\\MissileRun\\missileIdentification\\missileIdentification-14561.onnx",
+                "reward": 0.3932349689920362,
+                "creation_time": 1741016954.4301152,
+                "auxillary_file_paths": [
+                    "results\\MissileRun\\missileIdentification\\missileIdentification-14561.pt"
+                ]
+            },
+            {
+                "steps": 14661,
+                "file_path": "results\\MissileRun\\missileIdentification\\missileIdentification-14661.onnx",
+                "reward": 0.11964431898668408,
+                "creation_time": 1741017166.343609,
+                "auxillary_file_paths": [
+                    "results\\MissileRun\\missileIdentification\\missileIdentification-14661.pt"
+                ]
+            },
+            {
+                "steps": 117525,
+                "file_path": "results\\MissileRun\\missileIdentification\\missileIdentification-117525.onnx",
+                "reward": 1.8764837617916157,
+                "creation_time": 1741020605.9523885,
+                "auxillary_file_paths": [
+                    "results\\MissileRun\\missileIdentification\\missileIdentification-117525.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 5,
-            "file_path": "results\\missileRun\\missileIdentification.onnx",
-            "reward": 0.0,
-            "creation_time": 1740936776.0719447,
+            "steps": 117525,
+            "file_path": "results\\MissileRun\\missileIdentification.onnx",
+            "reward": 1.8764837617916157,
+            "creation_time": 1741020605.9523885,
             "auxillary_file_paths": [
-                "results\\missileRun\\missileIdentification\\missileIdentification-5.pt"
+                "results\\MissileRun\\missileIdentification\\missileIdentification-117525.pt"
             ]
         }
     },
