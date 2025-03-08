@@ -16,22 +16,38 @@ public class ObjectFlyingTrip : MonoBehaviour
     [Header("Cycle Settings")]
     public float respawnDelay = 5f; // Time before the object reappears
 
-
     Vector3 startPoint, endPoint;
+    private Rigidbody rb;
+    private Vector3 direction;
     private bool isFlying = false;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        if (rb == null) {
+            Debug.LogError("Flying Object " + gameObject.name + " missing Rigidbody");
+            return;
+        }
+
+        if (rb.useGravity) {
+            Debug.LogWarning("Flying Object " + gameObject.name + " has gravity enabled, this may be undesired.");
+        }
+
         GetRandomPoints(out startPoint, out endPoint);
 
         startPoint.y = endPoint.y = height;
 
-        Debug.Log($"Start trip Point: {startPoint}");
-        Debug.Log($"End trip Point: {endPoint}");
+        Debug.Log("Start trip for " + gameObject.name + $" Point: {startPoint}");
+        Debug.Log("End trip for " + gameObject.name + $" Point: {endPoint}");
 
         // Initialize the object's position
         transform.position = startPoint;
         transform.LookAt(endPoint); // Reorient the object
+
+        direction = (endPoint - startPoint).normalized;
+
+        // Apply initial velocity
+        rb.linearVelocity = direction * speed;
 
         Vector3 currentRotation = transform.eulerAngles;
         currentRotation.x = xRotation; // Set the desired X rotation
@@ -44,8 +60,6 @@ public class ObjectFlyingTrip : MonoBehaviour
     {
         if (isFlying)
         {
-            // Move the object
-            transform.position = Vector3.MoveTowards(transform.position, endPoint, speed * Time.deltaTime);
 
             // Check if the object has reached the end point
             if (Vector3.Distance(transform.position, endPoint) < 0.1f)
@@ -53,7 +67,7 @@ public class ObjectFlyingTrip : MonoBehaviour
                 transform.position = startPoint; // Reset the position to the start point
                 transform.LookAt(endPoint); // Reorient the object
 
-                //isFlying = false;
+                isFlying = false;
                 Invoke("RestartFlight", respawnDelay); // Restart flight after delay
             }
         }
@@ -94,5 +108,12 @@ public class ObjectFlyingTrip : MonoBehaviour
     void RestartFlight()
     {
         isFlying = true;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw the path from start to end in the editor
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(startPoint, endPoint);
     }
 }
