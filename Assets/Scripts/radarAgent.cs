@@ -3,6 +3,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System.Linq;
+using UnityEngine.UI;
 
 
 public class RadarAgent : Agent
@@ -15,29 +16,35 @@ public class RadarAgent : Agent
     [Header("Verify TAG (used for reward only)")]
     public string missileTag;
     public MissileController missileSpawner;
-    
+
+    bool isInference;
+
+
     //private float timer;
     //private const float STEP_INTERVAL = 10f;
 
     void Start()
     {
-        //Academy.Instance.AutomaticSteppingEnabled = true;
+        isInference = !Academy.Instance.IsCommunicatorOn;
+        if (isInference)
+        {
+            Debug.Log("Modalità INFERENZA attiva.");
+        }   
+        else
+        {
+            Debug.Log("Modalità TRAINING attiva.");
+        }
     }
 
-    /*void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > STEP_INTERVAL)
-        {
-            Academy.Instance.EnvironmentStep();
-            timer = 0;
-        }
-    }*/
+
 
     public override void OnEpisodeBegin()
     {
-        //timer = 0f;
-        missileSpawner.SpawnMissile();
+        if (!isInference)
+        {
+            //timer = 0f;
+            missileSpawner.SpawnMissile();
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -61,6 +68,7 @@ public class RadarAgent : Agent
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
             .Take(maxObservedObjects)
             .ToList();
+
 
         // Add observations for the closest objects
         foreach (var hit in filteredHits)
@@ -112,6 +120,9 @@ public class RadarAgent : Agent
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
                 bool isMoving = rb != null && rb.linearVelocity.magnitude >= minSpeed;
 
+                //if(hit.CompareTag(missileTag))
+                    //Debug.Log("LinearVelocity: " + rb.linearVelocity.magnitude + " | minSpeed: " + minSpeed + " | Altitude: " + hit.transform.position.y + " | minAltitude: " + minAltitude);
+
                 return isHighEnough && isMoving;
             })
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
@@ -148,8 +159,9 @@ public class RadarAgent : Agent
         }
 
         AddReward(totalReward);
-        
-        EndEpisode();
+
+        if (!isInference)
+            EndEpisode();
     }
 
     /*public override void Heuristic(in ActionBuffers actionsOut)
