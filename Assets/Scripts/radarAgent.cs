@@ -120,9 +120,6 @@ public class RadarAgent : Agent
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
                 bool isMoving = rb != null && rb.linearVelocity.magnitude >= minSpeed;
 
-                //if(hit.CompareTag(missileTag))
-                    //Debug.Log("LinearVelocity: " + rb.linearVelocity.magnitude + " | minSpeed: " + minSpeed + " | Altitude: " + hit.transform.position.y + " | minAltitude: " + minAltitude);
-
                 return isHighEnough && isMoving;
             })
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))

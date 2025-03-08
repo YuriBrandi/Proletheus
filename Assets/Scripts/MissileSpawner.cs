@@ -12,8 +12,6 @@ public class MissileController : MonoBehaviour
 
     [Header("Global Missile Settings")]
     public GameObject missilePrefab;
-    public float minSpeed = 10f; // Minimum speed
-    public float maxSpeed = 20f; // Maximum speed
     public float minHeight = 5f; // Minimum height for the arc
     public float maxHeight = 15f; // Maximum height for the arc
     public float offset = 200f; // Origin offset (makes missile appear from farther).
@@ -47,11 +45,10 @@ public class MissileController : MonoBehaviour
         Missile missileScript = missileObject.AddComponent<Missile>();
 
         // Randomizza la velocità e l'altezza
-        float speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
         float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
         // Inizializza il missile con i parametri necessari
-        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInBoxCollider(targetCollider), speed, height);
+        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInBoxCollider(targetCollider), height);
 
         missileCounter.missileCounterIncrement();
     }
