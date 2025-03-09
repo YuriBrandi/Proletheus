@@ -16,12 +16,11 @@ public class RadarAgent : Agent
     [Header("Verify TAG (used for reward only)")]
     public string missileTag;
     public MissileController missileSpawner;
-
     bool isInference;
 
-
-    //private float timer;
-    //private const float STEP_INTERVAL = 10f;
+    [Header("Episode Settings")]
+    public float maxEpisodeDuration = 10f; // Tempo massimo in secondi
+    private float episodeTimer;
 
     void Start()
     {
@@ -40,11 +39,9 @@ public class RadarAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        episodeTimer = 0f; // Reset del timer
         if (!isInference)
-        {
-            //timer = 0f;
             missileSpawner.SpawnMissile();
-        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -68,7 +65,6 @@ public class RadarAgent : Agent
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
             .Take(maxObservedObjects)
             .ToList();
-
 
         // Add observations for the closest objects
         foreach (var hit in filteredHits)
@@ -142,13 +138,17 @@ public class RadarAgent : Agent
             float distance = Vector3.Distance(transform.position, hit.transform.position);
             float distanceReward = 1f - Mathf.Clamp01(distance / detectionRange);
 
+            Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
+
             // Debug log for correctness
             if (correctPrediction)
             {
+                changeMaterialColor(renderers, Color.yellow);
                 Debug.Log($"Correctly classified object at distance {distance:0.00} (Reward: {0.1f + distanceReward * 0.1f})");
             }
             else
             {
+                changeMaterialColor(renderers, Color.blue);
                 Debug.Log($"Incorrectly classified object at distance {distance:0.00} (Penalty: -0.2f)");
             }
 
@@ -159,6 +159,15 @@ public class RadarAgent : Agent
 
         if (!isInference)
             EndEpisode();
+    }
+
+    private void changeMaterialColor(Renderer[] renderers, Color color)
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            // Modifica il colore del materiale
+            renderer.material.color = color;
+        }
     }
 
     /*public override void Heuristic(in ActionBuffers actionsOut)

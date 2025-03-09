@@ -45,6 +45,8 @@ public class Missile : MonoBehaviour
             return;
         }
 
+        gameObject.layer = LayerMask.NameToLayer("Missiles");
+
         // Calcola la velocità iniziale e lancia il missile
         LaunchMissile();
     }
@@ -71,6 +73,13 @@ public class Missile : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (transform.position.y < 0)
+        {
+            Debug.Log("[Missile]: start " + startPoint + " | end " + endPoint);
+            Destroy(gameObject);
+            return;
+        }
+
         // Ottieni la direzione dalla velocità corrente del Rigidbody
         if (rb.linearVelocity.sqrMagnitude > 0.1f) // Controlla se il missile si sta muovendo
         {

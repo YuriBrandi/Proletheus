@@ -8,8 +8,6 @@ public class CollisionDetection : MonoBehaviour
     public string missileTag;
     public Material collisionMat;
 
-    public MissileCounter missileCounter;
-
     private Vector3 missilePosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,7 +30,6 @@ public class CollisionDetection : MonoBehaviour
 
             missilePosition = other.transform.position;
             Destroy(other.gameObject);
-            missileCounter.missileCounterDecrement();
             //DrawHitSphere(missilePosition, sphereDiam); TODO: scommentare quando completeremo il progetto e gestire come il caso dei missili (entità distinte)
             enabled = false;
         }
@@ -44,7 +41,6 @@ public class CollisionDetection : MonoBehaviour
         {
             missilePosition = col.gameObject.transform.position;
             Destroy(col.gameObject);
-            missileCounter.missileCounterDecrement();
             //DrawHitSphere(missilePosition, sphereDiam);
         }
     }
