@@ -13,8 +13,7 @@ public class Missile : MonoBehaviour
     public void Initialize(Vector3 startPoint_, Vector3 endPoint_, float height_)
     {
         // Usa un nome univoco basato sul tempo per evitare conflitti
-        //this.name = "enemy_missile_" + DateTime.Now.ToString("HHmmssfff");
-        this.name = "enemy_missile";
+        this.name = "enemy_missile_" + DateTime.Now.ToString("HHmmssfff");
 
         // Aggiungi un componente Rigidbody per applicare la forza
         rb = gameObject.GetComponent<Rigidbody>();
@@ -73,6 +72,7 @@ public class Missile : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (transform.position.y < 0)
         {
             Debug.Log("[Missile]: start " + startPoint + " | end " + endPoint);

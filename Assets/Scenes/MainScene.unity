@@ -310,6 +310,7 @@ MonoBehaviour:
   speed: 10
   height: 400
   xRotation: 0
+  offset: 200
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
@@ -864,7 +865,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 10405962620331361, guid: 4966798991e6c4ab48196065720dae73, type: 3}
   minHeight: 2000
   maxHeight: 3000
-  offset: 3000
+  offset: 10000
   chosenDirection: 8
   targetCollider: {fileID: 729271685}
   A: {fileID: 216017376}
@@ -1167,13 +1168,12 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 8000
+  detectionRange: 7000
   minAltitude: 80
   minSpeed: 1
   maxObservedObjects: 10
   missileTag: targetMissile
   missileSpawner: {fileID: 285783977}
-  maxEpisodeDuration: 10
 --- !u!114 &405343326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3087,6 +3087,7 @@ MonoBehaviour:
   speed: 170
   height: 1500
   xRotation: 0
+  offset: 4000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
@@ -3215,6 +3216,7 @@ MonoBehaviour:
   speed: 10
   height: 400
   xRotation: 9
+  offset: 4000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
@@ -3510,6 +3512,7 @@ MonoBehaviour:
   speed: 50
   height: 800
   xRotation: -5
+  offset: 4000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}

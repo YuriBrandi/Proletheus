@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectFlyingTrip : MonoBehaviour
@@ -6,6 +7,7 @@ public class ObjectFlyingTrip : MonoBehaviour
     public float speed = 20f;
     public float height = 300f;
     public float xRotation = 0f;
+    public float offset = 200f; // Origin offset (makes missile appear from farther).
 
     [Header("City Corners")]
     public Transform A;
@@ -20,6 +22,7 @@ public class ObjectFlyingTrip : MonoBehaviour
     private Rigidbody rb;
     private Vector3 direction;
     private bool isFlying = false;
+
 
     void Start()
     {
@@ -75,10 +78,12 @@ public class ObjectFlyingTrip : MonoBehaviour
 
         int chosenSideIndex = Random.Range(0, sides.Length);
         Vector3[] chosenSide = sides[chosenSideIndex];
+        addOffset(chosenSide);
         start = GetRandomPointOnLine(chosenSide[0], chosenSide[1]);
 
         int oppositeSideIndex = (chosenSideIndex + 2) % sides.Length;
         Vector3[] oppositeSide = sides[oppositeSideIndex];
+        addOffset(oppositeSide);
         end = GetRandomPointOnLine(oppositeSide[0], oppositeSide[1]);
     }
 
@@ -86,6 +91,32 @@ public class ObjectFlyingTrip : MonoBehaviour
     {
         float t = Random.Range(0f, 1f);
         return Vector3.Lerp(start, end, t);
+    }
+
+    private void addOffset(Vector3 [] point)
+    {
+        if (point.Length != 2)
+            return;
+
+        for (int i = 0; i < point.Length; i++)
+        {
+            if (point[i] == B.position)
+            {
+                point[i] += new Vector3(-offset, 0, offset);
+            }
+            else if (point[i] == A.position)
+            {
+                point[i] += new Vector3(-offset, 0, -offset);
+            }
+            else if (point[i] == C.position)
+            {
+                point[i] += new Vector3(offset, 0, offset);
+            }
+            else if (point[i] == D.position)
+            {
+                point[i] += new Vector3(offset, 0, -offset);
+            }
+        }
     }
 
     void OnDrawGizmosSelected()
