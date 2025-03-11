@@ -4,6 +4,7 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System.Linq;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 
 public class RadarAgent : Agent
@@ -18,9 +19,12 @@ public class RadarAgent : Agent
     public MissileController missileSpawner;
     bool isInference;
 
-    [Header("Episode Settings")]
-    public float maxEpisodeDuration = 10f; // Tempo massimo in secondi
-    private float episodeTimer;
+    /*
+     * k: gameObject.GetInstanceID();
+     * v: [false: not enemy | true: enemy]
+     * isEmpty(k) -> no decisions
+     */
+    private Dictionary<int, bool> decisionMap = new Dictionary<int, bool>();
 
     void Start()
     {
@@ -39,7 +43,6 @@ public class RadarAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        episodeTimer = 0f; // Reset del timer
         if (!isInference)
             missileSpawner.SpawnMissile();
     }
@@ -49,22 +52,7 @@ public class RadarAgent : Agent
         // Find all objects within detection range
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRange);
 
-        // Filter objects based on movement and altitude
-        var filteredHits = hits
-            .Where(hit =>
-            {
-                // Check if the object is high enough
-                bool isHighEnough = hit.transform.position.y >= minAltitude;
-
-                // Check if the object is moving
-                Rigidbody rb = hit.GetComponent<Rigidbody>();
-                bool isMoving = rb != null && rb.linearVelocity.magnitude >= minSpeed;
-
-                return isHighEnough && isMoving;
-            })
-            .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
-            .Take(maxObservedObjects)
-            .ToList();
+        var filteredHits = filterColliders(hits);
 
         // Add observations for the closest objects
         foreach (var hit in filteredHits)
@@ -105,22 +93,7 @@ public class RadarAgent : Agent
         // Find all objects within detection range
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRange);
 
-        // Filter objects based on movement and altitude
-        var filteredHits = hits
-            .Where(hit =>
-            {
-                // Check if the object is high enough
-                bool isHighEnough = hit.transform.position.y >= minAltitude;
-
-                // Check if the object is moving
-                Rigidbody rb = hit.GetComponent<Rigidbody>();
-                bool isMoving = rb != null && rb.linearVelocity.magnitude >= minSpeed;
-
-                return isHighEnough && isMoving;
-            })
-            .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
-            .Take(maxObservedObjects)
-            .ToList();
+        var filteredHits = filterColliders(hits);
 
         float totalReward = 0f;
 
@@ -136,7 +109,7 @@ public class RadarAgent : Agent
 
             // Calculate reward with distance-based scaling
             float distance = Vector3.Distance(transform.position, hit.transform.position);
-            float distanceReward = 1f - Mathf.Clamp01(distance / detectionRange);
+            float distanceReward = Mathf.Clamp01(distance / detectionRange);
 
             Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
 
@@ -153,6 +126,11 @@ public class RadarAgent : Agent
             }
 
             totalReward += correctPrediction ? 0.1f + distanceReward * 0.1f : -0.2f;
+
+            if (!isInference) //Se fa training, deve cancellare il gameObject hit
+                Destroy(hit.gameObject);
+            else
+                decisionMap.Add(hit.GetInstanceID(), isEnemy);
         }
 
         AddReward(totalReward);
@@ -168,6 +146,28 @@ public class RadarAgent : Agent
             // Modifica il colore del materiale
             renderer.material.color = color;
         }
+    }
+    private List<Collider> filterColliders(Collider[] hits)
+    {
+        // Filter objects based on movement and altitude
+        return hits
+            .Where(hit =>
+            {
+                if (isInference && decisionMap.ContainsKey(hit.GetInstanceID()))
+                    return false;
+
+                // Check if the object is high enough
+                bool isHighEnough = hit.transform.position.y >= minAltitude;
+
+                // Check if the object is moving
+                Rigidbody rb = hit.GetComponent<Rigidbody>();
+                bool isMoving = rb != null && rb.linearVelocity.magnitude >= minSpeed;
+
+                return isHighEnough && isMoving;
+            })
+            .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
+            .Take(maxObservedObjects)
+            .ToList();
     }
 
     /*public override void Heuristic(in ActionBuffers actionsOut)
