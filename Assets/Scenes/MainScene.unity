@@ -3112,7 +3112,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6298964414259130571, guid: 28d9ca630020e1b48be078233cf569a9, type: 3}
 --- !u!1 &1205821303
@@ -3584,7 +3584,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4711208715938537054, guid: 3a241f60f0a11724193ac8f61f2919c0, type: 3}
 --- !u!1 &1780333163
@@ -3947,7 +3947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c29589188fd70b9a180a4598498001c0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1058827473687081413, guid: c29589188fd70b9a180a4598498001c0, type: 3}
       propertyPath: m_Layer
@@ -4163,7 +4163,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4711208715938537054, guid: 410eb3e761f971c44b7394f2f9034bee, type: 3}
 --- !u!1 &6418683987343663768 stripped
