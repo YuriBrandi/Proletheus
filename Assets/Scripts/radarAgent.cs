@@ -130,7 +130,10 @@ public class RadarAgent : Agent
             if (!isInference) //Se fa training, deve cancellare il gameObject hit
                 Destroy(hit.gameObject);
             else
-                decisionMap.Add(hit.GetInstanceID(), isEnemy);
+            {
+                Debug.Log("ADD " + hit.gameObject.GetInstanceID());
+                decisionMap.Add(hit.gameObject.GetInstanceID(), isEnemy);
+            }
         }
 
         AddReward(totalReward);
@@ -153,7 +156,7 @@ public class RadarAgent : Agent
         return hits
             .Where(hit =>
             {
-                if (isInference && decisionMap.ContainsKey(hit.GetInstanceID()))
+                if (isInference && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
                     return false;
 
                 // Check if the object is high enough

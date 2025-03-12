@@ -1,73 +1,50 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObjectFlyingTrip : MonoBehaviour
+public class AircraftController : MonoBehaviour
 {
-    [Header("Object Settings")]
-    public float speed = 20f;
-    public float height = 300f;
-    public float xRotation = 0f;
-    public float offset = 200f; // Origin offset (makes missile appear from farther).
+    [Header("Global Aircraft Settings")]
+    public GameObject[] flyingPrefab;
 
     [Header("City Corners")]
     public Transform A;
     public Transform B;
     public Transform C;
     public Transform D;
+    public float offset = 200f; // Origin offset (makes missile appear from farther).
 
-    [Header("Cycle Settings")]
-    public float respawnDelay = 5f;
-
-    private Vector3 startPoint, endPoint;
-    private Rigidbody rb;
-    private Vector3 direction;
-    private bool isFlying = false;
-
-
-    void Start()
+    public void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            Debug.LogError("Flying Object " + gameObject.name + " missing Rigidbody");
-            return;
-        }
-
-        if (rb.useGravity)
-        {
-            Debug.LogWarning("Flying Object " + gameObject.name + " has gravity enabled, this may be undesired.");
-        }
-
-        StartNewFlight();
-    }
-
-    void FixedUpdate()
-    {
-        if (isFlying && Vector3.Distance(transform.position, endPoint) < 50.0f)
-        {
-            isFlying = false;
-            Invoke("StartNewFlight", respawnDelay);
+        foreach (var flyingObject in flyingPrefab) {
+            spawnAircraft(flyingObject);
         }
     }
 
-    private void StartNewFlight()
+    public void spawnAircraft(GameObject referenceObject)
     {
+        Vector3 startPoint, endPoint;
+
         GetRandomPoints(out startPoint, out endPoint);
-        startPoint.y = endPoint.y = height;
 
-        transform.position = startPoint;
-        transform.LookAt(endPoint);
+        GameObject aircraftObject = Instantiate(referenceObject, startPoint, Quaternion.identity);
+        //aircraftObject.name = aircraftObject.name.Replace("(Clone)", "").Trim();
+        aircraftObject.name = referenceObject.name;
 
-        direction = (endPoint - startPoint).normalized;
-        rb.linearVelocity = direction * speed;
+        Destroy(referenceObject);
 
-        Vector3 currentRotation = transform.eulerAngles;
-        currentRotation.x = xRotation;
-        transform.eulerAngles = currentRotation;
+        Aircraft aircraftScript = aircraftObject.GetComponent<Aircraft>();
+        aircraftScript.setCoords(startPoint, endPoint);
+        aircraftScript.OnFlyingTripEnd += HandleAircraftRespawn;
 
-        isFlying = true;
+        aircraftObject.SetActive(true);
+
+        Debug.Log("Aircraft ID: " +  aircraftObject.GetInstanceID());
     }
 
+    void HandleAircraftRespawn(GameObject aircraftObject)
+    {
+        spawnAircraft(aircraftObject);
+    }
+    
     private void GetRandomPoints(out Vector3 start, out Vector3 end)
     {
         Vector3[] side1 = { A.position, B.position };
@@ -93,7 +70,7 @@ public class ObjectFlyingTrip : MonoBehaviour
         return Vector3.Lerp(start, end, t);
     }
 
-    private void addOffset(Vector3 [] point)
+    private void addOffset(Vector3[] point)
     {
         if (point.Length != 2)
             return;
@@ -117,11 +94,5 @@ public class ObjectFlyingTrip : MonoBehaviour
                 point[i] += new Vector3(offset, 0, -offset);
             }
         }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(startPoint, endPoint);
     }
 }
