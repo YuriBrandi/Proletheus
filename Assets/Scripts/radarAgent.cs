@@ -5,6 +5,7 @@ using Unity.MLAgents.Actuators;
 using System.Linq;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 
 public class RadarAgent : Agent
@@ -18,6 +19,8 @@ public class RadarAgent : Agent
     public string missileTag;
     public MissileController missileSpawner;
     bool isInference;
+
+    public event Action<GameObject> OnFlyingTripEnd;
 
     /*
      * k: gameObject.GetInstanceID();
@@ -127,12 +130,17 @@ public class RadarAgent : Agent
 
             totalReward += correctPrediction ? 0.1f + distanceReward * 0.1f : -0.2f;
 
-            if (!isInference) //Se fa training, deve cancellare il gameObject hit
-                Destroy(hit.gameObject);
-            else
+            if (isInference) //Se fa inferenza, deve inserire il gameobject nella mappa
             {
                 Debug.Log("ADD " + hit.gameObject.GetInstanceID());
                 decisionMap.Add(hit.gameObject.GetInstanceID(), isEnemy);
+            }
+            else //Se fa training, deve cancellare il gameObject hit
+            {
+                if (isEnemy) //Se è Enemy (tag:missile)
+                    Destroy(hit.gameObject);
+                else //Se non è Enemy (è un aircraft)
+                    OnFlyingTripEnd?.Invoke(gameObject);
             }
         }
 
