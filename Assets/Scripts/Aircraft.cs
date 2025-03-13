@@ -9,7 +9,7 @@ public class Aircraft : MonoBehaviour
     public float height = 300f;
     public float xRotation = 0f;
 
-    public event Action<GameObject> OnFlyingTripEnd;
+    //public event Action<GameObject> OnFlyingTripEnd;
     
     private Vector3 startPoint, endPoint;
     private Vector3 direction;
@@ -25,7 +25,7 @@ public class Aircraft : MonoBehaviour
         if (isFlying && Vector3.Distance(transform.position, endPoint) < 50.0f)
         {
             isFlying = false;
-            OnFlyingTripEnd?.Invoke(gameObject);
+            AircraftController.TriggerFlyingTripEnd(gameObject);
         }
     }
 

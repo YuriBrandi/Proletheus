@@ -15,12 +15,15 @@ public class RadarAgent : Agent
     public float minAltitude = 10f; // Minimum height to consider an object
     public float minSpeed = 1f; // Minimum speed to consider an object moving
     public int maxObservedObjects = 10; // Fixed number of closest objects to observe
+    
     [Header("Verify TAG (used for reward only)")]
     public string missileTag;
     public MissileController missileSpawner;
-    bool isInference;
 
-    public event Action<GameObject> OnFlyingTripEnd;
+    [Header("Debugging")]
+    public bool colorObjects = true;
+
+    private bool isInference;
 
     /*
      * k: gameObject.GetInstanceID();
@@ -116,17 +119,14 @@ public class RadarAgent : Agent
 
             Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
 
+            if(colorObjects) //enemy prediction : red else green
+                changeMaterialColor(renderers, prediction == 0  ? Color.green : Color.red);
+
             // Debug log for correctness
             if (correctPrediction)
-            {
-                changeMaterialColor(renderers, Color.yellow);
                 Debug.Log($"Correctly classified object at distance {distance:0.00} (Reward: {0.1f + distanceReward * 0.1f})");
-            }
             else
-            {
-                changeMaterialColor(renderers, Color.blue);
                 Debug.Log($"Incorrectly classified object at distance {distance:0.00} (Penalty: -0.2f)");
-            }
 
             totalReward += correctPrediction ? 0.1f + distanceReward * 0.1f : -0.2f;
 
@@ -140,7 +140,10 @@ public class RadarAgent : Agent
                 if (isEnemy) //Se è Enemy (tag:missile)
                     Destroy(hit.gameObject);
                 else //Se non è Enemy (è un aircraft)
-                    OnFlyingTripEnd?.Invoke(gameObject);
+                {
+                    Debug.Log("Sto per cancellare il gameobject: " + hit.gameObject.GetInstanceID());
+                    AircraftController.TriggerFlyingTripEnd(hit.gameObject);
+                }
             }
         }
 

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AircraftController : MonoBehaviour
 {
@@ -12,11 +14,19 @@ public class AircraftController : MonoBehaviour
     public Transform D;
     public float offset = 200f; // Origin offset (makes missile appear from farther).
 
+    public static event Action<GameObject> OnFlyingTripEnd;
+
     public void Start()
     {
         foreach (var flyingObject in flyingPrefab) {
             spawnAircraft(flyingObject);
         }
+        OnFlyingTripEnd += HandleAircraftRespawn;
+    }
+
+    public static void TriggerFlyingTripEnd(GameObject referenceObject)
+    {
+        OnFlyingTripEnd?.Invoke(referenceObject);
     }
 
     public void spawnAircraft(GameObject referenceObject)
@@ -26,14 +36,16 @@ public class AircraftController : MonoBehaviour
         GetRandomPoints(out startPoint, out endPoint);
 
         GameObject aircraftObject = Instantiate(referenceObject, startPoint, Quaternion.identity);
-        //aircraftObject.name = aircraftObject.name.Replace("(Clone)", "").Trim();
         aircraftObject.name = referenceObject.name;
 
         Destroy(referenceObject);
 
+        Renderer[] renderers = aircraftObject.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+            renderer.material.color = Color.blue;
+
         Aircraft aircraftScript = aircraftObject.GetComponent<Aircraft>();
         aircraftScript.setCoords(startPoint, endPoint);
-        aircraftScript.OnFlyingTripEnd += HandleAircraftRespawn;
 
         aircraftObject.SetActive(true);
 
