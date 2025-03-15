@@ -6,13 +6,14 @@ public class AircraftController : MonoBehaviour
 {
     [Header("Global Aircraft Settings")]
     public GameObject[] flyingPrefab;
+    public float offset = 200f; // Origin offset (makes missile appear from farther).
 
     [Header("City Corners")]
     public Transform A;
     public Transform B;
     public Transform C;
     public Transform D;
-    public float offset = 200f; // Origin offset (makes missile appear from farther).
+
 
     public static event Action<GameObject> OnFlyingTripEnd;
 

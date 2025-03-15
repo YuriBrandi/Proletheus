@@ -5,8 +5,6 @@ public class BoidController : MonoBehaviour
 {
     public GameObject boidPrefab;
 
-    public GameObject parentObject;
-
     public int spawnCount = 10;
 
     public float spawnRadius = 4.0f;
@@ -25,8 +23,15 @@ public class BoidController : MonoBehaviour
 
     public LayerMask searchLayer;
 
+    private GameObject Flock;
+
     void Start()
     {
+        
+        //Create Flock parent
+        Flock = new GameObject("Flock");
+        Flock.transform.position = this.transform.position;
+        
         for (var i = 0; i < spawnCount; i++) Spawn();
         boidPrefab.SetActive(false); //Hide once all objects are spawned
     }
@@ -42,12 +47,21 @@ public class BoidController : MonoBehaviour
         var boid = Instantiate(boidPrefab, position, rotation) as GameObject;
 
         //Set parent
-        boid.transform.SetParent(parentObject.transform, true);
+        boid.transform.SetParent(Flock.transform, true);
         
         if (boid.GetComponent<BoidBehaviour>())
             boid.GetComponent<BoidBehaviour>().controller = this;
         /*if (boid.GetComponent<BoidBehaviour_Test>())
             boid.GetComponent<BoidBehaviour_Test>().controller = this;*/
         return boid;
+    }
+
+     void OnDestroy()
+    {
+        // This code will be called when the object is destroyed
+        Debug.Log("Flock is being destroyed");
+        Destroy(Flock);
+
+        // You can perform any cleanup or other actions here
     }
 }

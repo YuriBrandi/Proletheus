@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Unity.VisualScripting;
 
@@ -8,6 +7,7 @@ public class Aircraft : MonoBehaviour
     public float speed = 20f;
     public float height = 300f;
     public float xRotation = 0f;
+    public bool automaticHeightOffset = true;
 
     //public event Action<GameObject> OnFlyingTripEnd;
     
@@ -38,6 +38,12 @@ public class Aircraft : MonoBehaviour
     private void StartFlight()
     {
         startPoint.y = endPoint.y = height;
+
+        if (automaticHeightOffset)
+        {   
+            startPoint.y += Random.Range(-0.2f * height, 0.2f * height);
+            endPoint.y += Random.Range(-0.2f * height, 0.2f * height);
+        }
 
         transform.position = startPoint;
         transform.LookAt(endPoint);
