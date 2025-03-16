@@ -25,7 +25,7 @@ public class Aircraft : MonoBehaviour
         if (isFlying && Vector3.Distance(transform.position, endPoint) < 50.0f)
         {
             isFlying = false;
-            AircraftController.TriggerFlyingTripEnd(gameObject);
+            AircraftSpawner.TriggerFlyingTripEnd(gameObject);
         }
     }
 

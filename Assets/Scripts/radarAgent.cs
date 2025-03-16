@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -18,7 +19,10 @@ public class RadarAgent : Agent
     
     [Header("Verify TAG (used for reward only)")]
     public string missileTag;
-    public MissileController missileSpawner;
+
+    [Header("Training Spawners")]
+    public MissileSpawner missileSpawner;
+    public AircraftSpawner aircraftSpawner;
 
     [Header("Debugging")]
     public bool colorObjects = true;
@@ -37,11 +41,11 @@ public class RadarAgent : Agent
         isInference = !Academy.Instance.IsCommunicatorOn;
         if (isInference)
         {
-            Debug.Log("Modalità INFERENZA attiva.");
+            Debug.Log("INFERENCE MODE.");
         }   
         else
         {
-            Debug.Log("Modalità TRAINING attiva.");
+            Debug.Log("TRAINING MODE.");
         }
     }
 
@@ -50,7 +54,31 @@ public class RadarAgent : Agent
     public override void OnEpisodeBegin()
     {
         if (!isInference)
-            missileSpawner.SpawnMissile();
+        {
+            if (missileSpawner == null || aircraftSpawner == null)
+            {
+                Debug.LogError("A missileSpawner and an aircraftSpawner both need to be assigned.");
+            }
+            else
+            {
+                // Flip a coin
+                if (Random.Range(0, 2) == 0)
+                {
+                    missileSpawner.SpawnMissile();
+                }
+                else
+                {
+                    var flyingPrefabs = aircraftSpawner.flyingPrefabs;
+                    
+                    int randInd = Random.Range(0, flyingPrefabs.Length);
+
+                    aircraftSpawner.SpawnAircraft(flyingPrefabs[randInd]);
+
+
+                }
+            }
+
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -60,18 +88,19 @@ public class RadarAgent : Agent
 
         var filteredHits = filterColliders(hits);
 
-        // Add observations for the closest objects
-        foreach (var hit in filteredHits)
+        if (filteredHits.Count > 0)
         {
+            Collider observedHit = filteredHits.First();
+
             // Add relative position (normalized)
-            Vector3 relativePos = hit.transform.position - transform.position;
+            Vector3 relativePos = observedHit.transform.position - transform.position;
             sensor.AddObservation(relativePos.normalized);
 
             // Add normalized distance
             sensor.AddObservation(relativePos.magnitude / detectionRange);
 
             // Add velocity information
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            Rigidbody rb = observedHit.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 sensor.AddObservation(rb.linearVelocity.normalized);
@@ -83,15 +112,14 @@ public class RadarAgent : Agent
                 sensor.AddObservation(0f);
             }
         }
-
-        // Pad with empty observations if fewer than maxObservedObjects are detected
-        for (int i = filteredHits.Count; i < maxObservedObjects; i++)
+        else //PAD
         {
             sensor.AddObservation(Vector3.zero);
             sensor.AddObservation(0f);
             sensor.AddObservation(Vector3.zero);
             sensor.AddObservation(0f);
         }
+        
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -101,63 +129,63 @@ public class RadarAgent : Agent
 
         var filteredHits = filterColliders(hits);
 
-        float totalReward = 0f;
-
-        // Evaluate actions for the closest objects
-        for (int i = 0; i < filteredHits.Count; i++)
+        if (filteredHits.Count > 0)
         {
-            var hit = filteredHits[i];
-            int prediction = actions.DiscreteActions[i]; // Access discrete actions
+
+            Collider hit = filteredHits.First();
+
+            int prediction = actions.DiscreteActions[0]; // Access discrete actions
 
             // Use tag only for reward calculation and debugging
             bool isEnemy = hit.CompareTag(missileTag);
-            bool correctPrediction = (prediction == 1 && isEnemy) || (prediction == 0 && !isEnemy);
-
-            // Calculate reward with distance-based scaling
-            float distance = Vector3.Distance(transform.position, hit.transform.position);
-            float distanceReward = Mathf.Clamp01(distance / detectionRange);
+            bool correctPrediction = (prediction == 1 && isEnemy) || (prediction == 0 && !isEnemy);;
 
             Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
+
 
             if(colorObjects) //enemy prediction : red else green
                 changeMaterialColor(renderers, prediction == 0  ? Color.green : Color.red);
 
             // Debug log for correctness
             if (correctPrediction)
-                Debug.Log($"Correctly classified object at distance {distance:0.00} (Reward: {0.1f + distanceReward * 0.1f})");
+                Debug.Log($"Correctly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Reward: +1f)");
             else
-                Debug.Log($"Incorrectly classified object at distance {distance:0.00} (Penalty: -0.2f)");
+                Debug.Log($"Incorrectly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Penalty: -1f)");
 
-            totalReward += correctPrediction ? 0.1f + distanceReward * 0.1f : -0.2f;
-
-            if (isInference) //Se fa inferenza, deve inserire il gameobject nella mappa
+            AddReward(correctPrediction ? 1f : -1f);
+            
+            if (isInference) // If in inference insert object in hashMap.
             {
                 Debug.Log("ADD " + hit.gameObject.GetInstanceID());
                 decisionMap.Add(hit.gameObject.GetInstanceID(), isEnemy);
             }
             else //Se fa training, deve cancellare il gameObject hit
             {
-                if (isEnemy) //Se è Enemy (tag:missile)
+                if (isEnemy) // If is enemy (tag:missile)
                     Destroy(hit.gameObject);
-                else //Se non è Enemy (è un aircraft)
+                else // If non-enemy (aircraft)
                 {
-                    Debug.Log("Sto per cancellare il gameobject: " + hit.gameObject.GetInstanceID());
-                    AircraftController.TriggerFlyingTripEnd(hit.gameObject);
+                    //Debug.Log("Sto per cancellare il gameobject: " + hit.gameObject.GetInstanceID());
+                    //AircraftSpawner.TriggerFlyingTripEnd(hit.gameObject);
+                    Debug.Log("Disabling aircraft: " + hit.gameObject.GetInstanceID());
+                    hit.gameObject.SetActive(false);
+                    
                 }
             }
+
+            if (!isInference)
+                EndEpisode();
+
         }
 
-        AddReward(totalReward);
-
-        if (!isInference)
-            EndEpisode();
+ 
     }
 
     private void changeMaterialColor(Renderer[] renderers, Color color)
     {
         foreach (Renderer renderer in renderers)
         {
-            // Modifica il colore del materiale
+            // Chhange mat color
             renderer.material.color = color;
         }
     }
@@ -184,16 +212,6 @@ public class RadarAgent : Agent
             .ToList();
     }
 
-    /*public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        // Optional: Implement human heuristic for testing
-        // This example uses random decisions
-        var discreteActions = actionsOut.DiscreteActions;
-        for (int i = 0; i < discreteActions.Length; i++)
-        {
-            discreteActions[i] = Random.Range(0, 2);
-        }
-    }*/
 
     private void OnDrawGizmosSelected()
     {

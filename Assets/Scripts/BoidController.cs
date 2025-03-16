@@ -56,12 +56,25 @@ public class BoidController : MonoBehaviour
         return boid;
     }
 
-     void OnDestroy()
+    // Make the flock follow the manager's behaviour.
+    void OnDestroy()
     {
-        // This code will be called when the object is destroyed
-        Debug.Log("Flock is being destroyed");
-        Destroy(Flock);
+        if (Flock != null)
+        {
+            Debug.Log("Flock is being destroyed");
+            Destroy(Flock);
+        }
+    }
 
-        // You can perform any cleanup or other actions here
+    void OnDisable()
+    {
+        if (Flock != null)
+            Flock.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        if (Flock != null)
+            Flock.SetActive(true);
     }
 }

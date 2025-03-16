@@ -3,7 +3,7 @@ using Unity.MLAgents;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MissileController : MonoBehaviour
+public class MissileSpawner : MonoBehaviour
 {
     public enum Direction
     {
@@ -42,7 +42,7 @@ public class MissileController : MonoBehaviour
         // Aggiungi lo script Missile al GameObject istanziato
         Missile missileScript = missileObject.AddComponent<Missile>();
 
-        // Randomizza la velocità e l'altezza
+        // Randomizza la velocitï¿½ e l'altezza
         float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
         // Inizializza il missile con i parametri necessari

@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AircraftController : MonoBehaviour
+public class AircraftSpawner : MonoBehaviour
 {
     [Header("Global Aircraft Settings")]
-    public GameObject[] flyingPrefab;
+    public GameObject[] flyingPrefabs;
     public float offset = 200f; // Origin offset (makes missile appear from farther).
 
     [Header("City Corners")]
@@ -14,15 +14,22 @@ public class AircraftController : MonoBehaviour
     public Transform C;
     public Transform D;
 
+    [Header("Additional Settings")]
+    public bool disableAutoSpawn = false;
+
 
     public static event Action<GameObject> OnFlyingTripEnd;
 
     public void Start()
     {
-        foreach (var flyingObject in flyingPrefab) {
-            spawnAircraft(flyingObject);
+        if(!disableAutoSpawn)
+        {
+            foreach (var flyingObject in flyingPrefabs)   
+                SpawnAircraft(flyingObject);
+            
+            OnFlyingTripEnd += HandleAircraftRespawn;
         }
-        OnFlyingTripEnd += HandleAircraftRespawn;
+
     }
 
     public static void TriggerFlyingTripEnd(GameObject referenceObject)
@@ -30,7 +37,7 @@ public class AircraftController : MonoBehaviour
         OnFlyingTripEnd?.Invoke(referenceObject);
     }
 
-    public void spawnAircraft(GameObject referenceObject)
+    public void SpawnAircraft(GameObject referenceObject)
     {
         Vector3 startPoint, endPoint;
 
@@ -39,7 +46,12 @@ public class AircraftController : MonoBehaviour
         GameObject aircraftObject = Instantiate(referenceObject, startPoint, Quaternion.identity);
         aircraftObject.name = referenceObject.name;
 
-        Destroy(referenceObject);
+        int index = getObjectIndex(referenceObject);
+        
+        // Check if is not a prefab.
+        if (referenceObject.scene.IsValid())
+            Destroy(referenceObject);
+        flyingPrefabs[index] = aircraftObject;
 
         Renderer[] renderers = aircraftObject.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
@@ -50,12 +62,12 @@ public class AircraftController : MonoBehaviour
 
         aircraftObject.SetActive(true);
 
-        Debug.Log("Aircraft ID: " +  aircraftObject.GetInstanceID());
+        //Debug.Log("Aircraft ID: " +  aircraftObject.GetInstanceID());
     }
 
     void HandleAircraftRespawn(GameObject aircraftObject)
     {
-        spawnAircraft(aircraftObject);
+        SpawnAircraft(aircraftObject);
     }
     
     private void GetRandomPoints(out Vector3 start, out Vector3 end)
@@ -81,6 +93,18 @@ public class AircraftController : MonoBehaviour
     {
         float t = Random.Range(0f, 1f);
         return Vector3.Lerp(start, end, t);
+    }
+
+    private int getObjectIndex(GameObject aircraftObject)
+    {
+        for (int i = 0; i < flyingPrefabs.Length; i++)
+        {
+            if (flyingPrefabs[i] == aircraftObject)
+                return i;
+        }
+
+        return -1;
+
     }
 
     private void addOffset(Vector3[] point)

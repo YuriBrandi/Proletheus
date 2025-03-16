@@ -2,8 +2,8 @@ behaviors:
   missileIdentification:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 512
-      buffer_size: 5120
+      batch_size: 64
+      buffer_size: 640
       learning_rate: 1.0e-4
       beta: 0.005
       epsilon: 0.2
