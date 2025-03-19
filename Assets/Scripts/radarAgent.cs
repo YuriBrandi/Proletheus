@@ -76,6 +76,15 @@ public class RadarAgent : Agent
 
 
                 }
+
+
+                // Metodo alternativo (DA PROVARE)
+                /*int randInd = Random.Range(0, flyingPrefabs.Length + 1);
+
+                if (randInd < flyingPrefabs.Length)
+                     aircraftSpawner.SpawnAircraft(flyingPrefabs[randInd]);
+                else
+                   missileSpawner.SpawnMissile();*/
             }
 
         }
@@ -148,9 +157,17 @@ public class RadarAgent : Agent
 
             // Debug log for correctness
             if (correctPrediction)
+            {
                 Debug.Log($"Correctly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Reward: +1f)");
+                Debug.Log($"CORRECT PREDICTION");
+            }
+
             else
+            {
                 Debug.Log($"Incorrectly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Penalty: -1f)");
+                Debug.Log($"WRONG PREDICTION");
+            }
+
 
             AddReward(correctPrediction ? 1f : -1f);
             
