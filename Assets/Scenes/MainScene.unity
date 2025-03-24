@@ -736,13 +736,13 @@ MonoBehaviour:
     VectorObservationSize: 8
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 564218badfae1946ab1ca6e0af799bfc, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: missileIdentification
@@ -1010,7 +1010,7 @@ Transform:
   m_GameObject: {fileID: 490266865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 425.91092, y: 347.97934, z: 17.531223}
+  m_LocalPosition: {x: 190, y: 818, z: 17.531223}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2212,7 +2212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1205821304
 RectTransform:
   m_ObjectHideFlags: 0

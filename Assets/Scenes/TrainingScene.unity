@@ -204,6 +204,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 97867231}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 97867234}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &97867229 stripped
 Transform:
@@ -253,6 +256,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1106242431}
   aircraftSpawner: {fileID: 1818047882}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &97867233
 MonoBehaviour:
@@ -267,14 +271,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -285,6 +289,22 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &97867234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97867230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &112726168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,6 +1279,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 314466515}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 314466518}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &314466513 stripped
 Transform:
@@ -1308,6 +1331,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1104036606}
   aircraftSpawner: {fileID: 1116682695}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &314466517
 MonoBehaviour:
@@ -1322,14 +1346,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -1340,6 +1364,22 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &314466518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314466514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &329653016
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,6 +3347,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 690229786}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690229790}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!1 &690229785 stripped
 GameObject:
@@ -3351,6 +3394,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1701129393}
   aircraftSpawner: {fileID: 1793054301}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &690229788
 MonoBehaviour:
@@ -3365,14 +3409,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -3388,6 +3432,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
   m_PrefabInstance: {fileID: 690229784}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &690229790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690229785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &696270570 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -519053504579820001, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
@@ -4677,6 +4737,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1098068774}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1098068777}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1098068772 stripped
 Transform:
@@ -4726,6 +4789,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1960950395}
   aircraftSpawner: {fileID: 1725656784}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &1098068776
 MonoBehaviour:
@@ -4740,14 +4804,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -4758,6 +4822,22 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &1098068777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098068773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &1104036605
 GameObject:
   m_ObjectHideFlags: 0
@@ -7473,6 +7553,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1735278099}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1735278102}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1735278097 stripped
 Transform:
@@ -7522,6 +7605,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1442943761}
   aircraftSpawner: {fileID: 246376846}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &1735278101
 MonoBehaviour:
@@ -7536,14 +7620,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -7554,6 +7638,22 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &1735278102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735278098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1001 &1741687641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7639,6 +7739,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1741687644}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1741687647}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1741687642 stripped
 Transform:
@@ -7688,6 +7791,7 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 876514465}
   aircraftSpawner: {fileID: 1421458761}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &1741687646
 MonoBehaviour:
@@ -7702,14 +7806,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 02000000
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: ba0c43f3c60649053b7acaefab8e453b, type: 3}
   m_InferenceDevice: 0
@@ -7720,6 +7824,22 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &1741687647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741687643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &1778898972
 GameObject:
   m_ObjectHideFlags: 0

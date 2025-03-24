@@ -24,9 +24,13 @@ public class RadarAgent : Agent
     public MissileSpawner missileSpawner;
     public AircraftSpawner aircraftSpawner;
 
+    [Header("Training Settings")]
+    public int actionsPerEpisode = 5;
+
     [Header("Debugging")]
     public bool colorObjects = true;
 
+    private int spawnedFlyingInstances;
     private bool isInference;
 
     /*
@@ -53,6 +57,16 @@ public class RadarAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        spawnedFlyingInstances = 0;
+        spawnFlyingInstance();
+    }
+
+    /*
+        Should work in training only.
+        Will spawn a random flying object in a balanced manner (50% enemy/ 50% friendly)
+    */
+    public void spawnFlyingInstance()
+    {
         if (!isInference)
         {
             if (missileSpawner == null || aircraftSpawner == null)
@@ -77,15 +91,19 @@ public class RadarAgent : Agent
 
                 }
 
+                /*var flyingPrefabs = aircraftSpawner.flyingPrefabs;
 
-                // Metodo alternativo (DA PROVARE)
-                /*int randInd = Random.Range(0, flyingPrefabs.Length + 1);
+                int randInd = Random.Range(0, flyingPrefabs.Length + 3);
 
                 if (randInd < flyingPrefabs.Length)
                      aircraftSpawner.SpawnAircraft(flyingPrefabs[randInd]);
                 else
                    missileSpawner.SpawnMissile();*/
+                
+
             }
+
+            spawnedFlyingInstances++;
 
         }
     }
@@ -120,6 +138,14 @@ public class RadarAgent : Agent
                 sensor.AddObservation(Vector3.zero);
                 sensor.AddObservation(0f);
             }
+
+            // Add BoxCollider size information.
+            BoxCollider bc = observedHit.GetComponent<BoxCollider>();
+
+            if (bc != null)
+                sensor.AddObservation(bc.size);
+            else
+                sensor.AddObservation(Vector3.zero);
         }
         else //PAD
         {
@@ -127,6 +153,7 @@ public class RadarAgent : Agent
             sensor.AddObservation(0f);
             sensor.AddObservation(Vector3.zero);
             sensor.AddObservation(0f);
+            sensor.AddObservation(Vector3.zero);
         }
         
     }
@@ -143,11 +170,13 @@ public class RadarAgent : Agent
 
             Collider hit = filteredHits.First();
 
-            int prediction = actions.DiscreteActions[0]; // Access discrete actions
+            float prediction = actions.ContinuousActions[0]; // Access discrete actions
+
+            //Debug.Log(prediction);
 
             // Use tag only for reward calculation and debugging
             bool isEnemy = hit.CompareTag(missileTag);
-            bool correctPrediction = (prediction == 1 && isEnemy) || (prediction == 0 && !isEnemy);;
+            bool correctPrediction = (prediction > 0 && isEnemy) || (prediction <= 0 && !isEnemy);;
 
             Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
 
@@ -160,16 +189,20 @@ public class RadarAgent : Agent
             {
                 Debug.Log($"Correctly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Reward: +1f)");
                 Debug.Log($"CORRECT PREDICTION");
+
+                Debug.Log($"CORRECT PREDICTION " + (isEnemy ? "MISSILE" : "AIRCRAFT"));
             }
 
             else
             {
                 Debug.Log($"Incorrectly classified object " + hit.gameObject.name + " (" + hit.gameObject.GetInstanceID() + ") " + "(Penalty: -1f)");
                 Debug.Log($"WRONG PREDICTION");
+
+                Debug.Log($"WRONG PREDICTION " + (isEnemy ? "MISSILE" : "AIRCRAFT"));
             }
 
 
-            AddReward(correctPrediction ? 1f : -1f);
+            AddReward(correctPrediction ? 0.2f : -0.2f);
             
             if (isInference) // If in inference insert object in hashMap.
             {
@@ -190,8 +223,12 @@ public class RadarAgent : Agent
                 }
             }
 
+
             if (!isInference)
-                EndEpisode();
+                if (spawnedFlyingInstances == actionsPerEpisode)
+                    EndEpisode();
+                else
+                    spawnFlyingInstance();
 
         }
 
