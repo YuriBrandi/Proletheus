@@ -712,13 +712,14 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
   missileTag: targetMissile
   missileSpawner: {fileID: 285783977}
   aircraftSpawner: {fileID: 0}
+  actionsPerEpisode: 5
   colorObjects: 1
 --- !u!114 &405343326
 MonoBehaviour:
@@ -733,7 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 1
@@ -742,7 +743,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 4c33392e8fc8a8c9d90638477bb8c624, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: missileIdentification
@@ -1406,7 +1407,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 4a718fcf13d5bc2df904cc6cfd6f4fb6, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}

@@ -249,7 +249,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -895,7 +895,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 503869814}
   B: {fileID: 134238428}
   C: {fileID: 2040882144}
@@ -1324,7 +1324,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -3387,7 +3387,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -4782,7 +4782,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -4980,7 +4980,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 711952670}
   B: {fileID: 1261881420}
   C: {fileID: 295386723}
@@ -5865,7 +5865,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 1248711765}
   B: {fileID: 1698240155}
   C: {fileID: 909423067}
@@ -7416,7 +7416,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 1714942397}
   B: {fileID: 1040525173}
   C: {fileID: 1469751232}
@@ -7598,7 +7598,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -7784,7 +7784,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 7000
+  detectionRange: 6500
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -8019,7 +8019,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 216017376}
   B: {fileID: 185874636}
   C: {fileID: 195660469}
@@ -8182,7 +8182,7 @@ MonoBehaviour:
   - {fileID: 9119868215041870750, guid: 955fa31e78fb0089cb475e75ecba6e3f, type: 3}
   - {fileID: 7109313780040021029, guid: a5092b336e95d3f188fbc07407092dd9, type: 3}
   - {fileID: 7348062739142565955, guid: 5bb52f917eb54f3fe84e837930b113ef, type: 3}
-  offset: 2500
+  offset: 3000
   A: {fileID: 1649359404}
   B: {fileID: 584378718}
   C: {fileID: 1984370866}

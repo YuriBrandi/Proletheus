@@ -171,8 +171,9 @@ public class RadarAgent : Agent
             Collider hit = filteredHits.First();
 
             float prediction = actions.ContinuousActions[0]; // Access discrete actions
+            
 
-            //Debug.Log(prediction);
+            Debug.Log("prediction " + hit.gameObject.name + " " + prediction);
 
             // Use tag only for reward calculation and debugging
             bool isEnemy = hit.CompareTag(missileTag);
@@ -181,8 +182,9 @@ public class RadarAgent : Agent
             Renderer[] renderers = hit.GetComponentsInChildren<Renderer>();
 
 
+
             if(colorObjects) //enemy prediction : red else green
-                changeMaterialColor(renderers, prediction == 0  ? Color.green : Color.red);
+                changeMaterialColor(renderers, prediction <= 0  ? Color.green : Color.red);
 
             // Debug log for correctness
             if (correctPrediction)
