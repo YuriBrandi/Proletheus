@@ -20,7 +20,7 @@ public class RadarDetector : MonoBehaviour
     public AircraftSpawner aircraftSpawner;
 
     [Header("Training Socket Client")]
-    private TrainerSocketClient classifier;
+    public TrainerSocketClient classifier;
 
     [Header("Training Settings")]
     public int parallelFlyingObjects = 5;
@@ -103,7 +103,7 @@ public class RadarDetector : MonoBehaviour
             {
                 //Debug.Log("Sto per cancellare il gameobject: " + observedHit.gameObject.GetInstanceID());
                 //AircraftSpawner.TriggerFlyingTripEnd(observedHit.gameObject);
-                Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
+                //Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
                 observedHit.gameObject.SetActive(false);
                 
             }
@@ -123,7 +123,8 @@ public class RadarDetector : MonoBehaviour
         // Can't be null due to filterColliders()
         Vector3 relVel = col.attachedRigidbody.linearVelocity;
 
-        Vector3 size = col.GetComponent<BoxCollider>()?.size ?? Vector3.zero;
+        Renderer renderer = col.GetComponentInChildren<Renderer>();
+        Vector3 size = renderer != null ? renderer.bounds.size : Vector3.zero;
 
         return new float[]
         {

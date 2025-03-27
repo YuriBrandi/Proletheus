@@ -2969,6 +2969,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 690229790}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690229791}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!1 &690229785 stripped
 GameObject:
@@ -2999,8 +3002,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1701129393}
   aircraftSpawner: {fileID: 1793054301}
+  classifier: {fileID: 690229791}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &690229791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690229785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &696270570 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -519053504579820001, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
@@ -3785,6 +3801,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 899630402}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 899630403}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &899630400 stripped
 Transform:
@@ -3815,8 +3834,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1960950395}
   aircraftSpawner: {fileID: 1725656784}
+  classifier: {fileID: 899630403}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &899630403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899630401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &909423066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,6 +4390,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1062558509}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1062558510}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1062558507 stripped
 Transform:
@@ -4388,8 +4423,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1442943761}
   aircraftSpawner: {fileID: 246376846}
+  classifier: {fileID: 1062558510}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &1062558510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062558508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1066957345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4669,6 +4717,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1167507177}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167507178}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1167507175 stripped
 Transform:
@@ -4699,8 +4750,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1106242431}
   aircraftSpawner: {fileID: 1818047882}
+  classifier: {fileID: 1167507178}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &1167507178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167507176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200651364
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,6 +5643,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1343173577}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1343173578}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1343173575 stripped
 Transform:
@@ -5609,8 +5676,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 876514465}
   aircraftSpawner: {fileID: 1421458761}
+  classifier: {fileID: 1343173578}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &1343173578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343173576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1373237883
 GameObject:
   m_ObjectHideFlags: 0
@@ -5641,6 +5721,51 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1260650357}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1392236511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392236513}
+  - component: {fileID: 1392236512}
+  m_Layer: 0
+  m_Name: TimeScaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1392236512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392236511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfe00e71be738f46b80375fd832af2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulationSpeed: 5
+--- !u!4 &1392236513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392236511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2059.5547, y: 1135.0549, z: -1365.2959}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421458760
 GameObject:
@@ -7721,6 +7846,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1838029012}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838029013}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1838029010 stripped
 Transform:
@@ -7751,8 +7879,21 @@ MonoBehaviour:
   missileTag: targetMissile
   missileSpawner: {fileID: 1104036606}
   aircraftSpawner: {fileID: 1116682695}
+  classifier: {fileID: 1838029013}
   parallelFlyingObjects: 5
   colorObjects: 1
+--- !u!114 &1838029013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838029011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1841979946
 GameObject:
   m_ObjectHideFlags: 0
@@ -8692,3 +8833,4 @@ SceneRoots:
   - {fileID: 597342246}
   - {fileID: 390122104}
   - {fileID: 682017810}
+  - {fileID: 1392236513}
