@@ -1,5 +1,7 @@
 using System;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using UnityEngine;
 
@@ -16,19 +18,20 @@ public class TrainerSocketClient : MonoBehaviour
         writer = new StreamWriter(stream);
         reader = new StreamReader(stream);
     }
-
-    public int RadarClassifyObject(float[] features, int? label = null)
+    
+    public bool RadarClassifyObject(float[] features, bool? label = null)
     {
-        // Building message: feature1,feature2,...,[optional_label]
-        string msg = string.Join(",", features);
+        // Usa punto come separatore decimale
+        string msg = string.Join("|", features.Select(f => f.ToString(CultureInfo.InvariantCulture)));
+
         if (label.HasValue)
-            msg += $",{label.Value}";
+            msg += $"|{label.Value}";
 
         writer.WriteLine(msg);
         writer.Flush();
 
         string response = reader.ReadLine();
-        return int.Parse(response); // 0-1 discrete classification
+        return response == "True"; // riceve e interpreta come booleano
     }
 
     void OnApplicationQuit()
