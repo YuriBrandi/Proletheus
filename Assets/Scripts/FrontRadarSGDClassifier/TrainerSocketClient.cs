@@ -19,7 +19,7 @@ public class TrainerSocketClient : MonoBehaviour
         reader = new StreamReader(stream);
     }
     
-    public bool RadarClassifyObject(float[] features, bool? label = null)
+    public int RadarClassifyObject(float[] features, int? label = null)
     {
         // Usa punto come separatore decimale
         string msg = string.Join("|", features.Select(f => f.ToString(CultureInfo.InvariantCulture)));
@@ -31,7 +31,7 @@ public class TrainerSocketClient : MonoBehaviour
         writer.Flush();
 
         string response = reader.ReadLine();
-        return response == "True"; // riceve e interpreta come booleano
+        return int.Parse(response);
     }
 
     void OnApplicationQuit()

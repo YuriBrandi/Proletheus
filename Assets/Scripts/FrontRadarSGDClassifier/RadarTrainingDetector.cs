@@ -87,20 +87,20 @@ public class RadarDetector : MonoBehaviour
             Collider observedHit = filteredHits.First();
 
             float[] features = ExtractFeatures(observedHit);
-            bool isEnemy = observedHit.CompareTag(missileTag) ? true : false;
+            int isEnemy = observedHit.CompareTag(missileTag) ? 1 : 0;
 
-            bool prediction = classifier.RadarClassifyObject(features, isEnemy);
+            int prediction = classifier.RadarClassifyObject(features, isEnemy);
 
             if(colorObjects)
             {
                 Renderer[] renderers = observedHit.GetComponentsInChildren<Renderer>();
-                changeMaterialColor(renderers, prediction == false  ? Color.green : Color.red);
+                changeMaterialColor(renderers, prediction == 0  ? Color.green : Color.red);
             }
 
             // Logging/debug
             Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy})");
 
-            if (isEnemy) // If is enemy (tag:missile)
+            if (isEnemy == 1) // If is enemy (tag:missile)
                 Destroy(observedHit.gameObject);
             else // If non-enemy (aircraft)
             {

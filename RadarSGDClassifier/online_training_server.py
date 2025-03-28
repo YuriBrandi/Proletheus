@@ -35,7 +35,7 @@ else:
     model = SGDClassifier(loss="log_loss")
     first_fit = True
 
-classes = np.array([False, True])  # False: notEnemy | True: Enemy
+classes = np.array([0, 1])  # 0 = notEnemy, 1 = Enemy
 
 def save_model():
     joblib.dump(model, MODEL_PATH)
@@ -57,7 +57,7 @@ def handle_client(conn, addr):
             features = list(map(float, parts[:11]))
             X = np.array([features])
             y_str = parts[11].strip()
-            y = np.array([y_str == "True"], dtype=bool)
+            y = np.array([int(y_str)], dtype=int)
 
             with lock:
                 if y is not None:
@@ -68,25 +68,24 @@ def handle_client(conn, addr):
                         model.partial_fit(X, y)
 
                     step_count += 1
-                    pred = model.predict(X)[0]
+                    pred = int(model.predict(X)[0])
 
-                    y_scalar = bool(y.item())
+                    y_scalar = int(y.item())  # 0 o 1
                     probas = model.predict_proba(X)[0]
 
                     if len(probas) < 2:
-                        proba = 0.5  # fallback iniziale neutro
+                        proba = 0.5
                     else:
-                        class_index = np.where(model.classes_ == y_scalar)[0][0]
+                        class_index = y_scalar
                         proba = float(probas[class_index])
 
                     loss = float(-np.log(np.clip(proba, 1e-10, 1)))
                     losses.append(loss)
 
-
                     if pred == y_scalar:
                         correct_predictions += 1
 
-                    print(f"[{step_count}] Pred: {bool(pred)} | TrueLabel: {y_scalar} | {'✓' if pred == y_scalar else '✗'}")
+                    print(f"[{step_count}] Pred: {pred} | TrueLabel: {y_scalar} | {'✓' if pred == y_scalar else '✗'}")
 
                     if step_count % LOG_EVERY == 0:
                         accuracy = (correct_predictions / step_count) * 100
@@ -98,9 +97,9 @@ def handle_client(conn, addr):
                     if step_count % SAVE_EVERY == 0:
                         save_model()
                 else:
-                    pred = model.predict(X)[0]
+                    pred = int(model.predict(X)[0])
 
-            conn.send((str(bool(pred)) + "\n").encode())
+            conn.send((str(pred) + "\n").encode())
 
     except Exception as e:
         print(f"❌ Errore client {addr}: {e}")
