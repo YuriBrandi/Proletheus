@@ -23,24 +23,19 @@ public class RadarDetector : MonoBehaviour
     public TrainerSocketClient classifier;
 
     [Header("Training Settings")]
-    public int parallelFlyingObjects = 5;
+    public float spawnInterval = 3f;
+    
 
     [Header("Debugging")]
     public bool colorObjects = true;
 
-    private int spawnedFlyingInstances;
+    private float timer = 0f;
+
 
     void Start()
     {
         if (classifier == null)
              Debug.LogError("A SockerClient must be assigned.");
-        else
-        {
-            spawnedFlyingInstances = 0;
-            for (int i = 0; i < parallelFlyingObjects; i++)
-                spawnFlyingInstance();
-
-        }
     }
 
      public void spawnFlyingInstance()
@@ -68,12 +63,20 @@ public class RadarDetector : MonoBehaviour
             }
 
         }
-
-        spawnedFlyingInstances++;
     }
 
     void FixedUpdate()
     {
+        timer += Time.fixedDeltaTime;
+
+        if (timer >= spawnInterval)
+        {
+            timer = 0f;
+            spawnFlyingInstance();
+        }
+
+        //------------------------------------------------------------------
+
         // Find all objects within detection range
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRange);
 
@@ -106,12 +109,7 @@ public class RadarDetector : MonoBehaviour
                 //Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
                 observedHit.gameObject.SetActive(false);
                 
-            }
-
-            spawnFlyingInstance();
-
-
-                               
+            }                              
         }
         else return;
     }
@@ -175,7 +173,6 @@ public class RadarDetector : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-
         // Visualize the radar radius in the editor
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
