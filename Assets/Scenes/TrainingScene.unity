@@ -2972,6 +2972,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 690229791}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690229792}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!1 &690229785 stripped
 GameObject:
@@ -3003,7 +3006,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 1701129393}
   aircraftSpawner: {fileID: 1793054301}
   classifier: {fileID: 690229791}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 690229792}
   colorObjects: 1
 --- !u!114 &690229791
 MonoBehaviour:
@@ -3017,6 +3021,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &690229792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690229785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &696270570 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -519053504579820001, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
@@ -3804,6 +3821,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 899630403}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 899630404}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &899630400 stripped
 Transform:
@@ -3835,7 +3855,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 1960950395}
   aircraftSpawner: {fileID: 1725656784}
   classifier: {fileID: 899630403}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 899630404}
   colorObjects: 1
 --- !u!114 &899630403
 MonoBehaviour:
@@ -3849,6 +3870,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &899630404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899630401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &909423066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4393,6 +4427,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1062558510}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1062558511}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1062558507 stripped
 Transform:
@@ -4424,7 +4461,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 1442943761}
   aircraftSpawner: {fileID: 246376846}
   classifier: {fileID: 1062558510}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 1062558511}
   colorObjects: 1
 --- !u!114 &1062558510
 MonoBehaviour:
@@ -4438,6 +4476,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1062558511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062558508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &1066957345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4720,6 +4771,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1167507178}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1167507179}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1167507175 stripped
 Transform:
@@ -4751,7 +4805,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 1106242431}
   aircraftSpawner: {fileID: 1818047882}
   classifier: {fileID: 1167507178}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 1167507179}
   colorObjects: 1
 --- !u!114 &1167507178
 MonoBehaviour:
@@ -4765,6 +4820,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1167507179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167507176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &1200651364
 GameObject:
   m_ObjectHideFlags: 0
@@ -5646,6 +5714,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1343173578}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1343173579}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1343173575 stripped
 Transform:
@@ -5677,7 +5748,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 876514465}
   aircraftSpawner: {fileID: 1421458761}
   classifier: {fileID: 1343173578}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 1343173579}
   colorObjects: 1
 --- !u!114 &1343173578
 MonoBehaviour:
@@ -5691,6 +5763,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1343173579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343173576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &1373237883
 GameObject:
   m_ObjectHideFlags: 0
@@ -7849,6 +7934,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1838029013}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838029014}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &1838029010 stripped
 Transform:
@@ -7880,7 +7968,8 @@ MonoBehaviour:
   missileSpawner: {fileID: 1104036606}
   aircraftSpawner: {fileID: 1116682695}
   classifier: {fileID: 1838029013}
-  parallelFlyingObjects: 5
+  spawnInterval: 3
+  sgdClassifier: {fileID: 1838029014}
   colorObjects: 1
 --- !u!114 &1838029013
 MonoBehaviour:
@@ -7894,6 +7983,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770330ba8717cbe0a881e0cfbd60fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1838029014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838029011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonFile: {fileID: 0}
 --- !u!1 &1841979946
 GameObject:
   m_ObjectHideFlags: 0

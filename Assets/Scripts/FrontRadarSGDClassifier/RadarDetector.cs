@@ -3,6 +3,7 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Timeline;
 
 public class RadarDetector : MonoBehaviour
 {
@@ -19,26 +20,47 @@ public class RadarDetector : MonoBehaviour
     public MissileSpawner missileSpawner;
     public AircraftSpawner aircraftSpawner;
 
-    [Header("Training Socket Client")]
+    [Header("Training Socket Client (used for training only)")]
     public TrainerSocketClient classifier;
 
     [Header("Training Settings")]
     public float spawnInterval = 3f;
-    
+
+    [Header("Inference Model")]
+    public SGDClassifier sgdClassifier;
 
     [Header("Debugging")]
     public bool colorObjects = true;
 
     private float timer = 0f;
 
+    const int IS_ENEMY_VALUE = 1;
+    const int NOT_ENEMY_VALUE = 0;
+
+    /*
+     * k: gameObject.GetInstanceID();
+     * v: [0: NOT_ENEMY_VALUE | 1: IS_ENEMY_VALUE]
+     * isEmpty(k) -> no decisions
+     */
+    private Dictionary<int, int> decisionMap = new Dictionary<int, int>();
 
     void Start()
     {
-        if (classifier == null)
-             Debug.LogError("A SockerClient must be assigned.");
+        if (sgdClassifier.isInference())
+        {
+            
+            Debug.Log("Modalità Inferenza ATTIVA");
+        }
+        else
+        {
+            if (classifier == null)
+                Debug.LogError("A SockerClient must be assigned.");
+
+            Debug.Log("Modalità Training ATTIVA");
+        }
     }
 
-     public void spawnFlyingInstance()
+    public void spawnFlyingInstance()
     {
         if (missileSpawner == null || aircraftSpawner == null)
         {
@@ -67,12 +89,15 @@ public class RadarDetector : MonoBehaviour
 
     void FixedUpdate()
     {
-        timer += Time.fixedDeltaTime;
-
-        if (timer >= spawnInterval)
+        if (!sgdClassifier.isInference())
         {
-            timer = 0f;
-            spawnFlyingInstance();
+            timer += Time.fixedDeltaTime;
+
+            if (timer >= spawnInterval)
+            {
+                timer = 0f;
+                spawnFlyingInstance();
+            }
         }
 
         //------------------------------------------------------------------
@@ -87,28 +112,38 @@ public class RadarDetector : MonoBehaviour
             Collider observedHit = filteredHits.First();
 
             float[] features = ExtractFeatures(observedHit);
-            int isEnemy = observedHit.CompareTag(missileTag) ? 1 : 0;
+            int isEnemy = observedHit.CompareTag(missileTag) ? IS_ENEMY_VALUE : NOT_ENEMY_VALUE;
 
-            int prediction = classifier.RadarClassifyObject(features, isEnemy);
+            int prediction;
 
-            if(colorObjects)
+            //Se stiamo facendo inferenza, deve richiamare il metodo predict di Sentis
+            if (sgdClassifier.isInference())
+                prediction = sgdClassifier.Predict(features);
+            else //Altrimenti chiamare il metodo di predict di python
+                prediction = classifier.RadarClassifyObject(features, isEnemy);
+
+            if (colorObjects)
             {
                 Renderer[] renderers = observedHit.GetComponentsInChildren<Renderer>();
-                changeMaterialColor(renderers, prediction == 0  ? Color.green : Color.red);
+                changeMaterialColor(renderers, prediction == NOT_ENEMY_VALUE  ? Color.green : Color.red);
             }
 
             // Logging/debug
-            Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy})");
+            Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
-            if (isEnemy == 1) // If is enemy (tag:missile)
-                Destroy(observedHit.gameObject);
-            else // If non-enemy (aircraft)
+            if(sgdClassifier.isInference()) // If in inference insert object in hashMap.
+                decisionMap.Add(observedHit.gameObject.GetInstanceID(), isEnemy);
+            else //Se fa training, deve cancellare il gameObject hit
             {
-                //Debug.Log("Sto per cancellare il gameobject: " + observedHit.gameObject.GetInstanceID());
-                //AircraftSpawner.TriggerFlyingTripEnd(observedHit.gameObject);
-                //Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
-                observedHit.gameObject.SetActive(false);
-                
+                if(isEnemy == IS_ENEMY_VALUE)
+                    Destroy(observedHit.gameObject);
+                else
+                {
+                    //Debug.Log("Sto per cancellare il gameobject: " + observedHit.gameObject.GetInstanceID());
+                    //AircraftSpawner.TriggerFlyingTripEnd(observedHit.gameObject);
+                    //Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
+                    observedHit.gameObject.SetActive(false);
+                }
             }                              
         }
         else return;
@@ -153,8 +188,8 @@ public class RadarDetector : MonoBehaviour
         return hits
             .Where(hit =>
             {
-                /*if (isInference && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
-                    return false;*/
+                if (sgdClassifier.isInference() && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
+                    return false;
 
                 // Check if the object is high enough
                 bool isHighEnough = hit.transform.position.y >= minAltitude;
