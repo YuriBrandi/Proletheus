@@ -24,9 +24,27 @@ public class MissileSpawner : MonoBehaviour
     public Transform C;   // Angle C
     public Transform D;   // Angle D
 
+    [Header("Training Settings")]
+    public int spawnRateSeconds = 0;
+    private float timer = 0f;
+
     void Start()
     {
         //SpawnMissile();
+    }
+
+    public void FixedUpdate()
+    {
+        if (spawnRateSeconds > 0)
+        {
+            timer += Time.fixedDeltaTime;
+
+            if (timer >= spawnRateSeconds)
+            {
+                timer = 0f;
+                SpawnMissile();
+            }
+        }
     }
 
     public void SpawnMissile()

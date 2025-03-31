@@ -1,81 +1,50 @@
+using System;
 using UnityEngine;
 
-public class MissileBattery : MonoBehaviour
+public class InterceptorBehaviour : MonoBehaviour
 {
-    // Prefab del missile da istanziare
-    public GameObject missilePrefab;
+    [Header("Settings")]
+    public GameObject defenceMissilePrefab;
 
-    // Velocità del missile
-    public float missileSpeed = 100f;
+    public static event Action<Rigidbody> EnemyMissileDetected;
+    public static event Action<float, float> MinDistanceDebug;
 
-    // Angolo di lancio (inclinazione)
-    public float launchAngle = 45f;
+    private float minDistance = 1000.0f;
 
-    // Direzione di lancio (in gradi, 0 = avanti, 90 = destra, 180 = indietro, 270 = sinistra)
-    public float launchDirection = 0f;
-
-    // Metodo per lanciare un missile
-    public void LaunchMissile()
+    public void Start()
     {
-        // Calcolo della direzione di lancio in base all'angolo e alla direzione
-        Vector3 direction = CalculateLaunchDirection(launchAngle, launchDirection);
+        EnemyMissileDetected += LaunchDefenceMissile;
+        MinDistanceDebug += SetMinDistanceDebug;
+    }
 
-        // Calcolo della rotazione del missile in base alla direzione
-        Quaternion rotation = Quaternion.LookRotation(direction);
+    public static void OnEnemyMissileDetected(Rigidbody enemyMissileRb)
+    {
+        EnemyMissileDetected.Invoke(enemyMissileRb);
+    }
 
-        // Istanziazione del missile con la rotazione calcolata
-        GameObject missile = Instantiate(missilePrefab, transform.position, rotation);
+    public static void OnMinDistanceDebug(float distance, float explodeSignal)
+    {
+        MinDistanceDebug.Invoke(distance, explodeSignal);
+    }
 
-        // Imposta la direzione del missile
-        Rigidbody missileRigidbody = missile.GetComponent<Rigidbody>();
-        if (missileRigidbody != null)
+    private void SetMinDistanceDebug(float distance, float explodeSignal)
+    {
+        if (distance < minDistance)
         {
-            missileRigidbody.linearVelocity = direction * missileSpeed;
-        }
-        else
-        {
-            Debug.LogWarning("Il prefab del missile non ha un componente Rigidbody!");
+            minDistance = distance;
+
+            Debug.Log("MIN DISTANCE: " + minDistance + " | explodeSignal: " + explodeSignal);
         }
     }
 
-    // Calcola la direzione del lancio basandosi su angolo e direzione
-    private Vector3 CalculateLaunchDirection(float angle, float direction)
+    // Lancia un missile agente verso il missile nemico rilevato
+    private void LaunchDefenceMissile(Rigidbody enemyMissileRb)
     {
-        // Converte gli angoli in radianti
-        float angleRad = angle * Mathf.Deg2Rad;
-        float directionRad = direction * Mathf.Deg2Rad;
+        // Istanzia un missile agente orientato verso l'alto
+        var missileAgent = Instantiate(defenceMissilePrefab, gameObject.transform.position, Quaternion.LookRotation(Vector3.up));
 
-        // Calcolo della direzione del lancio
-        Vector3 launchDirection = new Vector3(
-            Mathf.Cos(directionRad) * Mathf.Cos(angleRad), // Componente X
-            Mathf.Sin(angleRad),                           // Componente Y
-            Mathf.Sin(directionRad) * Mathf.Cos(angleRad)  // Componente Z
-        );
-
-        return launchDirection.normalized;
-    }
-
-    // Metodo di test per il lancio manuale
-    private void Update()
-    {
-        // Esempio di test: premi la barra spaziatrice per lanciare un missile
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            LaunchMissile();
-        }
-
-        // Modifica direzione con i tasti freccia (opzionale per test dinamici)
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            launchDirection -= 1f;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            launchDirection += 1f;
-        }
-
-        // Clamp della direzione tra 0 e 360 per evitare valori fuori range
-        launchDirection = launchDirection % 360f;
-        if (launchDirection < 0) launchDirection += 360f;
+        // Inizializza l'agente con il missile nemico target
+        var agent = missileAgent.GetComponent<DefenceMissileAgent>();
+        agent.Initialize(enemyMissileRb);
     }
 }

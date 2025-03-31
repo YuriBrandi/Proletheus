@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &112726169
 Transform:
   m_ObjectHideFlags: 0
@@ -447,6 +447,7 @@ MonoBehaviour:
   B: {fileID: 185874636}
   C: {fileID: 195660469}
   D: {fileID: 1297289335}
+  spawnRateSeconds: 5
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +697,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 405343330}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405343331}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!1 &405343324 stripped
 GameObject:
@@ -718,7 +722,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  detectionRange: 6500
+  detectionRange: 0
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -785,7 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523aed032aef3ad1e8a481015c2331a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 6500
+  detectionRange: 10000
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
@@ -795,6 +799,7 @@ MonoBehaviour:
   classifier: {fileID: 0}
   spawnInterval: 3
   sgdClassifier: {fileID: 405343330}
+  deterministicClassification: 1
   colorObjects: 1
 --- !u!114 &405343330
 MonoBehaviour:
@@ -809,6 +814,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
+--- !u!114 &405343331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405343324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &621206371
 Transform:
   m_ObjectHideFlags: 0
@@ -1627,7 +1648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &740490869
 Transform:
   m_ObjectHideFlags: 0
@@ -1917,7 +1938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &842611674
 Transform:
   m_ObjectHideFlags: 0
@@ -2025,7 +2046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &897836662
 Transform:
   m_ObjectHideFlags: 0
@@ -2390,7 +2411,6 @@ GameObject:
   - component: {fileID: 1463746526}
   - component: {fileID: 1463746525}
   - component: {fileID: 1463746527}
-  - component: {fileID: 1463746524}
   m_Layer: 0
   m_Name: interceptor
   m_TagString: Untagged
@@ -2407,33 +2427,12 @@ Transform:
   m_GameObject: {fileID: 1463746522}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 99.40082, y: -456.5797, z: -85.867676}
+  m_LocalPosition: {x: 0, y: -456.5797, z: -85.867676}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1334673945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1463746524
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463746522}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1463746525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2496,13 +2495,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1463746522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161ab666020925b47bcf8ad185a65391, type: 3}
+  m_Script: {fileID: 11500000, guid: fa03f0c5d5ce55f46a64f5fc2de4ae86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
-  missileSpeed: 500
-  launchAngle: 45
-  launchDirection: 0
+  defenceMissilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
 --- !u!1 &1780333163
 GameObject:
   m_ObjectHideFlags: 0

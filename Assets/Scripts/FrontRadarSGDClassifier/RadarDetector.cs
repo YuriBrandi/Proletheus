@@ -13,7 +13,7 @@ public class RadarDetector : MonoBehaviour
     public float minSpeed = 1f; // Minimum speed to consider an object moving
     public int maxObservedObjects = 10; // Fixed number of closest objects to observe
     
-    [Header("Verify TAG (used for reward only)")]
+    [Header("Verify TAG (used for training only)")]
     public string missileTag;
 
     [Header("Training Spawners")]
@@ -28,6 +28,9 @@ public class RadarDetector : MonoBehaviour
 
     [Header("Inference Model")]
     public SGDClassifier sgdClassifier;
+
+    [Header("Advanced Settings (will override inference model)")]
+    public bool deterministicClassification = false;
 
     [Header("Debugging")]
     public bool colorObjects = true;
@@ -46,15 +49,14 @@ public class RadarDetector : MonoBehaviour
 
     void Start()
     {
-        if (sgdClassifier.isInference())
-        {
-            
+        if (deterministicClassification)
+            Debug.Log("Modalità Deterministica ATTIVA");
+        else if (sgdClassifier.isEnabled())
             Debug.Log("Modalità Inferenza ATTIVA");
-        }
         else
         {
             if (classifier == null)
-                Debug.LogError("A SockerClient must be assigned.");
+                Debug.LogError("A SocketClient must be assigned.");
 
             Debug.Log("Modalità Training ATTIVA");
         }
@@ -89,7 +91,7 @@ public class RadarDetector : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!sgdClassifier.isInference())
+        if (!sgdClassifier.isEnabled() && !deterministicClassification)
         {
             timer += Time.fixedDeltaTime;
 
@@ -116,9 +118,19 @@ public class RadarDetector : MonoBehaviour
 
             int prediction;
 
-            //Se stiamo facendo inferenza, deve richiamare il metodo predict di Sentis
-            if (sgdClassifier.isInference())
+            //Se stiamo facendo inferenza, deve richiamare il metodo predict
+            if (deterministicClassification)
+            {
+                prediction = isEnemy;
+                if (prediction == IS_ENEMY_VALUE)
+                    InterceptorBehaviour.OnEnemyMissileDetected(observedHit.attachedRigidbody);
+            }
+            else if (sgdClassifier.isEnabled())
+            {
                 prediction = sgdClassifier.Predict(features);
+                if (prediction == IS_ENEMY_VALUE)
+                    InterceptorBehaviour.OnEnemyMissileDetected(observedHit.attachedRigidbody);
+            }
             else //Altrimenti chiamare il metodo di predict di python
                 prediction = classifier.RadarClassifyObject(features, isEnemy);
 
@@ -129,9 +141,9 @@ public class RadarDetector : MonoBehaviour
             }
 
             // Logging/debug
-            Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
+            //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
-            if(sgdClassifier.isInference()) // If in inference insert object in hashMap.
+            if(sgdClassifier.isEnabled() || deterministicClassification) // If in inference insert object in hashMap.
                 decisionMap.Add(observedHit.gameObject.GetInstanceID(), isEnemy);
             else //Se fa training, deve cancellare il gameObject hit
             {
@@ -188,7 +200,7 @@ public class RadarDetector : MonoBehaviour
         return hits
             .Where(hit =>
             {
-                if (sgdClassifier.isInference() && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
+                if ((sgdClassifier.isEnabled() || deterministicClassification) && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
                     return false;
 
                 // Check if the object is high enough

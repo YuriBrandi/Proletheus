@@ -20,7 +20,7 @@ public class SGDClassifier : MonoBehaviour
 
     void Awake()
     {
-        if (isInference())
+        if (isEnabled())
         {
             // Carica i pesi dal JSON
             ModelData model = JsonConvert.DeserializeObject<ModelData>(jsonFile.text);
@@ -30,7 +30,7 @@ public class SGDClassifier : MonoBehaviour
         }
     }
 
-    public bool isInference()
+    public bool isEnabled()
     {
         return jsonFile != null;
     }

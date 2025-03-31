@@ -77,7 +77,16 @@ PrefabInstance:
       addedObject: {fileID: 8906704760016625665}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1417b0430a28da34292f8a5ed345713a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 687973053211073367}
+      addedObject: {fileID: 7802018119541351211}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1417b0430a28da34292f8a5ed345713a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4527845520095628819}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1417b0430a28da34292f8a5ed345713a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7665185096300490937}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1417b0430a28da34292f8a5ed345713a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4165171753838751587}
   m_SourcePrefab: {fileID: 100100000, guid: 1417b0430a28da34292f8a5ed345713a, type: 3}
 --- !u!1 &2212806789395894981 stripped
 GameObject:
@@ -106,12 +115,12 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &687973053211073367
+--- !u!114 &7802018119541351211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +129,86 @@ MonoBehaviour:
   m_GameObject: {fileID: 2212806789395894981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c5223f8b669cb41aa919a81b7ac10f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stabilizationTime: 0
+  m_BrainParameters:
+    VectorObservationSize: 15
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 3
+      BranchSizes: 
+    VectorActionSize: 03000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: 245b203112d4cb14dae793fcc45a9904, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: defenceMissile
+  TeamId: 0
+  m_UseChildSensors: 0
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &4527845520095628819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212806789395894981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ae4beec867cec4fa626a2bf200a758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  turnSpeed: 1000
+  missileSpeed: 1000
+  explosionDistanceThreshold: 15
+  minimumExplosionDistance: 10
+  raycastCount: 5
+  raycastAngle: 20
+  raycastDistance: 50
+--- !u!114 &-7665185096300490937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212806789395894981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 0
+--- !u!136 &4165171753838751587
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212806789395894981}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Height: 750
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}

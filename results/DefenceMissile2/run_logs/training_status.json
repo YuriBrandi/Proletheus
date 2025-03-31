@@ -1,0 +1,38 @@
+{
+    "defenceMissile": {
+        "checkpoints": [
+            {
+                "steps": 499912,
+                "file_path": "results\\DefenceMissile2\\defenceMissile\\defenceMissile-499912.onnx",
+                "reward": 86.1984640043609,
+                "creation_time": 1743421392.425429,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissile2\\defenceMissile\\defenceMissile-499912.pt"
+                ]
+            },
+            {
+                "steps": 644000,
+                "file_path": "results\\DefenceMissile2\\defenceMissile\\defenceMissile-644000.onnx",
+                "reward": 86.01346105742223,
+                "creation_time": 1743421619.0773664,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissile2\\defenceMissile\\defenceMissile-644000.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 644000,
+            "file_path": "results\\DefenceMissile2\\defenceMissile.onnx",
+            "reward": 86.01346105742223,
+            "creation_time": 1743421619.0773664,
+            "auxillary_file_paths": [
+                "results\\DefenceMissile2\\defenceMissile\\defenceMissile-644000.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

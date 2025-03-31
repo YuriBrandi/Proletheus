@@ -1,0 +1,47 @@
+{
+    "defenceMissile": {
+        "checkpoints": [
+            {
+                "steps": 265007,
+                "file_path": "results\\DefenceMissile\\defenceMissile\\defenceMissile-265007.onnx",
+                "reward": 83.5887805181391,
+                "creation_time": 1743376757.74513,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissile\\defenceMissile\\defenceMissile-265007.pt"
+                ]
+            },
+            {
+                "steps": 291643,
+                "file_path": "results\\DefenceMissile\\defenceMissile\\defenceMissile-291643.onnx",
+                "reward": 81.16537165641785,
+                "creation_time": 1743377180.7740607,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissile\\defenceMissile\\defenceMissile-291643.pt"
+                ]
+            },
+            {
+                "steps": 410410,
+                "file_path": "results\\DefenceMissile\\defenceMissile\\defenceMissile-410410.onnx",
+                "reward": 86.7025703188985,
+                "creation_time": 1743418379.8570282,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissile\\defenceMissile\\defenceMissile-410410.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 410410,
+            "file_path": "results\\DefenceMissile\\defenceMissile.onnx",
+            "reward": 86.7025703188985,
+            "creation_time": 1743418379.8570282,
+            "auxillary_file_paths": [
+                "results\\DefenceMissile\\defenceMissile\\defenceMissile-410410.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
