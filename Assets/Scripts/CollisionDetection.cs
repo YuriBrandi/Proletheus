@@ -3,6 +3,7 @@ using System.Collections; //Per coroutine
 
 public class CollisionDetection : MonoBehaviour
 {
+    [Tooltip("Set 0 to disable")]
     public float sphereDiam = 200f; // Radius of the red circle
     public float animationDuration = .5f;
     public string missileTag;
@@ -30,7 +31,8 @@ public class CollisionDetection : MonoBehaviour
 
             missilePosition = other.transform.position;
             Destroy(other.gameObject);
-            //DrawHitSphere(missilePosition, sphereDiam); TODO: scommentare quando completeremo il progetto e gestire come il caso dei missili (entità distinte)
+            if(sphereDiam > 0f)
+                DrawHitSphere(missilePosition, sphereDiam); 
             enabled = false;
         }
     }
