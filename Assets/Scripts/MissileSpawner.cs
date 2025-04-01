@@ -25,6 +25,7 @@ public class MissileSpawner : MonoBehaviour
     public Transform D;   // Angle D
 
     [Header("Training Settings")]
+    [Tooltip("Set to 0 to disable")]
     public int spawnRateSeconds = 0;
     private float timer = 0f;
 
@@ -37,6 +38,15 @@ public class MissileSpawner : MonoBehaviour
     {
         if (spawnRateSeconds > 0)
         {
+            // Training mode, check for curriculum parameter.
+            float trainingDirection = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_missile_direction", -1f);
+
+            if(trainingDirection >= 0)
+            {
+                this.chosenDirection = (Direction)trainingDirection;
+                Debug.Log($"Direction set to: {this.chosenDirection}");
+            }
+
             timer += Time.fixedDeltaTime;
 
             if (timer >= spawnRateSeconds)

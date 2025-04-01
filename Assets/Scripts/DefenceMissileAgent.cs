@@ -4,6 +4,8 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System;
 
+using UnityEditor;
+
 public class DefenceMissileAgent : Agent
 {
     [Header("Missile Settings")]
@@ -19,23 +21,39 @@ public class DefenceMissileAgent : Agent
     public float raycastAngle = 20f;
     public float raycastDistance = 50f;
 
+    [Header("Debug Settings")]
+    public bool drawGizmos = false;
+
     private Rigidbody agentRb;
     private Rigidbody enemyMissileRb;
     private float previousDistance;
     private float detectionDistance;
+    private bool isExplosionEnabled;
     private bool hasDestroyedTarget = false;
+    
 
     public void Initialize(Rigidbody enemyMissileRb)
     {
         this.enemyMissileRb = enemyMissileRb;
-        
+
         agentRb = GetComponent<Rigidbody>();
         agentRb.linearVelocity = gameObject.transform.forward * missileSpeed;
-
+        
         detectionDistance = previousDistance = Vector3.Distance(agentRb.position, enemyMissileRb.position);
 
 
         //Debug.Log("Missile agent initialized. Detection distance: " + detectionDistance);
+    }
+
+    public void Start() 
+    {
+        if(Academy.Instance.IsCommunicatorOn)
+        {
+            // Check for curriculum parameter (will default to true if not present)
+            bool isExplosionEnabled = Academy.Instance.EnvironmentParameters.GetWithDefault("require_explosion_signal", 1f) == 1f;
+        }
+        
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -82,7 +100,7 @@ public class DefenceMissileAgent : Agent
         {
             float pitch = Mathf.Clamp(actions.ContinuousActions[0], -1f, 1f);
             float yaw = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
-            float explodeSignal = actions.ContinuousActions[2];
+            int explodeSignal = actions.DiscreteActions[0];
 
             //Debug.Log("pitch: " + pitch + " | yaw: " + yaw + " | explode: " + explodeSignal);
 
@@ -102,14 +120,19 @@ public class DefenceMissileAgent : Agent
                 }
             }
 
-            if (currentDistance <= minimumExplosionDistance ||
-                (currentDistance <= explosionDistanceThreshold && explodeSignal > 0.5f))
+            if(currentDistance <= explosionDistanceThreshold)
             {
-                Debug.Log("Explosion triggered. Distance to target: " + currentDistance);
                 AddReward(1.0f - (currentDistance / explosionDistanceThreshold));
-                EndEpisode();
-                Destroy(gameObject);
+                Debug.Log("[ExplosionEvent] Distance: " + currentDistance + " | reward: " + (1.0f - (currentDistance / explosionDistanceThreshold)));
+
+                if(!isExplosionEnabled || explodeSignal == 1 || currentDistance <= minimumExplosionDistance)
+                {
+                    AddReward(1.0f);
+                    EndEpisode();
+                    Destroy(gameObject);
+                }
             }
+            
 
             if (currentDistance > Math.Pow(detectionDistance, 1.5))
             {
@@ -173,5 +196,32 @@ public class DefenceMissileAgent : Agent
     private bool isEnemyTarget(Rigidbody rb)
     {
         return rb != null && rb == enemyMissileRb;
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        if (enemyMissileRb == null) return;
+
+        // Draw a red line from this object to its target
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, enemyMissileRb.position);
+
+        // Calculate distance
+        float distance = Vector3.Distance(transform.position, enemyMissileRb.position);
+
+
+        // Place label at midpoint of the line
+        Vector3 midpoint = (transform.position + enemyMissileRb.position) / 2f;
+        Handles.Label(midpoint, $"Distance: {distance:F2} units");
+
+
+        // Draw a sphere at this object's position
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 100f);
+
+        // Draw a cube at the target's position
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(enemyMissileRb.position, 100f);
     }
 }

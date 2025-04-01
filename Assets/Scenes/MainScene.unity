@@ -339,7 +339,7 @@ MonoBehaviour:
   B: {fileID: 185874636}
   C: {fileID: 195660469}
   D: {fileID: 1297289335}
-  spawnRateSeconds: 5
+  spawnRateSeconds: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

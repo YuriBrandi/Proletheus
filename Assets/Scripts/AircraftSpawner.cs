@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// Used only to call Academy
+using Unity.MLAgents;
+
 public class AircraftSpawner : MonoBehaviour
 {
     [Header("Global Aircraft Settings")]
@@ -16,12 +19,14 @@ public class AircraftSpawner : MonoBehaviour
 
     [Header("Additional Settings")]
     public bool disableAutoSpawn = false;
+    public bool checkForCurriculaChange = false;
 
 
     public static event Action<GameObject> OnFlyingTripEnd;
 
     public void Start()
     {
+
         if(!disableAutoSpawn)
         {
             foreach (var flyingObject in flyingPrefabs)   
@@ -31,6 +36,16 @@ public class AircraftSpawner : MonoBehaviour
         }
 
     }
+
+    void FixedUpdate()
+    {
+        if (!checkForCurriculaChange) return;
+
+        // Check for curriculum parameter (will default to already chosen value if not present)
+        disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_friendly_aricrafts", Convert.ToSingle(this.disableAutoSpawn)) == 1f;
+    }
+
+
 
     public static void TriggerFlyingTripEnd(GameObject referenceObject)
     {

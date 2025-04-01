@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InterceptorBehaviour : MonoBehaviour
@@ -10,6 +12,9 @@ public class InterceptorBehaviour : MonoBehaviour
     public static event Action<float, float> MinDistanceDebug;
 
     private float minDistance = 1000.0f;
+
+    private int defenceMissileCounter = 0;
+    private HashSet<float> minDistanceSet = new HashSet<float>();
 
     public void Start()
     {
@@ -29,6 +34,13 @@ public class InterceptorBehaviour : MonoBehaviour
 
     private void SetMinDistanceDebug(float distance, float explodeSignal)
     {
+        if(distance <= 20.0)
+        {
+            minDistanceSet.Add(distance); 
+
+            Debug.Log("DISTANCE: " + minDistance + " | explodeSignal: " + explodeSignal + " | Accuracy : " + (float) minDistanceSet.Count / defenceMissileCounter * 100f + "%");
+        }
+
         if (distance < minDistance)
         {
             minDistance = distance;
@@ -46,5 +58,7 @@ public class InterceptorBehaviour : MonoBehaviour
         // Inizializza l'agente con il missile nemico target
         var agent = missileAgent.GetComponent<DefenceMissileAgent>();
         agent.Initialize(enemyMissileRb);
+
+        defenceMissileCounter++;
     }
 }

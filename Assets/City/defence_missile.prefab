@@ -136,13 +136,13 @@ MonoBehaviour:
     VectorObservationSize: 15
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 3
-      BranchSizes: 
-    VectorActionSize: 03000000
+      m_NumContinuousActions: 2
+      BranchSizes: 02000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 245b203112d4cb14dae793fcc45a9904, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 16c2c6c6f9d28e1c6a12c4f80156badc, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: defenceMissile
