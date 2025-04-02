@@ -50,7 +50,7 @@ public class DefenceMissileAgent : Agent
         if(Academy.Instance.IsCommunicatorOn)
         {
             // Check for curriculum parameter (will default to true if not present)
-            bool isExplosionEnabled = Academy.Instance.EnvironmentParameters.GetWithDefault("require_explosion_signal", 1f) == 1f;
+            isExplosionEnabled = Academy.Instance.EnvironmentParameters.GetWithDefault("require_explosion_signal", 1f) == 1f;
         }
         
 

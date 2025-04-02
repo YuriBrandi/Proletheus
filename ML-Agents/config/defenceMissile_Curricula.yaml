@@ -32,40 +32,40 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
-          threshold: 80
+          min_lesson_length: 100
+          threshold: 100
         value: 0
       - name: South 
         completion_criteria:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
-          threshold: 80
+          min_lesson_length: 100
+          threshold: 100
         value: 1
       - name: East
         completion_criteria:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
-          threshold: 80
+          min_lesson_length: 100
+          threshold: 100
         value: 2
       - name: West
         completion_criteria:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
-          threshold: 80
+          min_lesson_length: 100
+          threshold: 100
         value: 3
       - name: RANDOM
         completion_criteria:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
-          threshold: 80
+          min_lesson_length: 100
+          threshold: 100
         value: 8                                 
 
   require_explosion_signal:
@@ -75,7 +75,7 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 50000
+          min_lesson_length: 500
           threshold: 100
         value: 0
       - name: Expl_ON
@@ -83,7 +83,7 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
+          min_lesson_length: 500
           threshold: 100
         value: 1
 
@@ -94,7 +94,8 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 80000
+          require_reset: true,
+          min_lesson_length: 1000
           threshold: 100
         value: 0
       - name: Spawn_ON
@@ -102,7 +103,7 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          min_lesson_length: 5000
+          require_reset: true,
+          min_lesson_length: 1000
           threshold: 100
         value: 1
-    
