@@ -21,9 +21,10 @@ behaviors:
         strength: 1.0
     max_steps: 5.0e6
     time_horizon: 1000
-    summary_freq: 100
+    summary_freq: 300
 
 # Curriculum parameters
+# Reminder: 1 episode = 3 decisions = 3 steps. 
 environment_parameters:
   enemy_missile_direction:
     curriculum:
@@ -33,7 +34,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 100
+          threshold: 90
         value: 0
       - name: South 
         completion_criteria:
@@ -41,7 +42,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 100
+          threshold: 90
         value: 1
       - name: East
         completion_criteria:
@@ -49,7 +50,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 100
+          threshold: 90
         value: 2
       - name: West
         completion_criteria:
@@ -57,7 +58,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 100
+          threshold: 90
         value: 3
       - name: RANDOM
         completion_criteria:
@@ -65,7 +66,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 100
+          threshold: 90
         value: 8                                 
 
   require_explosion_signal:
@@ -76,7 +77,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 500
-          threshold: 100
+          threshold: 90
         value: 0
       - name: Expl_ON
         completion_criteria:
@@ -84,7 +85,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 500
-          threshold: 100
+          threshold: 90
         value: 1
 
   spawn_friendly_aricrafts:
@@ -94,9 +95,8 @@ environment_parameters:
           measure: reward
           behavior: defenceMissile
           signal_smoothing: true
-          require_reset: true,
           min_lesson_length: 1000
-          threshold: 100
+          threshold: 90
         value: 0
       - name: Spawn_ON
         completion_criteria:

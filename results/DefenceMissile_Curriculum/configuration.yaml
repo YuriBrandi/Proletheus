@@ -40,7 +40,7 @@ behaviors:
     even_checkpoints: false
     max_steps: 5000000
     time_horizon: 1000
-    summary_freq: 100
+    summary_freq: 300
     threaded: false
     self_play: null
     behavioral_cloning: null
@@ -70,126 +70,126 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6847
+          seed: 1866
           value: 0
       name: North
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6848
+          seed: 1867
           value: 1
       name: South
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6849
+          seed: 1868
           value: 2
       name: East
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6850
+          seed: 1869
           value: 3
       name: West
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6851
+          seed: 1870
           value: 8
       name: RANDOM
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 100
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
   require_explosion_signal:
     curriculum:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6852
+          seed: 1871
           value: 0
       name: Expl_OFF
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 50000
+        min_lesson_length: 500
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6853
+          seed: 1872
           value: 1
       name: Expl_ON
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 500
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
   spawn_friendly_aricrafts:
     curriculum:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6854
+          seed: 1873
           value: 0
       name: Spawn_OFF
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 80000
+        min_lesson_length: 1000
         signal_smoothing: true
-        threshold: 100.0
+        threshold: 90.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 6855
+          seed: 1874
           value: 1
       name: Spawn_ON
       completion_criteria:
         behavior: defenceMissile
         measure: reward
-        min_lesson_length: 5000
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 100.0
-        require_reset: false
+        require_reset: true
 checkpoint_settings:
-  run_id: DefenceMissile_Curr
+  run_id: DefenceMissile_Curriculum
   initialize_from: null
   load_model: false
   resume: true

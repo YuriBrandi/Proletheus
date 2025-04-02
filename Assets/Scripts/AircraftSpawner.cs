@@ -27,8 +27,8 @@ public class AircraftSpawner : MonoBehaviour
     {
         if(Academy.Instance.IsCommunicatorOn)
         {
-            // Check for curriculum parameter (will default to true if not present)
-            disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_friendly_aricrafts", Convert.ToSingle(this.disableAutoSpawn)) == 1f;
+            // Check for curriculum parameter (will default to inspector if not present)
+            disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_friendly_aricrafts", Convert.ToSingle(this.disableAutoSpawn)) == 0f;
         }
 
         if(!disableAutoSpawn)
