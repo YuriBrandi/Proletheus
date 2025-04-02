@@ -1,0 +1,108 @@
+behaviors:
+  defenceMissile:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 20480
+      learning_rate: 1.0e-4
+      beta: 3.0e-4
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 4
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 3
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.995
+        strength: 1.0
+    max_steps: 5.0e6
+    time_horizon: 1000
+    summary_freq: 100
+
+# Curriculum parameters
+environment_parameters:
+  enemy_missile_direction:
+    curriculum:
+      - name: North 
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 80
+        value: 0
+      - name: South 
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 80
+        value: 1
+      - name: East
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 80
+        value: 2
+      - name: West
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 80
+        value: 3
+      - name: RANDOM
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 80
+        value: 8                                 
+
+  require_explosion_signal:
+    curriculum:
+      - name: Expl_OFF 
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 50000
+          threshold: 100
+        value: 0
+      - name: Expl_ON
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 100
+        value: 1
+
+  spawn_friendly_aricrafts:
+    curriculum:
+      - name: Spawn_OFF 
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 80000
+          threshold: 100
+        value: 0
+      - name: Spawn_ON
+        completion_criteria:
+          measure: reward
+          behavior: defenceMissile
+          signal_smoothing: true
+          min_lesson_length: 5000
+          threshold: 100
+        value: 1
+    

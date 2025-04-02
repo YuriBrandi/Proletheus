@@ -1,0 +1,56 @@
+{
+    "enemy_missile_direction": {
+        "lesson_num": 0
+    },
+    "require_explosion_signal": {
+        "lesson_num": 0
+    },
+    "spawn_friendly_aricrafts": {
+        "lesson_num": 0
+    },
+    "defenceMissile": {
+        "checkpoints": [
+            {
+                "steps": 499888,
+                "file_path": "results/DefenceMissile_Curr/defenceMissile/defenceMissile-499888.onnx",
+                "reward": 95.81035492912171,
+                "creation_time": 1743545024.7883754,
+                "auxillary_file_paths": [
+                    "results/DefenceMissile_Curr/defenceMissile/defenceMissile-499888.pt"
+                ]
+            },
+            {
+                "steps": 676396,
+                "file_path": "results/DefenceMissile_Curr/defenceMissile/defenceMissile-676396.onnx",
+                "reward": 96.53338271347597,
+                "creation_time": 1743545265.8199265,
+                "auxillary_file_paths": [
+                    "results/DefenceMissile_Curr/defenceMissile/defenceMissile-676396.pt"
+                ]
+            },
+            {
+                "steps": 724623,
+                "file_path": "results/DefenceMissile_Curr/defenceMissile/defenceMissile-724623.onnx",
+                "reward": 98.02817502702986,
+                "creation_time": 1743545922.7402966,
+                "auxillary_file_paths": [
+                    "results/DefenceMissile_Curr/defenceMissile/defenceMissile-724623.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 724623,
+            "file_path": "results/DefenceMissile_Curr/defenceMissile.onnx",
+            "reward": 98.02817502702986,
+            "creation_time": 1743545922.7402966,
+            "auxillary_file_paths": [
+                "results/DefenceMissile_Curr/defenceMissile/defenceMissile-724623.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.5.1+cu124"
+    }
+}
