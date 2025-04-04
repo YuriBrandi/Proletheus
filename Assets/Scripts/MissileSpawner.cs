@@ -16,7 +16,7 @@ public class MissileSpawner : MonoBehaviour
     public float maxHeight = 15f; // Maximum height for the arc
     public float offset = 200f; // Origin offset (makes missile appear from farther).
     public Direction chosenDirection;
-    public BoxCollider targetCollider;
+    public MeshCollider targetCollider;
 
     [Header("City Corners")]
     public Transform A;   // Angle A
@@ -44,7 +44,7 @@ public class MissileSpawner : MonoBehaviour
             if(trainingDirection >= 0)
             {
                 this.chosenDirection = (Direction)trainingDirection;
-                Debug.Log($"Direction set to: {this.chosenDirection}");
+                //Debug.Log($"Direction set to: {this.chosenDirection}");
             }
 
             timer += Time.fixedDeltaTime;
@@ -74,10 +74,10 @@ public class MissileSpawner : MonoBehaviour
         float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
         // Inizializza il missile con i parametri necessari
-        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInBoxCollider(targetCollider), height);
+        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInCollider(targetCollider), height);
     }
 
-    Vector3 GetRandomPointInBoxCollider(BoxCollider collider)
+    Vector3 GetRandomPointInCollider(MeshCollider collider)
     {
         // Get center and size of box collider
         Vector3 center = collider.bounds.center;

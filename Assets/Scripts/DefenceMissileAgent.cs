@@ -12,11 +12,13 @@ public class DefenceMissileAgent : Agent
     public float turnSpeed = 500f;
     public float missileSpeed = 500f;
 
-    [Header("Reward Settings")]
+    public Vector3 cityOrigin = Vector3.zero;
+
+    [Header("Explosion Settings")]
     public float explosionDistanceThreshold = 5f;
     public float minimumExplosionDistance = 1.5f;
 
-    [Header("Raycast Settings (raycastCount da calcolare nelle observations)")]
+    [Header("Raycast Settings")]
     public int raycastCount = 5;
     public float raycastAngle = 20f;
     public float raycastDistance = 50f;
@@ -30,7 +32,7 @@ public class DefenceMissileAgent : Agent
     private float detectionDistance;
     private bool isExplosionEnabled;
     private bool hasDestroyedTarget = false;
-    
+
 
     public void Initialize(Rigidbody enemyMissileRb)
     {
@@ -38,21 +40,26 @@ public class DefenceMissileAgent : Agent
 
         agentRb = GetComponent<Rigidbody>();
         agentRb.linearVelocity = gameObject.transform.forward * missileSpeed;
-        
+
         detectionDistance = previousDistance = Vector3.Distance(agentRb.position, enemyMissileRb.position);
 
 
         //Debug.Log("Missile agent initialized. Detection distance: " + detectionDistance);
     }
 
-    public void Start() 
+    public void Start()
     {
-        if(Academy.Instance.IsCommunicatorOn)
+        if (cityOrigin == null)
+        {
+            Debug.LogError("City origin null");
+            return;
+        }
+        if (Academy.Instance.IsCommunicatorOn)
         {
             // Check for curriculum parameter (will default to true if not present)
             isExplosionEnabled = Academy.Instance.EnvironmentParameters.GetWithDefault("require_explosion_signal", 1f) == 1f;
         }
-        
+
 
     }
 
@@ -109,7 +116,7 @@ public class DefenceMissileAgent : Agent
 
             float currentDistance = Vector3.Distance(agentRb.position, enemyMissileRb.position);
             float distanceDelta = previousDistance - currentDistance;
-            AddReward(distanceDelta * 0.01f);
+            AddReward(distanceDelta * 0.01f + (Vector3.Distance(enemyMissileRb.position, cityOrigin) * 0.0001f));
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, raycastDistance))
             {
@@ -120,25 +127,25 @@ public class DefenceMissileAgent : Agent
                 }
             }
 
-            if(currentDistance <= explosionDistanceThreshold)
+            if (currentDistance <= explosionDistanceThreshold)
             {
                 AddReward(1.0f - (currentDistance / explosionDistanceThreshold));
                 Debug.Log("[ExplosionEvent] Distance: " + currentDistance + " | reward: " + (1.0f - (currentDistance / explosionDistanceThreshold)));
 
-                if(!isExplosionEnabled || explodeSignal == 1 || currentDistance <= minimumExplosionDistance)
+                if (!isExplosionEnabled || explodeSignal == 1 || currentDistance <= minimumExplosionDistance)
                 {
                     AddReward(1.0f);
-                    EndEpisode();
+                    OnEpisodeFinish();
                     Destroy(gameObject);
                 }
             }
-            
+
 
             if (currentDistance > Math.Pow(detectionDistance, 1.5))
             {
                 Debug.Log("Target too far, ending episode. Current distance: " + currentDistance);
                 AddReward(-1.0f);
-                EndEpisode();
+                OnEpisodeFinish();
                 Destroy(gameObject);
             }
 
@@ -152,14 +159,20 @@ public class DefenceMissileAgent : Agent
 
             if (!hasDestroyedTarget)
                 AddReward(-1.0f);
-            
-            EndEpisode();
+
+            OnEpisodeFinish();
             Destroy(gameObject);
         }
     }
 
+    private void OnEpisodeFinish()
+    {
+        CurriculumDebug.OnEpisodeFinish(GetCumulativeReward());
+        EndEpisode();
+    }
+
     private void OnCollisionEnter(Collision collision)
-    {        
+    {
         if (isEnemyTarget(collision.rigidbody))
         {
             hasDestroyedTarget = true;
@@ -172,24 +185,7 @@ public class DefenceMissileAgent : Agent
             AddReward(-1f);
         }
 
-        EndEpisode();
-        Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (isEnemyTarget(other.attachedRigidbody))
-        {
-            Debug.Log("Trigger entered with target missile.");
-            AddReward(1.0f);
-        }
-        else
-        {
-            Debug.Log("Trigger entered with non-target object.");
-            AddReward(-1f);
-        }
-
-        EndEpisode();
+        OnEpisodeFinish();
         Destroy(gameObject);
     }
 

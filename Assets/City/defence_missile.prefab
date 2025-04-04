@@ -169,11 +169,13 @@ MonoBehaviour:
   MaxStep: 0
   turnSpeed: 1000
   missileSpeed: 1000
-  explosionDistanceThreshold: 15
-  minimumExplosionDistance: 10
+  cityOrigin: {x: 0, y: 0, z: 0}
+  explosionDistanceThreshold: 180
+  minimumExplosionDistance: 140
   raycastCount: 5
   raycastAngle: 20
   raycastDistance: 50
+  drawGizmos: 0
 --- !u!114 &-7665185096300490937
 MonoBehaviour:
   m_ObjectHideFlags: 0

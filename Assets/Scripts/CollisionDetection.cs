@@ -23,27 +23,14 @@ public class CollisionDetection : MonoBehaviour
         
     }
 
-     void OnTriggerEnter(Collider other)
-    {
-        // Check if missile hit the target
-        if (other.tag == missileTag)
-        {
-
-            missilePosition = other.transform.position;
-            Destroy(other.gameObject);
-            if(sphereDiam > 0f)
-                DrawHitSphere(missilePosition, sphereDiam); 
-            enabled = false;
-        }
-    }
-
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == missileTag)
         {
-            missilePosition = col.gameObject.transform.position;
+            missilePosition = col.transform.position;
             Destroy(col.gameObject);
-            //DrawHitSphere(missilePosition, sphereDiam);
+            if (sphereDiam > 0f)
+                DrawHitSphere(missilePosition, sphereDiam);
         }
     }
 
