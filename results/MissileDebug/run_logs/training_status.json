@@ -1,0 +1,47 @@
+{
+    "enemy_missile_direction": {
+        "lesson_num": 0
+    },
+    "require_explosion_signal": {
+        "lesson_num": 0
+    },
+    "spawn_friendly_aricrafts": {
+        "lesson_num": 0
+    },
+    "defenceMissile": {
+        "checkpoints": [
+            {
+                "steps": 499972,
+                "file_path": "results\\MissileDebug\\defenceMissile\\defenceMissile-499972.onnx",
+                "reward": 51.38741151438463,
+                "creation_time": 1743869204.6730793,
+                "auxillary_file_paths": [
+                    "results\\MissileDebug\\defenceMissile\\defenceMissile-499972.pt"
+                ]
+            },
+            {
+                "steps": 570721,
+                "file_path": "results\\MissileDebug\\defenceMissile\\defenceMissile-570721.onnx",
+                "reward": 51.27517116244587,
+                "creation_time": 1743869377.566429,
+                "auxillary_file_paths": [
+                    "results\\MissileDebug\\defenceMissile\\defenceMissile-570721.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 570721,
+            "file_path": "results\\MissileDebug\\defenceMissile.onnx",
+            "reward": 51.27517116244587,
+            "creation_time": 1743869377.566429,
+            "auxillary_file_paths": [
+                "results\\MissileDebug\\defenceMissile\\defenceMissile-570721.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

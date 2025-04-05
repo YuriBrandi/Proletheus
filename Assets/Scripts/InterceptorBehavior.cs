@@ -7,16 +7,10 @@ public class InterceptorBehaviour : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject defenceMissilePrefab;
-    private float launchInterval = 1f;
+    public float launchInterval = 0.5f;
 
     // Non dovrebbe servire più
     //public static event Action<Rigidbody> EnemyMissileDetected;
-    public static event Action<float, float> MinDistanceDebug;
-
-    private float minDistance = 1000.0f;
-
-    private int defenceMissileCounter = 0;
-    private HashSet<float> minDistanceSet = new HashSet<float>();
 
     private static InterceptorBehaviour[] interceptors;
     private float lastLaunchTime = 0f;
@@ -25,7 +19,6 @@ public class InterceptorBehaviour : MonoBehaviour
     public void Start()
     {
         //EnemyMissileDetected += LaunchDefenceMissile;
-        MinDistanceDebug += SetMinDistanceDebug;
 
 
     }
@@ -70,27 +63,7 @@ public class InterceptorBehaviour : MonoBehaviour
         nearestIntercept.RequestMissileLaunch(enemyMissileRb);
     }
 
-    public static void OnMinDistanceDebug(float distance, float explodeSignal)
-    {
-        MinDistanceDebug.Invoke(distance, explodeSignal);
-    }
-
-    private void SetMinDistanceDebug(float distance, float explodeSignal)
-    {
-        if(distance <= 180.0)
-        {
-            minDistanceSet.Add(distance); 
-
-            Debug.Log("DISTANCE: " + minDistance + " | explodeSignal: " + explodeSignal + " | Accuracy : " + (float) minDistanceSet.Count / defenceMissileCounter * 100f + "%");
-        }
-
-        if (distance < minDistance)
-        {
-            minDistance = distance;
-
-            Debug.Log("MIN DISTANCE: " + minDistance + " | explodeSignal: " + explodeSignal);
-        }
-    }
+    
 
     private void RequestMissileLaunch(Rigidbody enemyMissileRb)
     {
@@ -107,7 +80,5 @@ public class InterceptorBehaviour : MonoBehaviour
         // Inizializza l'agente con il missile nemico target
         var agent = missileAgent.GetComponent<DefenceMissileAgent>();
         agent.Initialize(enemyMissileRb);
-
-        defenceMissileCounter++;
     }
 }

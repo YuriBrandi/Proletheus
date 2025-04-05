@@ -109,14 +109,12 @@ public class DefenceMissileAgent : Agent
             float yaw = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
             int explodeSignal = actions.DiscreteActions[0];
 
-            //Debug.Log("pitch: " + pitch + " | yaw: " + yaw + " | explode: " + explodeSignal);
-
             transform.Rotate(pitch * turnSpeed * Time.fixedDeltaTime, yaw * turnSpeed * Time.fixedDeltaTime, 0f, Space.Self);
             agentRb.linearVelocity = transform.forward * missileSpeed;
 
             float currentDistance = Vector3.Distance(agentRb.position, enemyMissileRb.position);
             float distanceDelta = previousDistance - currentDistance;
-            AddReward(distanceDelta * 0.01f + (Vector3.Distance(enemyMissileRb.position, cityOrigin) * 0.01f));
+            AddReward(distanceDelta * 0.001f + (Vector3.Distance(enemyMissileRb.position, cityOrigin) * 0.00001f));
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, raycastDistance))
             {
@@ -136,6 +134,7 @@ public class DefenceMissileAgent : Agent
                 {
                     AddReward(30.0f);
                     OnEpisodeFinish();
+                    Destroy(enemyMissileRb.gameObject); //TODO: gestire esplosione
                     Destroy(gameObject);
                 }
             }
@@ -150,7 +149,6 @@ public class DefenceMissileAgent : Agent
 
             previousDistance = currentDistance;
 
-            InterceptorBehaviour.OnMinDistanceDebug(currentDistance, explodeSignal);
         }
         catch (MissingReferenceException)
         {
@@ -194,7 +192,7 @@ public class DefenceMissileAgent : Agent
     }
 
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (enemyMissileRb == null) return;
 

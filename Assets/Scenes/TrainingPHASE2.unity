@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 54230197}
   - component: {fileID: 54230196}
   - component: {fileID: 54230195}
-  - component: {fileID: 54230194}
   m_Layer: 0
   m_Name: interceptor_NW
   m_TagString: Untagged
@@ -154,19 +153,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1934822723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &54230194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54230192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e795f16eceaf4da5d788fd17b02fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minLessonLength: 100
 --- !u!114 &54230195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
+  launchInterval: 0.5
 --- !u!23 &54230196
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -777,7 +764,6 @@ GameObject:
   - component: {fileID: 339234137}
   - component: {fileID: 339234136}
   - component: {fileID: 339234135}
-  - component: {fileID: 339234134}
   m_Layer: 0
   m_Name: interceptor_SW
   m_TagString: Untagged
@@ -800,19 +786,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1934822723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &339234134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339234132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e795f16eceaf4da5d788fd17b02fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minLessonLength: 100
 --- !u!114 &339234135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
+  launchInterval: 0.5
 --- !u!23 &339234136
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1043,7 +1017,6 @@ GameObject:
   - component: {fileID: 465467363}
   - component: {fileID: 465467362}
   - component: {fileID: 465467361}
-  - component: {fileID: 465467360}
   m_Layer: 0
   m_Name: interceptor_NE
   m_TagString: Untagged
@@ -1066,19 +1039,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1934822723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &465467360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465467358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e795f16eceaf4da5d788fd17b02fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minLessonLength: 100
 --- !u!114 &465467361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,6 +1052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
+  launchInterval: 0.5
 --- !u!23 &465467362
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1496,7 +1457,6 @@ GameObject:
   - component: {fileID: 1682634687}
   - component: {fileID: 1682634686}
   - component: {fileID: 1682634685}
-  - component: {fileID: 1682634688}
   m_Layer: 0
   m_Name: interceptor_SE
   m_TagString: Untagged
@@ -1532,6 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 2212806789395894981, guid: f0a9ae75932433349b35ad8e34a7717f, type: 3}
+  launchInterval: 0.5
 --- !u!23 &1682634686
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1585,19 +1546,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682634683}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1682634688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682634683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e795f16eceaf4da5d788fd17b02fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minLessonLength: 100
 --- !u!1 &1784064184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,6 +1586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1934822723}
+  - component: {fileID: 1934822724}
   m_Layer: 0
   m_Name: InterceptorsMissileBatteries
   m_TagString: Untagged
@@ -1664,6 +1613,19 @@ Transform:
   - {fileID: 1682634684}
   m_Father: {fileID: 722021989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1934822724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934822722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8e795f16eceaf4da5d788fd17b02fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLessonLength: 100
 --- !u!1 &1966319505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,7 +1859,7 @@ MonoBehaviour:
   minHeight: 2000
   maxHeight: 3000
   offset: 10000
-  chosenDirection: 8
+  chosenDirection: 0
   targetCollider: {fileID: 2060320066}
   A: {fileID: 713017615}
   B: {fileID: 423301822}

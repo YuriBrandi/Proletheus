@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -10,12 +11,12 @@ public class CurriculumDebug : MonoBehaviour
     public int minLessonLength = 100;
 
     private List<float> rewardHistory = new List<float>();
-
     public static event Action<float> UpdateRewardHistory;
 
     private void Start()
     {
         UpdateRewardHistory += AddRewardHistory;
+
         Debug.Log("<b><color=cyan>[CurriculumDebug]</color></b> Inizializzato.");
     }
 
