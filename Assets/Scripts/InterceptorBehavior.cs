@@ -7,7 +7,7 @@ public class InterceptorBehaviour : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject defenceMissilePrefab;
-    private float launchDelay = 1f; // 1 second delay
+    private float launchInterval = 1f;
 
     // Non dovrebbe servire più
     //public static event Action<Rigidbody> EnemyMissileDetected;
@@ -18,18 +18,35 @@ public class InterceptorBehaviour : MonoBehaviour
     private int defenceMissileCounter = 0;
     private HashSet<float> minDistanceSet = new HashSet<float>();
 
-    private float lastLaunchTime;
+    private static InterceptorBehaviour[] interceptors;
+    private float lastLaunchTime = 0f;
+    private Queue<Rigidbody> enemyMissileQueue = new Queue<Rigidbody>();
 
     public void Start()
     {
         //EnemyMissileDetected += LaunchDefenceMissile;
         MinDistanceDebug += SetMinDistanceDebug;
+
+
+    }
+
+    public void FixedUpdate()
+    {
+        if (enemyMissileQueue.Count > 0 && (Time.time - lastLaunchTime >= launchInterval))
+        {
+            
+            LaunchDefenceMissile(enemyMissileQueue.Dequeue());
+            lastLaunchTime = Time.time;
+
+        }
     }
 
     public static void OnEnemyMissileDetected(Rigidbody enemyMissileRb)
     {
         // Find all active objects with the InterceptorBehaviour script
-        InterceptorBehaviour[] interceptors = FindObjectsByType<InterceptorBehaviour>(FindObjectsSortMode.None);
+        // Only the first call populates the array
+        if(interceptors == null)
+            interceptors = FindObjectsByType<InterceptorBehaviour>(FindObjectsSortMode.None);
 
         InterceptorBehaviour nearestIntercept = null;
         float minDist = Mathf.Infinity;
@@ -49,7 +66,8 @@ public class InterceptorBehaviour : MonoBehaviour
         }
 
         //EnemyMissileDetected.Invoke(enemyMissileRb);
-        nearestIntercept.LaunchDefenceMissile(enemyMissileRb);
+        //nearestIntercept.LaunchDefenceMissile(enemyMissileRb);
+        nearestIntercept.RequestMissileLaunch(enemyMissileRb);
     }
 
     public static void OnMinDistanceDebug(float distance, float explodeSignal)
@@ -59,7 +77,7 @@ public class InterceptorBehaviour : MonoBehaviour
 
     private void SetMinDistanceDebug(float distance, float explodeSignal)
     {
-        if(distance <= 20.0)
+        if(distance <= 180.0)
         {
             minDistanceSet.Add(distance); 
 
@@ -74,11 +92,15 @@ public class InterceptorBehaviour : MonoBehaviour
         }
     }
 
+    private void RequestMissileLaunch(Rigidbody enemyMissileRb)
+    {
+        this.enemyMissileQueue.Enqueue(enemyMissileRb);
+    }
+
     // Lancia un missile agente verso il missile nemico rilevato
     private void LaunchDefenceMissile(Rigidbody enemyMissileRb)
     {
 
-        //if (Time.time - lastLaunchTime >= delay)
         // Istanzia un missile agente orientato verso l'alto
         var missileAgent = Instantiate(defenceMissilePrefab, gameObject.transform.position, Quaternion.LookRotation(Vector3.up));
 

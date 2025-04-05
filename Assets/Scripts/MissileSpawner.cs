@@ -7,7 +7,7 @@ public class MissileSpawner : MonoBehaviour
 {
     public enum Direction
     {
-        N, S, E, W, NE, NW, SE, SW, RANDOM
+        N, S, E, W, RANDOM, NE, NW, SE, SW
     }
 
     [Header("Global Missile Settings")]

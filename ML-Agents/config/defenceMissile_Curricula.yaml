@@ -34,7 +34,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 90
+          threshold: 300
         value: 0
       - name: South 
         completion_criteria:
@@ -42,7 +42,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 90
+          threshold: 300
         value: 1
       - name: East
         completion_criteria:
@@ -50,7 +50,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 90
+          threshold: 300
         value: 2
       - name: West
         completion_criteria:
@@ -58,7 +58,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 90
+          threshold: 300
         value: 3
       - name: RANDOM
         completion_criteria:
@@ -66,8 +66,8 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 90
-        value: 8                                 
+          threshold: 0
+        value: 4                            
 
   require_explosion_signal:
     curriculum:
@@ -77,7 +77,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 500
-          threshold: 90
+          threshold: 300
         value: 0
       - name: Expl_ON
         completion_criteria:
@@ -96,7 +96,7 @@ environment_parameters:
           behavior: defenceMissile
           signal_smoothing: true
           min_lesson_length: 1000
-          threshold: 90
+          threshold: 300
         value: 0
       - name: Spawn_ON
         completion_criteria:

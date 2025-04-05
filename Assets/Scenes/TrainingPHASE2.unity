@@ -1897,7 +1897,7 @@ MonoBehaviour:
   minHeight: 2000
   maxHeight: 3000
   offset: 10000
-  chosenDirection: 0
+  chosenDirection: 8
   targetCollider: {fileID: 2060320066}
   A: {fileID: 713017615}
   B: {fileID: 423301822}

@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1866
+          seed: 260
           value: 0
       name: North
       completion_criteria:
@@ -78,12 +78,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 120.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1867
+          seed: 261
           value: 1
       name: South
       completion_criteria:
@@ -91,12 +91,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 120.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1868
+          seed: 262
           value: 2
       name: East
       completion_criteria:
@@ -104,12 +104,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 75.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1869
+          seed: 263
           value: 3
       name: West
       completion_criteria:
@@ -117,12 +117,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 75.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1870
+          seed: 264
           value: 8
       name: RANDOM
       completion_criteria:
@@ -130,14 +130,14 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 0.0
         require_reset: false
   require_explosion_signal:
     curriculum:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1871
+          seed: 265
           value: 0
       name: Expl_OFF
       completion_criteria:
@@ -145,12 +145,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 500
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 300.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1872
+          seed: 266
           value: 1
       name: Expl_ON
       completion_criteria:
@@ -165,7 +165,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1873
+          seed: 267
           value: 0
       name: Spawn_OFF
       completion_criteria:
@@ -173,12 +173,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 1000
         signal_smoothing: true
-        threshold: 90.0
+        threshold: 300.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1874
+          seed: 268
           value: 1
       name: Spawn_ON
       completion_criteria:
@@ -192,8 +192,8 @@ checkpoint_settings:
   run_id: DefenceMissile_Curriculum
   initialize_from: null
   load_model: false
-  resume: true
-  force: false
+  resume: false
+  force: true
   train_model: false
   inference: false
   results_dir: results

@@ -116,7 +116,7 @@ public class DefenceMissileAgent : Agent
 
             float currentDistance = Vector3.Distance(agentRb.position, enemyMissileRb.position);
             float distanceDelta = previousDistance - currentDistance;
-            AddReward(distanceDelta * 0.01f + (Vector3.Distance(enemyMissileRb.position, cityOrigin) * 0.0001f));
+            AddReward(distanceDelta * 0.01f + (Vector3.Distance(enemyMissileRb.position, cityOrigin) * 0.01f));
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, raycastDistance))
             {
@@ -129,17 +129,16 @@ public class DefenceMissileAgent : Agent
 
             if (currentDistance <= explosionDistanceThreshold)
             {
-                AddReward(1.0f - (currentDistance / explosionDistanceThreshold));
+                AddReward(10.0f - (currentDistance / explosionDistanceThreshold));
                 Debug.Log("[ExplosionEvent] Distance: " + currentDistance + " | reward: " + (1.0f - (currentDistance / explosionDistanceThreshold)));
 
                 if (!isExplosionEnabled || explodeSignal == 1 || currentDistance <= minimumExplosionDistance)
                 {
-                    AddReward(1.0f);
+                    AddReward(30.0f);
                     OnEpisodeFinish();
                     Destroy(gameObject);
                 }
             }
-
 
             if (currentDistance > Math.Pow(detectionDistance, 1.5))
             {
