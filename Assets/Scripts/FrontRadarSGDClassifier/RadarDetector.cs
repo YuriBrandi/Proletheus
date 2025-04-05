@@ -20,10 +20,8 @@ public class RadarDetector : MonoBehaviour
     public MissileSpawner missileSpawner;
     public AircraftSpawner aircraftSpawner;
 
-    [Header("Training Socket Client (used for training only)")]
-    public TrainerSocketClient classifier;
-
     [Header("Training Settings")]
+    public TrainerSocketClient classifier;
     public float spawnInterval = 3f;
 
     [Header("Inference Model")]
@@ -216,7 +214,6 @@ public class RadarDetector : MonoBehaviour
             .Take(maxObservedObjects)
             .ToList();
     }
-
 
     private void OnDrawGizmosSelected()
     {
