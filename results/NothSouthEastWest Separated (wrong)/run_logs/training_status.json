@@ -1,0 +1,74 @@
+{
+    "enemy_missile_direction": {
+        "lesson_num": 4
+    },
+    "require_explosion_signal": {
+        "lesson_num": 0
+    },
+    "spawn_friendly_aricrafts": {
+        "lesson_num": 0
+    },
+    "defenceMissile": {
+        "checkpoints": [
+            {
+                "steps": 2499949,
+                "file_path": "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-2499949.onnx",
+                "reward": 39.34648356718176,
+                "creation_time": 1743942743.916682,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-2499949.pt"
+                ]
+            },
+            {
+                "steps": 2999972,
+                "file_path": "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-2999972.onnx",
+                "reward": 44.115196778086684,
+                "creation_time": 1743943884.0741358,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-2999972.pt"
+                ]
+            },
+            {
+                "steps": 3114482,
+                "file_path": "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3114482.onnx",
+                "reward": 48.5864572598384,
+                "creation_time": 1743944282.4726148,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3114482.pt"
+                ]
+            },
+            {
+                "steps": 3499963,
+                "file_path": "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3499963.onnx",
+                "reward": 40.684233308563115,
+                "creation_time": 1743945839.814199,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3499963.pt"
+                ]
+            },
+            {
+                "steps": 3514744,
+                "file_path": "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3514744.onnx",
+                "reward": 43.148494841243725,
+                "creation_time": 1743945945.3344119,
+                "auxillary_file_paths": [
+                    "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3514744.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3514744,
+            "file_path": "results\\DefenceMissileDebug2\\defenceMissile.onnx",
+            "reward": 43.148494841243725,
+            "creation_time": 1743945945.3344119,
+            "auxillary_file_paths": [
+                "results\\DefenceMissileDebug2\\defenceMissile\\defenceMissile-3514744.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

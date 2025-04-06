@@ -3,19 +3,32 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using static Unity.Burst.Intrinsics.X86;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using UnityEngine.UI;
 
 public class CurriculumDebug : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Numero minimo di episodi per calcolare la media stabile.")]
     public int minLessonLength = 100;
+    public Text statisticsText;
 
     private List<float> rewardHistory = new List<float>();
     public static event Action<float> UpdateRewardHistory;
+    public static event Action UpdateEnemyMissileHit;
+    public static event Action UpdateEnemyMissileNeutralized;
+
+    private int enemyMissileHit = 0;
+    private int enemyMissileNeutralized = 0; //Destroyed by defenceMissile
 
     private void Start()
     {
         UpdateRewardHistory += AddRewardHistory;
+        UpdateEnemyMissileHit += AddEnemyMissileHit;
+        UpdateEnemyMissileNeutralized += AddEnemyMissileNeutralized;
+
+        PrintAccuracy();
 
         Debug.Log("<b><color=cyan>[CurriculumDebug]</color></b> Inizializzato.");
     }
@@ -42,5 +55,46 @@ public class CurriculumDebug : MonoBehaviour
     public static void OnEpisodeFinish(float totalReward)
     {
         UpdateRewardHistory?.Invoke(totalReward);
+    }
+
+    /*
+     *  neutralized:
+     *      - true if destroyed by enemyMissile
+     *      - false if self destroyed
+     */
+    public static void OnEnemyMissileDestroyed(bool neutralized)
+    {
+        if (neutralized)
+            UpdateEnemyMissileNeutralized?.Invoke();
+        else
+            UpdateEnemyMissileHit?.Invoke();
+    }
+
+    private void AddEnemyMissileHit()
+    {
+        enemyMissileHit++;
+        PrintAccuracy();
+    }
+
+    private void AddEnemyMissileNeutralized()
+    {
+        enemyMissileNeutralized++;
+        PrintAccuracy();
+    }
+
+    private void PrintAccuracy()
+    {
+        float sum = enemyMissileNeutralized + enemyMissileHit;
+        string accuracy = "0%";
+
+        if(sum > 0f)
+            accuracy = $"{(enemyMissileNeutralized / sum * 100f):F2}%";
+
+        statisticsText.text =
+            "<b><color=lime>[Accuracy Report]</color></b>\n" +
+            $"<b>Totale:</b> <color=#FFD700>{enemyMissileHit+enemyMissileNeutralized}</color>\n"+
+            $"<b>Neutralizzati:</b> <color=#ADFF2F>{enemyMissileNeutralized}</color>\n" +
+            $"<b>Schiantati:</b> <color=red>{enemyMissileHit}</color>\n" +
+            $"<b>Accuracy:</b> <color=cyan>{accuracy}</color>";
     }
 }

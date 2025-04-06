@@ -7,7 +7,7 @@ public class MissileSpawner : MonoBehaviour
 {
     public enum Direction
     {
-        N, S, E, W, RANDOM, NE, NW, SE, SW
+        N, S, E, W, NE, NW, SE, SW, RANDOM
     }
 
     [Header("Global Missile Settings")]
@@ -29,6 +29,8 @@ public class MissileSpawner : MonoBehaviour
     public int spawnRateSeconds = 0;
     private float timer = 0f;
 
+    private const float PARAMETER_RANDOM = 4f; //Check defenceMissile_Curricula.yaml for RANDOM value
+
     void Start()
     {
         //SpawnMissile();
@@ -43,7 +45,11 @@ public class MissileSpawner : MonoBehaviour
 
             if(trainingDirection >= 0)
             {
-                this.chosenDirection = (Direction)trainingDirection;
+                if(trainingDirection == PARAMETER_RANDOM)
+                    this.chosenDirection = Direction.RANDOM;
+                else
+                    this.chosenDirection = (Direction)trainingDirection;
+
                 //Debug.Log($"Direction set to: {this.chosenDirection}");
             }
 
@@ -94,9 +100,9 @@ public class MissileSpawner : MonoBehaviour
     {
         // Adjust based on direction
         if (direction == Direction.RANDOM)
-        {
-            direction = (Direction)Random.Range(0, 8); // Exclude "RANDOM" itself
-        }
+            direction = (Direction)Random.Range(0, (int) Direction.RANDOM); // Exclude "RANDOM" itself
+        else
+            direction = (Direction)Random.Range(0, (int) direction+1); //+1 because we want to include current direction itself
 
         Vector3 result = Vector3.zero;
 

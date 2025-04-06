@@ -85,6 +85,7 @@ public class DefenceMissileAgent : Agent
                 Quaternion rotation = Quaternion.Euler(0, startAngle + angleStep * i, 0);
                 Vector3 rayDirection = rotation * transform.forward;
 
+                Debug.DrawRay(transform.position, rayDirection.normalized * raycastDistance, Color.magenta);
                 if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, raycastDistance))
                 {
                     sensor.AddObservation(isEnemyTarget(hit.collider.attachedRigidbody) ? 1f : -1f);
@@ -121,19 +122,20 @@ public class DefenceMissileAgent : Agent
                 if (!isEnemyTarget(hit.collider.attachedRigidbody) && !hit.collider.CompareTag("targetMissile"))
                 {
                     float collisionRiskPenalty = (raycastDistance - hit.distance) / raycastDistance;
-                    AddReward(-0.01f * collisionRiskPenalty);
+                    AddReward(-2f * collisionRiskPenalty);
                 }
             }
 
             if (currentDistance <= explosionDistanceThreshold)
             {
                 AddReward(10.0f - (currentDistance / explosionDistanceThreshold));
-                Debug.Log("[ExplosionEvent] Distance: " + currentDistance + " | reward: " + (1.0f - (currentDistance / explosionDistanceThreshold)));
+                Debug.Log("[ExplosionEvent] Distance: " + currentDistance);
 
                 if (!isExplosionEnabled || explodeSignal == 1 || currentDistance <= minimumExplosionDistance)
                 {
                     AddReward(30.0f);
                     OnEpisodeFinish();
+                    CurriculumDebug.OnEnemyMissileDestroyed(true);
                     Destroy(enemyMissileRb.gameObject); //TODO: gestire esplosione
                     Destroy(gameObject);
                 }
@@ -174,12 +176,13 @@ public class DefenceMissileAgent : Agent
         {
             hasDestroyedTarget = true;
             Debug.Log("Collision with target missile.");
-            AddReward(1.0f);
+            AddReward(30.0f);
+            CurriculumDebug.OnEnemyMissileDestroyed(true);
         }
         else if (!collision.gameObject.CompareTag("targetMissile"))
         {
             Debug.Log("Collision with non-target object.");
-            AddReward(-1f);
+            AddReward(-5f);
         }
 
         OnEpisodeFinish();

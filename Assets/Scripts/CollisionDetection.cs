@@ -31,6 +31,8 @@ public class CollisionDetection : MonoBehaviour
             Destroy(col.gameObject);
             if (sphereDiam > 0f)
                 DrawHitSphere(missilePosition, sphereDiam);
+
+            CurriculumDebug.OnEnemyMissileDestroyed(false);
         }
     }
 
