@@ -370,6 +370,7 @@ MonoBehaviour:
   minAltitude: 50
   minSpeed: 1
   maxObservedObjects: 10
+  maxHashSetSize: 1000
   missileTag: targetMissile
   missileSpawner: {fileID: 2066474192}
   aircraftSpawner: {fileID: 1966319506}

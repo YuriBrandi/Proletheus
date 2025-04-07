@@ -1,6 +1,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
+using System.Collections; // Needed for IEnumerator
 using System.Collections.Generic;
 using System;
 using UnityEngine.Timeline;
@@ -34,7 +35,7 @@ public class RadarDetector : MonoBehaviour
     [Header("Debugging")]
     public bool colorObjects = true;
 
-    private float timer = 0f;
+    private float trainingTimer = 0f;
 
     const int IS_ENEMY_VALUE = 1;
     const int NOT_ENEMY_VALUE = 0;
@@ -59,6 +60,8 @@ public class RadarDetector : MonoBehaviour
 
             Debug.Log("Modalità Training ATTIVA");
         }
+
+        StartCoroutine(autoHashSetCleanup());
     }
 
     public void spawnFlyingInstance()
@@ -92,11 +95,11 @@ public class RadarDetector : MonoBehaviour
     {
         if (!sgdClassifier.isEnabled() && !deterministicClassification)
         {
-            timer += Time.fixedDeltaTime;
+            trainingTimer += Time.fixedDeltaTime;
 
-            if (timer >= spawnInterval)
+            if (trainingTimer >= spawnInterval)
             {
-                timer = 0f;
+                trainingTimer = 0f;
                 spawnFlyingInstance();
             }
         }
@@ -112,7 +115,7 @@ public class RadarDetector : MonoBehaviour
         {
             //Collider observedHit = filteredHits.First();
 
-            float[] features = ExtractFeatures(observedHit);
+            float[] features = extractFeatures(observedHit);
             int isEnemy = observedHit.CompareTag(missileTag) ? IS_ENEMY_VALUE : NOT_ENEMY_VALUE;
 
             int prediction;
@@ -158,12 +161,9 @@ public class RadarDetector : MonoBehaviour
             }                              
         }
 
-        if (decidedObjects.Count > maxHashSetSize)
-            doHashSetCleanup();
-
     }
 
-    float[] ExtractFeatures(Collider col)
+    float[] extractFeatures(Collider col)
     {
         Vector3 relativePos = col.transform.position - transform.position;
 
@@ -219,13 +219,19 @@ public class RadarDetector : MonoBehaviour
             .ToList();
     }
 
-    private void doHashSetCleanup()
+
+    // Coroutine for cleanup
+    IEnumerator autoHashSetCleanup()
     {
-        Debug.Log("Performing HashSet cleanup");
-        foreach (GameObject gameObj in decidedObjects)
+        while (true)
         {
-            if (gameObj == null)
-                decidedObjects.Remove(gameObj);
+            if (decidedObjects.Count > maxHashSetSize)
+            {
+                decidedObjects.RemoveWhere(obj => obj == null);
+                Debug.Log("Performing HashSet cleanup");
+            }
+
+            yield return null;
         }
     }
 
