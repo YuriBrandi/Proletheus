@@ -137,8 +137,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 02000000
-    VectorActionSize: 
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -171,10 +171,9 @@ MonoBehaviour:
   missileSpeed: 1000
   cityOrigin: {x: 0, y: 0, z: 0}
   explosionDistanceThreshold: 180
-  minimumExplosionDistance: 140
   raycastCount: 5
   raycastAngle: 20
-  raycastDistance: 800
+  raycastDistance: 150
   drawGizmos: 0
 --- !u!114 &-7665185096300490937
 MonoBehaviour:

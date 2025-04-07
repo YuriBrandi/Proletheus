@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1974
+          seed: 5901
           value: 0
       name: North
       completion_criteria:
@@ -78,12 +78,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 62.0
+        threshold: 51.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1975
+          seed: 5902
           value: 1
       name: Nord-South
       completion_criteria:
@@ -91,12 +91,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 61.0
+        threshold: 51.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1976
+          seed: 5903
           value: 2
       name: Nord-South-East
       completion_criteria:
@@ -104,12 +104,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 60.0
+        threshold: 48.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1977
+          seed: 5904
           value: 3
       name: Nord-South-East-West
       completion_criteria:
@@ -117,12 +117,12 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 60.0
+        threshold: 49.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1978
+          seed: 5905
           value: 4
       name: RANDOM
       completion_criteria:
@@ -137,7 +137,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1979
+          seed: 5906
           value: 0
       name: Spawn_OFF
       completion_criteria:
@@ -150,7 +150,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1980
+          seed: 5907
           value: 1
       name: Spawn_ON
       completion_criteria:
@@ -158,10 +158,10 @@ environment_parameters:
         measure: reward
         min_lesson_length: 1000
         signal_smoothing: true
-        threshold: 0.0
+        threshold: 100.0
         require_reset: true
 checkpoint_settings:
-  run_id: DefenceMissile
+  run_id: DefenceMissileProgressiveCurriculum
   initialize_from: null
   load_model: false
   resume: true
