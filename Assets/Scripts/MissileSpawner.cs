@@ -45,6 +45,7 @@ public class MissileSpawner : MonoBehaviour
 
             if(trainingDirection >= 0)
             {
+
                 if(trainingDirection == PARAMETER_RANDOM)
                     this.chosenDirection = Direction.RANDOM;
                 else
@@ -98,11 +99,15 @@ public class MissileSpawner : MonoBehaviour
 
     private Vector3 GetPointByDirection(Direction direction, float offset)
     {
-        // Adjust based on direction
-        if (direction == Direction.RANDOM)
-            direction = (Direction)Random.Range(0, (int) Direction.RANDOM); // Exclude "RANDOM" itself
-        else
-            direction = (Direction)Random.Range(0, (int) direction+1); //+1 because we want to include current direction itself
+        if(Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_missile_direction", -1f) >= 0)
+        {
+            // Adjust based on direction (only curriculum training mode)
+            if (direction == Direction.RANDOM)
+                direction = (Direction)Random.Range(0, (int) Direction.RANDOM); // Exclude "RANDOM" itself
+            else
+                direction = (Direction)Random.Range(0, (int) direction+1); //+1 because we want to include current direction itself
+        }
+      
 
         Vector3 result = Vector3.zero;
 

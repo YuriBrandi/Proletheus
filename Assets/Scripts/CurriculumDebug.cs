@@ -91,10 +91,10 @@ public class CurriculumDebug : MonoBehaviour
             accuracy = $"{(enemyMissileNeutralized / sum * 100f):F2}%";
 
         statisticsText.text =
-            "<b><color=lime>[Accuracy Report]</color></b>\n" +
-            $"<b>Totale:</b> <color=#FFD700>{enemyMissileHit+enemyMissileNeutralized}</color>\n"+
-            $"<b>Neutralizzati:</b> <color=#ADFF2F>{enemyMissileNeutralized}</color>\n" +
-            $"<b>Schiantati:</b> <color=red>{enemyMissileHit}</color>\n" +
-            $"<b>Accuracy:</b> <color=cyan>{accuracy}</color>";
+            "<color=lime><b>[Accuracy Report]</b></color>\n" +
+            $"<b>Total:</b> {enemyMissileHit+enemyMissileNeutralized}\n"+
+            $"<color=#ADFF2F><b>Neutralized:</b> {enemyMissileNeutralized}</color>\n" +
+            $"<color=red><b>Enemy Hits:</b> {enemyMissileHit}</color>\n" +
+            $"<color=cyan><b>Total Accuracy:</b> {accuracy}</color>";
     }
 }

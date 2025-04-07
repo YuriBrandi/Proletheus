@@ -12,6 +12,7 @@ public class RadarDetector : MonoBehaviour
     public float minAltitude = 10f; // Minimum height to consider an object
     public float minSpeed = 1f; // Minimum speed to consider an object moving
     public int maxObservedObjects = 10; // Fixed number of closest objects to observe
+    public int maxHashSetSize = 1000; //Number of stored entries in the HashSet at once (determines cleanup)
     
     [Header("Verify TAG (used for training only)")]
     public string missileTag;
@@ -39,11 +40,11 @@ public class RadarDetector : MonoBehaviour
     const int NOT_ENEMY_VALUE = 0;
 
     /*
-     * k: gameObject.GetInstanceID();
-     * v: [0: NOT_ENEMY_VALUE | 1: IS_ENEMY_VALUE]
-     * isEmpty(k) -> no decisions
+        No need to track decisions, only check existance in O(1).
+        GameObjectsID have no guarantee of not being recylced. Need to use GameObject pointers instead.
+        Need to perform occasional cleanup.
      */
-    private Dictionary<int, int> decisionMap = new Dictionary<int, int>();
+    private HashSet<GameObject> decidedObjects = new HashSet<GameObject>();
 
     void Start()
     {
@@ -107,9 +108,9 @@ public class RadarDetector : MonoBehaviour
 
         var filteredHits = filterColliders(hits);
 
-        if (filteredHits.Count > 0)
+        foreach (Collider observedHit in filteredHits)
         {
-            Collider observedHit = filteredHits.First();
+            //Collider observedHit = filteredHits.First();
 
             float[] features = ExtractFeatures(observedHit);
             int isEnemy = observedHit.CompareTag(missileTag) ? IS_ENEMY_VALUE : NOT_ENEMY_VALUE;
@@ -142,7 +143,7 @@ public class RadarDetector : MonoBehaviour
             //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
             if(sgdClassifier.isEnabled() || deterministicClassification) // If in inference insert object in hashMap.
-                decisionMap.Add(observedHit.gameObject.GetInstanceID(), isEnemy);
+                decidedObjects.Add(observedHit.gameObject);
             else //Se fa training, deve cancellare il gameObject hit
             {
                 if(isEnemy == IS_ENEMY_VALUE)
@@ -156,7 +157,10 @@ public class RadarDetector : MonoBehaviour
                 }
             }                              
         }
-        else return;
+
+        if (decidedObjects.Count > maxHashSetSize)
+            doHashSetCleanup();
+
     }
 
     float[] ExtractFeatures(Collider col)
@@ -198,7 +202,7 @@ public class RadarDetector : MonoBehaviour
         return hits
             .Where(hit =>
             {
-                if ((sgdClassifier.isEnabled() || deterministicClassification) && decisionMap.ContainsKey(hit.gameObject.GetInstanceID()))
+                if ((sgdClassifier.isEnabled() || deterministicClassification) && decidedObjects.Contains(hit.gameObject))
                     return false;
 
                 // Check if the object is high enough
@@ -213,6 +217,16 @@ public class RadarDetector : MonoBehaviour
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
             .Take(maxObservedObjects)
             .ToList();
+    }
+
+    private void doHashSetCleanup()
+    {
+        Debug.Log("Performing HashSet cleanup");
+        foreach (GameObject gameObj in decidedObjects)
+        {
+            if (gameObj == null)
+                decidedObjects.Remove(gameObj);
+        }
     }
 
     private void OnDrawGizmosSelected()
