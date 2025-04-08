@@ -20,6 +20,10 @@ public class AircraftSpawner : MonoBehaviour
     [Header("Additional Settings")]
     public bool disableAutoSpawn = false;
 
+    private int trainingPhaseRateSeconds = 5;
+    private float timer = 0f;
+
+    private const float SPAWN_PARAMETER = 5f;
 
     public static event Action<GameObject> OnFlyingTripEnd;
 
@@ -28,7 +32,7 @@ public class AircraftSpawner : MonoBehaviour
         if(Academy.Instance.IsCommunicatorOn)
         {
             // Check for curriculum parameter (will default to inspector if not present)
-            disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_friendly_aricrafts", Convert.ToSingle(this.disableAutoSpawn)) == 0f;
+            disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", Convert.ToSingle(this.disableAutoSpawn)) != SPAWN_PARAMETER;
         }
 
         if(!disableAutoSpawn)
@@ -40,6 +44,19 @@ public class AircraftSpawner : MonoBehaviour
         }
 
     }
+
+    /*private void FixedUpdate()
+    {
+        timer += Time.fixedDeltaTime;
+
+        if (timer >= trainingPhaseRateSeconds)
+        {
+            timer = 0f;
+
+            // Check for curriculum parameter (will default to inspector if not present)
+            disableAutoSpawn = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", Convert.ToSingle(this.disableAutoSpawn)) != SPAWN_PARAMETER;
+        }
+    }*/
 
 
     public static void TriggerFlyingTripEnd(GameObject referenceObject)

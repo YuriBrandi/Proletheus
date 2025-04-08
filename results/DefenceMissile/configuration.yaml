@@ -65,12 +65,12 @@ engine_settings:
   no_graphics: false
   no_graphics_monitor: false
 environment_parameters:
-  enemy_missile_direction:
+  enemy_training_phases:
     curriculum:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1974
+          seed: 6192
           value: 0
       name: North
       completion_criteria:
@@ -83,7 +83,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1975
+          seed: 6193
           value: 1
       name: Nord-South
       completion_criteria:
@@ -96,7 +96,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1976
+          seed: 6194
           value: 2
       name: Nord-South-East
       completion_criteria:
@@ -109,7 +109,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1977
+          seed: 6195
           value: 3
       name: Nord-South-East-West
       completion_criteria:
@@ -122,7 +122,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1978
+          seed: 6196
           value: 4
       name: RANDOM
       completion_criteria:
@@ -130,29 +130,14 @@ environment_parameters:
         measure: reward
         min_lesson_length: 100
         signal_smoothing: true
-        threshold: 0.0
-        require_reset: false
-  spawn_friendly_aricrafts:
-    curriculum:
-    - value:
-        sampler_type: constant
-        sampler_parameters:
-          seed: 1979
-          value: 0
-      name: Spawn_OFF
-      completion_criteria:
-        behavior: defenceMissile
-        measure: reward
-        min_lesson_length: 1000
-        signal_smoothing: true
-        threshold: 300.0
+        threshold: 56.0
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 1980
-          value: 1
-      name: Spawn_ON
+          seed: 6197
+          value: 5
+      name: RANDOM-Aircraft
       completion_criteria:
         behavior: defenceMissile
         measure: reward

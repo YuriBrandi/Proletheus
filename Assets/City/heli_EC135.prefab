@@ -172,6 +172,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a20a5580a5785929e8b4ff9cdd69a1f9, type: 3}
+      propertyPath: m_TagString
+      value: aircraft
+      objectReference: {fileID: 0}
     - target: {fileID: 1521831259982546431, guid: a20a5580a5785929e8b4ff9cdd69a1f9, type: 3}
       propertyPath: m_Layer
       value: 6

@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27d1b40ffd9c6d04f86c05f2e080117d, type: 3}
+      propertyPath: m_TagString
+      value: aircraft
+      objectReference: {fileID: 0}
     - target: {fileID: 4159424214135010960, guid: 27d1b40ffd9c6d04f86c05f2e080117d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

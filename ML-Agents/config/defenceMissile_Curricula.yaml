@@ -26,7 +26,7 @@ behaviors:
 # Curriculum parameters
 # Reminder: 1 episode = 3 decisions = 3 steps. 
 environment_parameters:
-  enemy_missile_direction:
+  enemy_training_phases:
     curriculum:
       - name: North 
         completion_criteria:
@@ -68,18 +68,7 @@ environment_parameters:
           min_lesson_length: 100
           threshold: 56
         value: 4
-
-  spawn_friendly_aricrafts:
-    curriculum:
-      - name: Spawn_OFF 
-        completion_criteria:
-          measure: reward
-          behavior: defenceMissile
-          signal_smoothing: true
-          min_lesson_length: 1000
-          threshold: 300
-        value: 0
-      - name: Spawn_ON
+      - name: RANDOM-Aircraft
         completion_criteria:
           measure: reward
           behavior: defenceMissile
@@ -87,4 +76,4 @@ environment_parameters:
           require_reset: true,
           min_lesson_length: 1000
           threshold: 0
-        value: 1
+        value: 5

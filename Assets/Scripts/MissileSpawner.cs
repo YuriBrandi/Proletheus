@@ -29,7 +29,7 @@ public class MissileSpawner : MonoBehaviour
     public int spawnRateSeconds = 0;
     private float timer = 0f;
 
-    private const float PARAMETER_RANDOM = 4f; //Check defenceMissile_Curricula.yaml for RANDOM value
+    private const float PARAMETER_RANDOM = 4f; //Check defenceMissile_Curricula.yaml for RANDOM value (4 [aircraft off] and 5 [aircraft on])
 
     void Start()
     {
@@ -41,12 +41,12 @@ public class MissileSpawner : MonoBehaviour
         if (spawnRateSeconds > 0)
         {
             // Training mode, check for curriculum parameter.
-            float trainingDirection = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_missile_direction", -1f);
+            float trainingDirection = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", -1f);
 
             if(trainingDirection >= 0)
             {
-
-                if(trainingDirection == PARAMETER_RANDOM)
+                // >= means 4 or 5
+                if(trainingDirection >= PARAMETER_RANDOM)
                     this.chosenDirection = Direction.RANDOM;
                 else
                     this.chosenDirection = (Direction)trainingDirection;
@@ -99,7 +99,7 @@ public class MissileSpawner : MonoBehaviour
 
     private Vector3 GetPointByDirection(Direction direction, float offset)
     {
-        if(Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_missile_direction", -1f) >= 0)
+        if(Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", -1f) >= 0)
         {
             // Adjust based on direction (only curriculum training mode)
             if (direction == Direction.RANDOM)

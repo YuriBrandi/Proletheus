@@ -12,6 +12,8 @@ public class DefenceMissileAgent : Agent
     public float turnSpeed = 500f;
     public float missileSpeed = 500f;
 
+    public string targetMissileTag;
+    public string aircraftTag;
     public Vector3 cityOrigin = Vector3.zero;
 
     [Header("Explosion Settings")]
@@ -123,7 +125,7 @@ public class DefenceMissileAgent : Agent
             if (currentDistance > Math.Pow(detectionDistance, 1.5))
             {
                 Debug.Log("Target too far, ending episode. Current distance: " + currentDistance);
-                AddReward(-1.0f);
+                AddReward(-20.0f);
                 OnEpisodeFinish();
                 Destroy(gameObject);
             }
@@ -136,7 +138,7 @@ public class DefenceMissileAgent : Agent
             Debug.Log("[ACTION NULL EXCEPTION] hasDestroyedTarget: " + hasDestroyedTarget);
 
             if (!hasDestroyedTarget)
-                AddReward(-1.0f);
+                AddReward(-20.0f);
 
             OnEpisodeFinish();
             Destroy(gameObject);
@@ -158,10 +160,13 @@ public class DefenceMissileAgent : Agent
             AddReward(50.0f);
             CurriculumDebug.OnEnemyMissileDestroyed(true);
         }
-        else if (!collision.gameObject.CompareTag("targetMissile"))
+        else if (!collision.gameObject.CompareTag(targetMissileTag))
         {
             Debug.Log("Collision with non-target object.");
-            AddReward(-5f);
+            AddReward(-30f);
+
+            if(collision.gameObject.CompareTag(aircraftTag))
+                collision.gameObject.SetActive(false);
         }
 
         OnEpisodeFinish();
