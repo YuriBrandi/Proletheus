@@ -11,15 +11,15 @@ public class Aircraft : MonoBehaviour
     public float xRotation = 0f;
     public bool automaticHeightOffset = true;
 
-    [Header("Debug Settings")]
-    public bool drawGizmos = false;
-
     //public event Action<GameObject> OnFlyingTripEnd;
+
+    [Header("Debug Settings")]
+    private bool drawGizmos = false; // Made private for easier bulk change from AircraftSpawner
     
     private Vector3 startPoint, endPoint;
     private Vector3 direction;
     private bool isFlying = false;
-    private int assignedLabel = -1;
+    private int radarAssignedLabel = -1;
 
     public void Start()
     {
@@ -78,7 +78,12 @@ public class Aircraft : MonoBehaviour
             return;
         }
 
-        this.assignedLabel = label;
+        this.radarAssignedLabel = label;
+    }
+
+    public void enableGizmos(bool isEnabled)
+    {
+        drawGizmos = isEnabled;
     }
 
     void OnDrawGizmos()
@@ -89,19 +94,19 @@ public class Aircraft : MonoBehaviour
         Gizmos.DrawLine(startPoint, endPoint);
 
         string transLabel = "";
-        switch (assignedLabel)
+        switch (radarAssignedLabel)
         {
             case -1: 
                 transLabel = "Unassigned";
-                Handles.color = Color.white;
+                GUI.color = Color.white;
                 break;
             case 1:
                 transLabel = "Enemy";
-                Handles.color = Color.red;
+                GUI.color = Color.red;
                 break;
             case 0:
                 transLabel = "Friendly";
-                Handles.color = Color.green;
+                GUI.color = Color.green;
                 break;
         }
 

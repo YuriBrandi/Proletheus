@@ -345,6 +345,8 @@ MonoBehaviour:
   maxHashSetSize: 1000
   transmitToInterceptor: 1
   missileTag: targetMissile
+  aircraftTag: aircraft
+  defenceTag: defenceMissile
   missileSpawner: {fileID: 2066474192}
   aircraftSpawner: {fileID: 1966319506}
   classifier: {fileID: 0}
@@ -1862,7 +1864,8 @@ MonoBehaviour:
   B: {fileID: 423301822}
   C: {fileID: 1351340980}
   D: {fileID: 1784064185}
-  disableAutoSpawn: 1
+  disableAutoSpawn: 0
+  drawGizmos: 0
 --- !u!4 &1966319507
 Transform:
   m_ObjectHideFlags: 0

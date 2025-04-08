@@ -14,7 +14,7 @@ public class Missile : MonoBehaviour
     [Header("Debug Settings")]
     private bool drawGizmos = false;
 
-    private int assignedLabel = -1;
+    private int radarAssignedLabel = -1;
     private Rigidbody rb;
 
     public void Initialize(Vector3 startPoint_, Vector3 endPoint_, float height_, bool drawGizmos_)
@@ -108,7 +108,7 @@ public class Missile : MonoBehaviour
             return;
         }
 
-        this.assignedLabel = label;
+        this.radarAssignedLabel = label;
     }
 
 
@@ -117,20 +117,19 @@ public class Missile : MonoBehaviour
         if (!drawGizmos) return;
 
         string transLabel = "";
-        switch (assignedLabel)
+        switch (radarAssignedLabel)
         {
             case -1: 
                 transLabel = "Unassigned";
-                Handles.color = Color.white;
+                GUI.color = Color.white;
                 break;
             case 1:
                 transLabel = "Enemy";
-                Handles.color = Color.red;
                 GUI.color = Color.red;
                 break;
             case 0:
                 transLabel = "Friendly";
-                Handles.color = Color.green;
+                GUI.color = Color.green;
                 break;
         }
 

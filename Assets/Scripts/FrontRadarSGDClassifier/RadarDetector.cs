@@ -18,6 +18,8 @@ public class RadarDetector : MonoBehaviour
     
     [Header("Verify TAG (used for training only)")]
     public string missileTag;
+    public string aircraftTag;
+    public string defenceTag;
 
     [Header("Training Spawners")]
     public MissileSpawner missileSpawner;
@@ -25,7 +27,8 @@ public class RadarDetector : MonoBehaviour
 
     [Header("Training Settings")]
     public TrainerSocketClient classifier;
-    public float spawnInterval = 3f;
+    [Tooltip("Values > 0 will trigger self-managed spawn. This should be 0 unless for testing.")]
+    public float spawnInterval = 0f;
 
     [Header("Inference Model")]
     public SGDClassifier sgdClassifier;
@@ -62,36 +65,9 @@ public class RadarDetector : MonoBehaviour
         StartCoroutine(autoHashSetCleanup());
     }
 
-    public void spawnFlyingInstance()
-    {
-        if (missileSpawner == null || aircraftSpawner == null)
-        {
-            Debug.LogError("A missileSpawner and an aircraftSpawner both need to be assigned.");
-        }
-        else
-        {
-            // Flip a coin
-            if (Random.Range(0, 2) == 0)
-            {
-                missileSpawner.SpawnMissile();
-            }
-            else
-            {
-                var flyingPrefabs = aircraftSpawner.flyingPrefabs;
-                
-                int randInd = Random.Range(0, flyingPrefabs.Length);
-
-                aircraftSpawner.SpawnAircraft(flyingPrefabs[randInd]);
-
-
-            }
-
-        }
-    }
-
     void FixedUpdate()
     {
-        if (!sgdClassifier.isEnabled() && !deterministicClassification)
+        if (!sgdClassifier.isEnabled() && !deterministicClassification && spawnInterval > 0)
         {
             trainingTimer += Time.fixedDeltaTime;
 
@@ -134,31 +110,17 @@ public class RadarDetector : MonoBehaviour
             }
             else //Altrimenti chiamare il metodo di predict di python
                 prediction = classifier.RadarClassifyObject(features, isEnemy);
-
-            Renderer[] renderers = observedHit.GetComponentsInChildren<Renderer>();
-            changeMaterialColor(renderers, prediction == NOT_ENEMY_VALUE  ? Color.green : Color.red);
-
-            if (isEnemy == IS_ENEMY_VALUE)
-                observedHit.gameObject.GetComponent<Missile>().setRadarLabel(prediction);
-            else    
-                observedHit.gameObject.GetComponent<Aircraft>().setRadarLabel(prediction);
             
+            assignDebugLabel(observedHit.gameObject, prediction);
+
             // Logging/debug
             //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
-            if(sgdClassifier.isEnabled() || deterministicClassification) // If in inference insert object in hashMap.
+            if (sgdClassifier.isEnabled() || deterministicClassification) // If in inference insert object in hashMap.
                 decidedObjects.Add(observedHit.gameObject);
-            else //Se fa training, deve cancellare il gameObject hit
+            else if (spawnInterval > 0)
             {
-                if(isEnemy == IS_ENEMY_VALUE)
-                    Destroy(observedHit.gameObject);
-                else
-                {
-                    //Debug.Log("Sto per cancellare il gameobject: " + observedHit.gameObject.GetInstanceID());
-                    //AircraftSpawner.TriggerFlyingTripEnd(observedHit.gameObject);
-                    //Debug.Log("Disabling aircraft: " + observedHit.gameObject.GetInstanceID());
-                    observedHit.gameObject.SetActive(false);
-                }
+                Destroy(observedHit.gameObject);
             }                              
         }
 
@@ -188,13 +150,16 @@ public class RadarDetector : MonoBehaviour
         };
     }
     
-    private void changeMaterialColor(Renderer[] renderers, Color color)
+    private void assignDebugLabel(GameObject hitObject, int prediction)
     {
-        foreach (Renderer renderer in renderers)
-        {
-            // Chhange mat color
-            renderer.material.color = color;
-        }
+        if (hitObject.CompareTag(missileTag))
+            hitObject.GetComponent<Missile>().setRadarLabel(prediction);
+        else if (hitObject.CompareTag(aircraftTag))
+            hitObject.GetComponent<Aircraft>().setRadarLabel(prediction);
+        else if (hitObject.CompareTag(defenceTag))
+            hitObject.GetComponent<DefenceMissileAgent>().setRadarLabel(prediction);
+        else
+            Debug.LogError("Untagged flying object, this should not happen.");
     }
 
     private List<Collider> filterColliders(Collider[] hits)
@@ -218,6 +183,35 @@ public class RadarDetector : MonoBehaviour
             .OrderBy(hit => Vector3.Distance(transform.position, hit.transform.position))
             .Take(maxObservedObjects)
             .ToList();
+    }
+
+    /*
+        Only needed to test classificator performance, not really needed for final training.
+    */
+    public void spawnFlyingInstance()
+    {
+        if (missileSpawner == null || aircraftSpawner == null)
+        {
+            Debug.LogError("A missileSpawner and an aircraftSpawner both need to be assigned.");
+        }
+        else
+        {
+            // Flip a coin
+            if (Random.Range(0, 2) == 0)
+            {
+                missileSpawner.SpawnMissile();  
+            }
+            else
+            {
+                var flyingPrefabs = aircraftSpawner.flyingPrefabs;
+                
+                int randInd = Random.Range(0, flyingPrefabs.Length);
+
+                aircraftSpawner.SpawnAircraft(flyingPrefabs[randInd]);
+
+            }
+
+        }
     }
 
 

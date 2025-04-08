@@ -32,6 +32,7 @@ public class DefenceMissileAgent : Agent
     private float previousDistance;
     private float detectionDistance;
     private bool hasDestroyedTarget = false;
+    private int radarAssignedLabel = -1;
 
 
     public void Initialize(Rigidbody enemyMissileRb)
@@ -86,7 +87,7 @@ public class DefenceMissileAgent : Agent
         }
         catch (MissingReferenceException)
         {
-            Debug.Log("[OBSERVATION NULL EXCEPTION]");
+            Debug.Log("Target Missile reached during observation.");
         }
     }
 
@@ -177,6 +178,18 @@ public class DefenceMissileAgent : Agent
     {
         return rb != null && rb == enemyMissileRb;
     }
+    
+
+    public void setRadarLabel(int label)
+    {
+        if (label < -1 || label > 1)
+        {
+            Debug.LogError("Triying to assign invalid label");
+            return;
+        }
+
+        this.radarAssignedLabel = label;
+    }
 
 
     private void OnDrawGizmos()
@@ -194,6 +207,26 @@ public class DefenceMissileAgent : Agent
         // Place label at midpoint of the line
         Vector3 midpoint = (transform.position + enemyMissileRb.position) / 2f;
         Handles.Label(midpoint, $"Distance: {distance:F2} units");
+
+        // Label for classification
+        string transLabel = "";
+        switch (radarAssignedLabel)
+        {
+            case -1: 
+                transLabel = "Unassigned";
+                GUI.color = Color.white;
+                break;
+            case 1:
+                transLabel = "Enemy";
+                GUI.color = Color.red;
+                break;
+            case 0:
+                transLabel = "Friendly";
+                GUI.color = Color.green;
+                break;
+        }
+
+        Handles.Label(transform.position, $"Assigned Label: {transLabel}");
 
 
         // Draw a sphere at this object's position

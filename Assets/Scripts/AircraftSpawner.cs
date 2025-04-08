@@ -19,6 +19,7 @@ public class AircraftSpawner : MonoBehaviour
 
     [Header("Additional Settings")]
     public bool disableAutoSpawn = false;
+    public bool drawGizmos = false;
 
     //private int trainingPhaseRateSeconds = 5;
     //private float timer = 0f;
@@ -66,6 +67,9 @@ public class AircraftSpawner : MonoBehaviour
 
     public void SpawnAircraft(GameObject referenceObject)
     {
+        if (referenceObject == null)
+            Debug.LogError("Referencing a null flying object");
+            
         Vector3 startPoint, endPoint;
 
         GetRandomPoints(out startPoint, out endPoint);
@@ -73,15 +77,11 @@ public class AircraftSpawner : MonoBehaviour
         GameObject aircraftObject = Instantiate(referenceObject, startPoint, Quaternion.identity);
         aircraftObject.name = referenceObject.name;
 
-        int index = getObjectIndex(referenceObject);
-        
-        // Check if is not a prefab.
-        if (referenceObject.scene.IsValid())
-            Destroy(referenceObject);
-        flyingPrefabs[index] = aircraftObject;
-
         Aircraft aircraftScript = aircraftObject.GetComponent<Aircraft>();
         aircraftScript.setCoords(startPoint, endPoint);
+
+        if (drawGizmos)
+            aircraftScript.enableGizmos(true);
 
         aircraftObject.SetActive(true);
 
@@ -90,7 +90,9 @@ public class AircraftSpawner : MonoBehaviour
 
     void HandleAircraftRespawn(GameObject aircraftObject)
     {
-        SpawnAircraft(aircraftObject);
+        GameObject referenceObject = getReferenceFromAircraft(aircraftObject);
+        Destroy(aircraftObject);
+        SpawnAircraft(referenceObject);
     }
     
     private void GetRandomPoints(out Vector3 start, out Vector3 end)
@@ -118,16 +120,17 @@ public class AircraftSpawner : MonoBehaviour
         return Vector3.Lerp(start, end, t);
     }
 
-    private int getObjectIndex(GameObject aircraftObject)
+    private GameObject getReferenceFromAircraft(GameObject aircraftObject)
     {
-        for (int i = 0; i < flyingPrefabs.Length; i++)
+
+        foreach (GameObject prefab in flyingPrefabs)
         {
-            if (flyingPrefabs[i] == aircraftObject)
-                return i;
+            if (prefab.name == aircraftObject.name)
+                return prefab;
         }
 
-        return -1;
-
+        Debug.LogError("No reference from aircraftObject. This should not happen.");
+        return null;
     }
 
     private void addOffset(Vector3[] point)
