@@ -181,7 +181,7 @@ public class DefenceMissileAgent : Agent
 
     private void OnDrawGizmos()
     {
-        if (enemyMissileRb == null) return;
+        if (!drawGizmos || enemyMissileRb == null) return;
 
         // Draw a red line from this object to its target
         Gizmos.color = Color.yellow;

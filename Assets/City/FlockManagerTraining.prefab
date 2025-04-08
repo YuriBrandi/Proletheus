@@ -129,6 +129,7 @@ MonoBehaviour:
   height: 100
   xRotation: 0
   automaticHeightOffset: 1
+  drawGizmos: 1
 --- !u!135 &2527420167942414496
 SphereCollider:
   m_ObjectHideFlags: 0

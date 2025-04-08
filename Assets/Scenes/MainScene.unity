@@ -631,7 +631,6 @@ MonoBehaviour:
   spawnInterval: 3
   sgdClassifier: {fileID: 405343330}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!114 &405343330
 MonoBehaviour:
   m_ObjectHideFlags: 0

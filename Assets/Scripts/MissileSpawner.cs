@@ -27,9 +27,15 @@ public class MissileSpawner : MonoBehaviour
     [Header("Training Settings")]
     [Tooltip("Set to 0 to disable")]
     public int spawnRateSeconds = 0;
+
+    [Header("Debug Settings")]
+    public bool drawMissilesGizmos = false;
+
     private float timer = 0f;
 
-    private const float PARAMETER_RANDOM = 4f; //Check defenceMissile_Curricula.yaml for RANDOM value (4 [aircraft off] and 5 [aircraft on])
+
+
+    private const float PARAMETER_DIRECTION_RANDOM = 4f; //Check defenceMissile_Curricula.yaml for RANDOM value (4 [aircraft off] and 5 [aircraft on])
 
     void Start()
     {
@@ -46,7 +52,7 @@ public class MissileSpawner : MonoBehaviour
             if(trainingDirection >= 0)
             {
                 // >= means 4 or 5
-                if(trainingDirection >= PARAMETER_RANDOM)
+                if(trainingDirection >= PARAMETER_DIRECTION_RANDOM)
                     this.chosenDirection = Direction.RANDOM;
                 else
                     this.chosenDirection = (Direction)trainingDirection;
@@ -81,7 +87,7 @@ public class MissileSpawner : MonoBehaviour
         float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
         // Inizializza il missile con i parametri necessari
-        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInCollider(targetCollider), height);
+        missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInCollider(targetCollider), height, drawMissilesGizmos);
     }
 
     Vector3 GetRandomPointInCollider(MeshCollider collider)
@@ -114,7 +120,7 @@ public class MissileSpawner : MonoBehaviour
         switch (direction)
         {
             case Direction.N:
-                result = Vector3.Lerp(B.position, C.position, 0.5f) + Vector3.forward * offset;
+                result = Vector3.Lerp (B.position, C.position, 0.5f) + Vector3.forward * offset;
                 break;
             case Direction.S:
                 result = Vector3.Lerp(A.position, D.position, 0.5f) + Vector3.back * offset;

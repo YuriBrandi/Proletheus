@@ -298,22 +298,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 187193909}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 187193908}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 187193907}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 187193906}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 187193905}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 187193904}
   m_SourcePrefab: {fileID: 100100000, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
 --- !u!4 &187193902 stripped
 Transform:
@@ -325,22 +313,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 41a8c1b8a8a22f53287a850d01563722, type: 3}
   m_PrefabInstance: {fileID: 187193901}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &187193904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187193903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!114 &187193905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,8 +341,9 @@ MonoBehaviour:
   detectionRange: 10000
   minAltitude: 50
   minSpeed: 1
-  maxObservedObjects: 10
+  maxObservedObjects: 30
   maxHashSetSize: 1000
+  transmitToInterceptor: 1
   missileTag: targetMissile
   missileSpawner: {fileID: 2066474192}
   aircraftSpawner: {fileID: 1966319506}
@@ -378,78 +351,6 @@ MonoBehaviour:
   spawnInterval: 3
   sgdClassifier: {fileID: 187193905}
   deterministicClassification: 1
-  colorObjects: 1
---- !u!114 &187193907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187193903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  DecisionStep: 0
-  TakeActionsBetweenDecisions: 1
---- !u!114 &187193908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187193903}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ce791c5a1bdc84db18981cb668308a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
-  detectionRange: 0
-  minAltitude: 50
-  minSpeed: 1
-  maxObservedObjects: 10
-  missileTag: targetMissile
-  missileSpawner: {fileID: 2066474192}
-  aircraftSpawner: {fileID: 0}
-  actionsPerEpisode: 5
-  colorObjects: 1
---- !u!114 &187193909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 187193903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 11
-    NumStackedVectorObservations: 1
-    m_ActionSpec:
-      m_NumContinuousActions: 1
-      BranchSizes: 
-    VectorActionSize: 01000000
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 1
-    hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 4c33392e8fc8a8c9d90638477bb8c624, type: 3}
-  m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: missileIdentification
-  TeamId: 0
-  m_UseChildSensors: 1
-  m_UseChildActuators: 1
-  m_DeterministicInference: 0
-  m_ObservableAttributeHandling: 0
 --- !u!1001 &206354024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +406,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 63a40002632bcae4c9f53d8827da766a, type: 3}
       propertyPath: m_Name
       value: sea_collider
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 63a40002632bcae4c9f53d8827da766a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1568,6 +1473,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4593254425432142165, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2626355379327090908, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2021178655527167927, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48
@@ -1579,6 +1492,10 @@ PrefabInstance:
     - target: {fileID: -2021178655527167927, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1534
+      objectReference: {fileID: 0}
+    - target: {fileID: -519053504579820001, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -519053504579820001, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
       propertyPath: m_TagString
@@ -1596,8 +1513,24 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 2119362431269163963, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2414724256486745090, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445508652546258076, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4879922036153447700, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840280005539005953, guid: 1d43925f5ade57a4bb9f741b63c81661, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2001,6 +1934,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: boston_collider
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d1cc0ae8a0cedd44680eb077c1f98140, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2129,7 +2066,8 @@ MonoBehaviour:
   B: {fileID: 423301822}
   C: {fileID: 1351340980}
   D: {fileID: 1784064185}
-  spawnRateSeconds: 1
+  spawnRateSeconds: 3
+  drawMissilesGizmos: 1
 --- !u!4 &2066474193
 Transform:
   m_ObjectHideFlags: 0

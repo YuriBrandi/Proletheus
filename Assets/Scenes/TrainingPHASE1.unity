@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &438393881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,13 +1622,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 1453855491}
+  aircraftSpawner: {fileID: 1199040543}
   classifier: {fileID: 438393881}
   spawnInterval: 3
   sgdClassifier: {fileID: 438393880}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1 &497740586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,7 +3231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &975875202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3263,13 +3262,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 585626472}
+  aircraftSpawner: {fileID: 926273214}
   classifier: {fileID: 975875202}
   spawnInterval: 3
   sgdClassifier: {fileID: 975875201}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1 &1033810148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,7 +3900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &1315054593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3933,13 +3931,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 1056893390}
+  aircraftSpawner: {fileID: 436321588}
   classifier: {fileID: 1315054593}
   spawnInterval: 3
   sgdClassifier: {fileID: 1315054592}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1 &1354501837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4103,7 +4100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &1367979171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4134,13 +4131,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 1373889925}
+  aircraftSpawner: {fileID: 1438645434}
   classifier: {fileID: 1367979171}
   spawnInterval: 3
   sgdClassifier: {fileID: 1367979170}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1 &1373889923
 GameObject:
   m_ObjectHideFlags: 0
@@ -5322,7 +5318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &1891568412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5353,13 +5349,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 167482342}
+  aircraftSpawner: {fileID: 2118456640}
   classifier: {fileID: 1891568412}
   spawnInterval: 3
   sgdClassifier: {fileID: 1891568411}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1001 &1896415566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5652,7 +5647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 0}
+  jsonFile: {fileID: 4900000, guid: d4ae25328a9c40245ab194c0a784241f, type: 3}
 --- !u!114 &2027557226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5683,13 +5678,12 @@ MonoBehaviour:
   maxObservedObjects: 10
   maxHashSetSize: 1000
   missileTag: targetMissile
-  missileSpawner: {fileID: 0}
-  aircraftSpawner: {fileID: 0}
+  missileSpawner: {fileID: 1354501839}
+  aircraftSpawner: {fileID: 806695177}
   classifier: {fileID: 2027557226}
   spawnInterval: 3
   sgdClassifier: {fileID: 2027557225}
   deterministicClassification: 0
-  colorObjects: 1
 --- !u!1001 &2051861360
 PrefabInstance:
   m_ObjectHideFlags: 0

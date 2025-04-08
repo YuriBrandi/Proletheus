@@ -308,6 +308,7 @@ MonoBehaviour:
   height: 400
   xRotation: 9
   automaticHeightOffset: 1
+  drawGizmos: 1
 --- !u!114 &639687898013535213
 MonoBehaviour:
   m_ObjectHideFlags: 0

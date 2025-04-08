@@ -20,8 +20,8 @@ public class AircraftSpawner : MonoBehaviour
     [Header("Additional Settings")]
     public bool disableAutoSpawn = false;
 
-    private int trainingPhaseRateSeconds = 5;
-    private float timer = 0f;
+    //private int trainingPhaseRateSeconds = 5;
+    //private float timer = 0f;
 
     private const float SPAWN_PARAMETER = 5f;
 
@@ -79,10 +79,6 @@ public class AircraftSpawner : MonoBehaviour
         if (referenceObject.scene.IsValid())
             Destroy(referenceObject);
         flyingPrefabs[index] = aircraftObject;
-
-        Renderer[] renderers = aircraftObject.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
-            renderer.material.color = Color.blue;
 
         Aircraft aircraftScript = aircraftObject.GetComponent<Aircraft>();
         aircraftScript.setCoords(startPoint, endPoint);

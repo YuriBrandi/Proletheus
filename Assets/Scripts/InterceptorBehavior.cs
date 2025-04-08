@@ -39,7 +39,11 @@ public class InterceptorBehaviour : MonoBehaviour
         // Find all active objects with the InterceptorBehaviour script
         // Only the first call populates the array
         if(interceptors == null)
+        {
+            Debug.Log("Populating intercpetors array");
             interceptors = FindObjectsByType<InterceptorBehaviour>(FindObjectsSortMode.None);
+        }
+
 
         InterceptorBehaviour nearestIntercept = null;
         float minDist = Mathf.Infinity;
@@ -60,6 +64,7 @@ public class InterceptorBehaviour : MonoBehaviour
 
         //EnemyMissileDetected.Invoke(enemyMissileRb);
         //nearestIntercept.LaunchDefenceMissile(enemyMissileRb);
+
         nearestIntercept.RequestMissileLaunch(enemyMissileRb);
     }
 

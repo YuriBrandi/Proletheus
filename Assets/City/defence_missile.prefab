@@ -169,12 +169,14 @@ MonoBehaviour:
   MaxStep: 0
   turnSpeed: 1000
   missileSpeed: 1000
+  targetMissileTag: 
+  aircraftTag: 
   cityOrigin: {x: 0, y: 0, z: 0}
   explosionDistanceThreshold: 180
   raycastCount: 5
   raycastAngle: 20
   raycastDistance: 150
-  drawGizmos: 0
+  drawGizmos: 1
 --- !u!114 &-7665185096300490937
 MonoBehaviour:
   m_ObjectHideFlags: 0

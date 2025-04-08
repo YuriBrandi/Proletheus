@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.VisualScripting;
 
+using UnityEditor;
+
 public class Aircraft : MonoBehaviour
 {
     [Header("Aircraft Settings")]
@@ -9,11 +11,15 @@ public class Aircraft : MonoBehaviour
     public float xRotation = 0f;
     public bool automaticHeightOffset = true;
 
+    [Header("Debug Settings")]
+    public bool drawGizmos = false;
+
     //public event Action<GameObject> OnFlyingTripEnd;
     
     private Vector3 startPoint, endPoint;
     private Vector3 direction;
     private bool isFlying = false;
+    private int assignedLabel = -1;
 
     public void Start()
     {
@@ -45,8 +51,12 @@ public class Aircraft : MonoBehaviour
             endPoint.y += Random.Range(-0.2f * height, 0.2f * height);
         }
 
+        Debug.Log("Aircraft pre position ");
         transform.position = startPoint;
         transform.LookAt(endPoint);
+
+            
+        Debug.Log("Aircraft post position ");
 
         direction = (endPoint - startPoint).normalized;
 
@@ -60,9 +70,42 @@ public class Aircraft : MonoBehaviour
         isFlying = true;
     }
 
-    void OnDrawGizmosSelected()
+    public void setRadarLabel(int label)
     {
+        if (label < -1 || label > 1)
+        {
+            Debug.LogError("Triying to assign invalid label");
+            return;
+        }
+
+        this.assignedLabel = label;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!drawGizmos) return;
+
         Gizmos.color = Color.green;
         Gizmos.DrawLine(startPoint, endPoint);
+
+        string transLabel = "";
+        switch (assignedLabel)
+        {
+            case -1: 
+                transLabel = "Unassigned";
+                Handles.color = Color.white;
+                break;
+            case 1:
+                transLabel = "Enemy";
+                Handles.color = Color.red;
+                break;
+            case 0:
+                transLabel = "Friendly";
+                Handles.color = Color.green;
+                break;
+        }
+
+        Handles.Label(transform.position, $"Assigned Label: {transLabel}");
+
     }
 }

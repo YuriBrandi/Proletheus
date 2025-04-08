@@ -2,6 +2,8 @@
 using Unity.MLAgents;
 using UnityEngine;
 
+using UnityEditor;
+
 public class Missile : MonoBehaviour
 {
     [Header("Trip Settings")]
@@ -9,35 +11,35 @@ public class Missile : MonoBehaviour
     private Vector3 endPoint;
     private Vector3 controlPoint;
 
+    [Header("Debug Settings")]
+    private bool drawGizmos = false;
+
+    private int assignedLabel = -1;
     private Rigidbody rb;
 
-    public void Initialize(Vector3 startPoint_, Vector3 endPoint_, float height_)
+    public void Initialize(Vector3 startPoint_, Vector3 endPoint_, float height_, bool drawGizmos_)
     {
-        // Usa un nome univoco basato sul tempo per evitare conflitti
-        //this.name = "enemy_missile_" + DateTime.Now.ToString("HHmmssfff");
-        this.name = "enemy_missile";
+        this.name = "enemy_missile_" + DateTime.Now.ToString("HHmmssfff");
+        //this.name = "enemy_missile";
 
-        // Aggiungi un componente Rigidbody per applicare la forza
+        // Get rb for launch
         rb = gameObject.GetComponent<Rigidbody>();
 
-        // Se il Rigidbody non è già presente, lo aggiungiamo
+        // Check rb
         if (rb == null)
-        {
-            rb = gameObject.AddComponent<Rigidbody>();
-            rb.useGravity = true;  // Attiva la gravità
-        }
+            Debug.LogError("Missing rigidbody on EnemyMissile.");
 
         startPoint = startPoint_;
         endPoint = endPoint_;
 
-        // Applica al punto di partenza
+        // Apply to starting point
         startPoint.y = height_;
 
-        // Calcola il punto di controllo per l'arco (il punto centrale è sollevato)
+        // Compute control point for the parabolic trajectory (central point is raised)
         Vector3 midPoint = (startPoint + endPoint) / 2;
         controlPoint = midPoint + Vector3.up * height_;
 
-        // Aggiungi un controllo per assicurarti che le posizioni non siano NaN
+        // Ensure position are non-NaN
         if (float.IsNaN(startPoint.x) || float.IsNaN(startPoint.y) || float.IsNaN(startPoint.z) ||
             float.IsNaN(endPoint.x) || float.IsNaN(endPoint.y) || float.IsNaN(endPoint.z) ||
             float.IsNaN(controlPoint.x) || float.IsNaN(controlPoint.y) || float.IsNaN(controlPoint.z))
@@ -48,28 +50,30 @@ public class Missile : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer("Missiles");
 
-        // Calcola la velocità iniziale e lancia il missile
+        drawGizmos = drawGizmos_;
+
         LaunchMissile();
     }
 
     private void LaunchMissile()
     {
-        // Calcola la direzione dal punto di partenza a quello finale
+        // Compute directory
         Vector3 direction = (endPoint - startPoint).normalized;
 
-        // Calcola la velocità iniziale necessaria per il lancio parabolico
-        float gravity = Physics.gravity.y;  // Usare la gravità globale
+        // Set missile to startpoint;
+        transform.position = startPoint;
+
+        // Get initial velociy for the parabolic launch
+        float gravity = Physics.gravity.y;  // Use global gravity
         float distance = Vector3.Distance(startPoint, endPoint);
         float launchSpeed = Mathf.Sqrt(distance * -gravity / Mathf.Sin(2 * Mathf.Atan2(controlPoint.y - startPoint.y, distance)));
 
-        // Imposta la velocità iniziale
+        // Set initial velocity
         Vector3 velocity = direction * launchSpeed;
 
-        // Aggiungi la forza alla Rigidbody
+        // Add force to rb
         rb.linearVelocity = velocity;
 
-        // Correggi la posizione iniziale per evitare che il missile parta dalla posizione di default del Rigidbody
-        transform.position = startPoint;
     }
 
     private void FixedUpdate()
@@ -82,17 +86,55 @@ public class Missile : MonoBehaviour
             return;
         }
 
-        // Ottieni la direzione dalla velocità corrente del Rigidbody
-        if (rb.linearVelocity.sqrMagnitude > 0.1f) // Controlla se il missile si sta muovendo
+        // Get current rb velocity
+        if (rb.linearVelocity.sqrMagnitude > 0.1f) // Check if is moving
         {
-            // Calcola la direzione del movimento
+            // Set direction
             Vector3 forwardDirection = rb.linearVelocity.normalized;
 
-            // Allinea la rotazione dell'oggetto alla direzione del movimento
+            // Allign missile rotation to movement direction
             Quaternion targetRotation = Quaternion.LookRotation(forwardDirection);
 
-            // Applica una rotazione graduale per evitare rotazioni troppo brusche
+            // Apply Slerp with deltaTime for gradual rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
+    }
+
+    public void setRadarLabel(int label)
+    {
+        if (label < -1 || label > 1)
+        {
+            Debug.LogError("Triying to assign invalid label");
+            return;
+        }
+
+        this.assignedLabel = label;
+    }
+
+
+     void OnDrawGizmos()
+    {
+        if (!drawGizmos) return;
+
+        string transLabel = "";
+        switch (assignedLabel)
+        {
+            case -1: 
+                transLabel = "Unassigned";
+                Handles.color = Color.white;
+                break;
+            case 1:
+                transLabel = "Enemy";
+                Handles.color = Color.red;
+                GUI.color = Color.red;
+                break;
+            case 0:
+                transLabel = "Friendly";
+                Handles.color = Color.green;
+                break;
+        }
+
+        Handles.Label(transform.position, $"Assigned Label: {transLabel}");
+
     }
 }

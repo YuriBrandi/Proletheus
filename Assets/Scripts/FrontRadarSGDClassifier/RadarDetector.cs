@@ -14,6 +14,7 @@ public class RadarDetector : MonoBehaviour
     public float minSpeed = 1f; // Minimum speed to consider an object moving
     public int maxObservedObjects = 10; // Fixed number of closest objects to observe
     public int maxHashSetSize = 1000; //Number of stored entries in the HashSet at once (determines cleanup)
+    public bool transmitToInterceptor = true;
     
     [Header("Verify TAG (used for training only)")]
     public string missileTag;
@@ -31,9 +32,6 @@ public class RadarDetector : MonoBehaviour
 
     [Header("Advanced Settings (will override inference model)")]
     public bool deterministicClassification = false;
-
-    [Header("Debugging")]
-    public bool colorObjects = true;
 
     private float trainingTimer = 0f;
 
@@ -111,6 +109,7 @@ public class RadarDetector : MonoBehaviour
 
         var filteredHits = filterColliders(hits);
 
+        //if (filteredHits.Count > 0)
         foreach (Collider observedHit in filteredHits)
         {
             //Collider observedHit = filteredHits.First();
@@ -124,24 +123,26 @@ public class RadarDetector : MonoBehaviour
             if (deterministicClassification)
             {
                 prediction = isEnemy;
-                if (prediction == IS_ENEMY_VALUE)
+                if (transmitToInterceptor && prediction == IS_ENEMY_VALUE)
                     InterceptorBehaviour.OnEnemyMissileDetected(observedHit.attachedRigidbody);
             }
             else if (sgdClassifier.isEnabled())
             {
                 prediction = sgdClassifier.Predict(features);
-                if (prediction == IS_ENEMY_VALUE)
+                if (transmitToInterceptor && prediction == IS_ENEMY_VALUE)
                     InterceptorBehaviour.OnEnemyMissileDetected(observedHit.attachedRigidbody);
             }
             else //Altrimenti chiamare il metodo di predict di python
                 prediction = classifier.RadarClassifyObject(features, isEnemy);
 
-            if (colorObjects)
-            {
-                Renderer[] renderers = observedHit.GetComponentsInChildren<Renderer>();
-                changeMaterialColor(renderers, prediction == NOT_ENEMY_VALUE  ? Color.green : Color.red);
-            }
+            Renderer[] renderers = observedHit.GetComponentsInChildren<Renderer>();
+            changeMaterialColor(renderers, prediction == NOT_ENEMY_VALUE  ? Color.green : Color.red);
 
+            if (isEnemy == IS_ENEMY_VALUE)
+                observedHit.gameObject.GetComponent<Missile>().setRadarLabel(prediction);
+            else    
+                observedHit.gameObject.GetComponent<Aircraft>().setRadarLabel(prediction);
+            
             // Logging/debug
             //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
@@ -186,7 +187,7 @@ public class RadarDetector : MonoBehaviour
             size.x, size.y, size.z
         };
     }
-
+    
     private void changeMaterialColor(Renderer[] renderers, Color color)
     {
         foreach (Renderer renderer in renderers)
