@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c29589188fd70b9a180a4598498001c0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c29589188fd70b9a180a4598498001c0, type: 3}
       propertyPath: m_TagString
@@ -359,7 +359,6 @@ MonoBehaviour:
   height: 800
   xRotation: 0
   automaticHeightOffset: 1
-  drawGizmos: 0
 --- !u!114 &2136323575342327215
 MonoBehaviour:
   m_ObjectHideFlags: 0

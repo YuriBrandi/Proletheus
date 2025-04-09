@@ -12,6 +12,7 @@ public class DefenceMissileAgent : Agent
     public float turnSpeed = 500f;
     public float missileSpeed = 500f;
 
+    [Header("Additional Settings")]
     public string targetMissileTag;
     public string aircraftTag;
     public Vector3 cityOrigin = Vector3.zero;
@@ -138,8 +139,10 @@ public class DefenceMissileAgent : Agent
         {
             Debug.Log("[ACTION NULL EXCEPTION] hasDestroyedTarget: " + hasDestroyedTarget);
 
+            // Too low rewards may confuse the agent at the beginning of the training (this will be happening a lot)
             if (!hasDestroyedTarget)
-                AddReward(-20.0f);
+                AddReward(-1.0f); 
+
 
             OnEpisodeFinish();
             Destroy(gameObject);

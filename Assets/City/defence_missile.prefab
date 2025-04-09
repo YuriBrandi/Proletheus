@@ -173,8 +173,8 @@ MonoBehaviour:
   MaxStep: 0
   turnSpeed: 1000
   missileSpeed: 1000
-  targetMissileTag: 
-  aircraftTag: 
+  targetMissileTag: targetMissile
+  aircraftTag: aircraft
   cityOrigin: {x: 0, y: 0, z: 0}
   explosionDistanceThreshold: 180
   raycastCount: 5

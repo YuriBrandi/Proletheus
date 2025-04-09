@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6686305416827565348
 Transform:
   m_ObjectHideFlags: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   height: 100
   xRotation: 0
   automaticHeightOffset: 1
-  drawGizmos: 1
 --- !u!135 &2527420167942414496
 SphereCollider:
   m_ObjectHideFlags: 0
