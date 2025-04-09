@@ -350,7 +350,7 @@ MonoBehaviour:
   missileSpawner: {fileID: 2066474192}
   aircraftSpawner: {fileID: 1966319506}
   classifier: {fileID: 0}
-  spawnInterval: 3
+  spawnInterval: 0
   sgdClassifier: {fileID: 187193905}
   deterministicClassification: 1
 --- !u!1001 &206354024
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   B: {fileID: 423301822}
   C: {fileID: 1351340980}
   D: {fileID: 1784064185}
-  disableAutoSpawn: 0
+  disableAutoSpawn: 1
   drawGizmos: 0
 --- !u!4 &1966319507
 Transform:
@@ -2069,7 +2069,7 @@ MonoBehaviour:
   B: {fileID: 423301822}
   C: {fileID: 1351340980}
   D: {fileID: 1784064185}
-  spawnRateSeconds: 3
+  spawnRateSeconds: 1
   drawMissilesGizmos: 1
 --- !u!4 &2066474193
 Transform:
