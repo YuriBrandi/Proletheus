@@ -105,14 +105,15 @@ public class MissileSpawner : MonoBehaviour
 
     private Vector3 GetPointByDirection(Direction direction, float offset)
     {
-        if(Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", -1f) >= 0)
-        {
-            // Adjust based on direction (only curriculum training mode)
-            if (direction == Direction.RANDOM)
-                direction = (Direction)Random.Range(0, (int) Direction.RANDOM); // Exclude "RANDOM" itself
-            else
+
+        if (direction == Direction.RANDOM)
+            direction = (Direction)Random.Range(0, (int) Direction.RANDOM); // Exclude "RANDOM" itself
+        else
+            if(Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_training_phases", -1f) >= 0)
+            {
+                // Adjust based on direction (only curriculum training mode)
                 direction = (Direction)Random.Range(0, (int) direction+1); //+1 because we want to include current direction itself
-        }
+            }
       
 
         Vector3 result = Vector3.zero;

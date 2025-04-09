@@ -347,10 +347,10 @@ MonoBehaviour:
   missileTag: targetMissile
   aircraftTag: aircraft
   defenceTag: defenceMissile
-  missileSpawner: {fileID: 2066474192}
-  aircraftSpawner: {fileID: 1966319506}
   classifier: {fileID: 0}
   spawnInterval: 0
+  missileSpawner: {fileID: 2066474192}
+  aircraftSpawner: {fileID: 1966319506}
   sgdClassifier: {fileID: 187193905}
   deterministicClassification: 1
 --- !u!1001 &206354024
@@ -2063,7 +2063,7 @@ MonoBehaviour:
   minHeight: 2000
   maxHeight: 3000
   offset: 10000
-  chosenDirection: 0
+  chosenDirection: 8
   targetCollider: {fileID: 2060320066}
   A: {fileID: 713017615}
   B: {fileID: 423301822}

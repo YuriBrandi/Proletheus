@@ -21,14 +21,14 @@ public class RadarDetector : MonoBehaviour
     public string aircraftTag;
     public string defenceTag;
 
-    [Header("Training Spawners")]
-    public MissileSpawner missileSpawner;
-    public AircraftSpawner aircraftSpawner;
-
     [Header("Training Settings")]
     public TrainerSocketClient classifier;
     [Tooltip("Values > 0 will trigger self-managed spawn. This should be 0 unless for testing.")]
     public float spawnInterval = 0f;
+
+    [Header("Training Spawners")]
+    public MissileSpawner missileSpawner;
+    public AircraftSpawner aircraftSpawner;
 
     [Header("Inference Model")]
     public SGDClassifier sgdClassifier;
