@@ -37,6 +37,9 @@ Builds/
 .vs/
 .vsconfig
 
+# idea
+.idea/
+
 # Mono crash
 mono_crash.mem.*
 
