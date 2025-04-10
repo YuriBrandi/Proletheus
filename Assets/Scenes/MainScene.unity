@@ -647,7 +647,7 @@ MonoBehaviour:
   missileTag: targetMissile
   aircraftTag: aircraft
   defenceTag: defenceMissile
-  classifier: {fileID: 0}
+  trainingClassifier: {fileID: 0}
   spawnInterval: 0
   missileSpawner: {fileID: 285783977}
   aircraftSpawner: {fileID: 661669107}
@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f75fd4beb17a542bce5f0b8efedca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 907b3e798d465d7aab083ffa19a94e00, type: 3}
+  jsonFile: {fileID: 4900000, guid: 48269e597db148997a50036db46ea991, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

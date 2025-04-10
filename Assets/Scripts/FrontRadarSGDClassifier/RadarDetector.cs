@@ -22,7 +22,7 @@ public class RadarDetector : MonoBehaviour
     public string defenceTag;
 
     [Header("Training Settings")]
-    public TrainerSocketClient classifier;
+    public TrainerSocketClient trainingClassifier;
     [Tooltip("Values > 0 will trigger self-managed spawn. This should be 0 unless for testing.")]
     public float spawnInterval = 0f;
 
@@ -56,7 +56,7 @@ public class RadarDetector : MonoBehaviour
             Debug.Log("Modalità Inferenza ATTIVA");
         else
         {
-            if (classifier == null)
+            if (trainingClassifier == null)
                 Debug.LogError("A SocketClient must be assigned.");
 
             Debug.Log("Modalità Training ATTIVA");
@@ -95,6 +95,8 @@ public class RadarDetector : MonoBehaviour
 
             int prediction;
 
+            Debug.Log("Collided with: " + observedHit.gameObject.name);
+
             //Se stiamo facendo inferenza, deve richiamare il metodo predict
             if (deterministicClassification)
             {
@@ -109,18 +111,19 @@ public class RadarDetector : MonoBehaviour
                     InterceptorBehaviour.OnEnemyMissileDetected(observedHit.attachedRigidbody);
             }
             else //Altrimenti chiamare il metodo di predict di python
-                prediction = classifier.RadarClassifyObject(features, isEnemy);
+                prediction = trainingClassifier.RadarClassifyObject(features, isEnemy);
             
             assignDebugLabel(observedHit.gameObject, prediction);
 
             // Logging/debug
             //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
-            if (sgdClassifier.isEnabled() || deterministicClassification) // If in inference insert object in hashMap.
-                decidedObjects.Add(observedHit.gameObject);
-            else if (spawnInterval > 0)
-            {
+            if (spawnInterval > 0) // If testing classifier with self-spawn, destroy objects (PHASE 1)
                 Destroy(observedHit.gameObject);
+            else 
+            {
+                // This is both for Inference and normal Training (PHASE 2-3)
+                decidedObjects.Add(observedHit.gameObject);
             }                              
         }
 
@@ -168,7 +171,7 @@ public class RadarDetector : MonoBehaviour
         return hits
             .Where(hit =>
             {
-                if ((sgdClassifier.isEnabled() || deterministicClassification) && decidedObjects.Contains(hit.gameObject))
+                if (!(spawnInterval > 0) && decidedObjects.Contains(hit.gameObject))
                     return false;
 
                 // Check if the object is high enough

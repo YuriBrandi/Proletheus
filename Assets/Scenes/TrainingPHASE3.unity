@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfe00e71be738f46b80375fd832af2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationSpeed: 3
+  simulationSpeed: 5
 --- !u!4 &254572558
 Transform:
   m_ObjectHideFlags: 0
@@ -2059,7 +2059,7 @@ MonoBehaviour:
   C: {fileID: 1351340980}
   D: {fileID: 1784064185}
   disableAutoSpawn: 0
-  drawGizmos: 0
+  drawGizmos: 1
 --- !u!4 &1966319507
 Transform:
   m_ObjectHideFlags: 0

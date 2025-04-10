@@ -51,12 +51,8 @@ public class Aircraft : MonoBehaviour
             endPoint.y += Random.Range(-0.2f * height, 0.2f * height);
         }
 
-        Debug.Log("Aircraft pre position ");
         transform.position = startPoint;
         transform.LookAt(endPoint);
-
-            
-        Debug.Log("Aircraft post position ");
 
         direction = (endPoint - startPoint).normalized;
 
