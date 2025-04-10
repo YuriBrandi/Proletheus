@@ -1,8 +1,5 @@
-# This .gitignore file should be placed at the root of your Unity project directory
-#
-# Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
-#
-/[Ll]ibrary/
+# Unity specific ignores
+/L[L]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
@@ -10,8 +7,21 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# Unity cache and library files
+Library/
+Library/**
+
+# Exclude specific Unity files causing issues
+Library/ArtifactDB
+Library/Artifacts/
+Library/PackageCache/
+Library/PackageCache/com.unity.burst/.Runtime/
+
+# General Unity build artifacts
+Build/
+Builds/
+
 # MemoryCaptures can get excessive in size.
-# They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
 # Recordings can get excessive in size
@@ -26,6 +36,9 @@
 # Visual Studio cache directory
 .vs/
 .vsconfig
+
+# Mono crash
+mono_crash.mem.*
 
 # Gradle cache directory
 .gradle/
@@ -71,3 +84,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Python virtual environment
+/venv/
+
+# Visual Studio Code settings
+.vscode/
