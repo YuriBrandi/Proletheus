@@ -63,4 +63,14 @@ public class OrbitCamera : MonoBehaviour
         transform.position = target.position + offset;
         transform.LookAt(target);
     }
+
+    public float getCameraDistance()
+    {
+        return distance;
+    }
+
+    public Transform getTarget()
+    {
+        return target;
+    }
 }
