@@ -3,10 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using static Unity.Burst.Intrinsics.X86;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class CurriculumDebug : MonoBehaviour
 {

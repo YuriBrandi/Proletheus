@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Newtonsoft.Json;
 
 public class SGDClassifier : MonoBehaviour
 {
