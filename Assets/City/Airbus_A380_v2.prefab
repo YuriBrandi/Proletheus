@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -68,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Airbus_A380_v2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      propertyPath: m_TagString
+      value: aircraft
+      objectReference: {fileID: 0}
     - target: {fileID: 2798004786581971212, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -85,7 +101,135 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 216e33af5fe45c29e80bcfd9bce15ec5, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5548342331313266686}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5294184071605009612}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5351137082900243949}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7131705783429083850}
   m_SourcePrefab: {fileID: 100100000, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+--- !u!1 &1248044767445855062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+  m_PrefabInstance: {fileID: 2130373921661785607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5548342331313266686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248044767445855062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32d439573c8e84be85449453ecfe792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  height: 800
+  xRotation: 0
+  automaticHeightOffset: 1
+--- !u!114 &5294184071605009612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248044767445855062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb61e412f401dd57945d1d3ce6ca975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engines:
+  - engine: {fileID: 7372140148528388916}
+    speed: 1000
+    axis: 1
+  - engine: {fileID: 5160230805015440765}
+    speed: 1000
+    axis: 1
+  - engine: {fileID: 1666340126591260257}
+    speed: 1000
+    axis: 1
+  - engine: {fileID: 6432662886574788918}
+    speed: 1000
+    axis: 1
+--- !u!54 &-5351137082900243949
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248044767445855062}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &-7131705783429083850
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248044767445855062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8849882628775975642, guid: e063cc839d508e9028ef2847c0cacc1c, type: 3}
+--- !u!1 &1666340126591260257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8453084635862433690, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+  m_PrefabInstance: {fileID: 2130373921661785607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5160230805015440765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6488641809140497274, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+  m_PrefabInstance: {fileID: 2130373921661785607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6432662886574788918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4960137862667896625, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+  m_PrefabInstance: {fileID: 2130373921661785607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7372140148528388916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -297376472433816269, guid: 6b0c2f8fc2832e04192a7449b230f59b, type: 3}
+  m_PrefabInstance: {fileID: 2130373921661785607}
+  m_PrefabAsset: {fileID: 0}

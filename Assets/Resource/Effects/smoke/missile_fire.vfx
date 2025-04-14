@@ -197,7 +197,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2000
+      m_SerializableObject: 1000
     m_Space: -1
   m_Property:
     name: Rate
@@ -1747,7 +1747,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.FlipBook, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":8,"y":8}'
+      m_SerializableObject: '{"x":1,"y":1}'
     m_Space: -1
   m_Property:
     name: flipBookSize
@@ -2228,7 +2228,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":-2.6511735916137697,"value":34.46556091308594,"inTangent":1.2397862672805787,"outTangent":1.2397862672805787,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":9.510467529296875,"value":49.54339599609375,"inTangent":1.2397862672805787,"outTangent":1.2397862672805787,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":-0.8244688510894775,"value":5.170244216918945,"inTangent":-0.17432159185409547,"outTangent":-0.17432159185409547,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":6.469837188720703,"value":3.8986892700195314,"inTangent":-0.17432159185409547,"outTangent":-0.17432159185409547,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Size
