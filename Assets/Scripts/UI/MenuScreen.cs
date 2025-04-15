@@ -11,6 +11,8 @@ public class MenuScreen : MonoBehaviour
     [Header("UI References")]
     public GameObject settingsUI;
     public GameObject startMenuUI;
+    public GameObject actionsUI;
+    public GameObject creditsUI;
 
     [Header("Starting Text")]
     public TextMeshProUGUI targetText;
@@ -68,16 +70,31 @@ public class MenuScreen : MonoBehaviour
             return;
         }
 
-        blurMat.SetFloat("_Blur", initialBlurValue);
+        if (actionsUI == null)
+        {
+            Debug.LogWarning("[MenuScreen] ActionsUI not assigned.");
+            return;
+        }
+
+        if (creditsUI == null)
+        {
+            Debug.LogWarning("[MenuScreen] CreditsUI not assigned.");
+            return;
+        }
+
+        blurMat.SetFloat("_Blur", initialBlurValue);  // Ensure fully blurred
 
         distance = cameraScript.getCameraDistance();
         target = cameraScript.getTarget();
-
-        cameraScript.enabled = false;
+  
+        cameraScript.enabled = false;  // Momentarily disable camera orbiting
         originalTextColor = targetText.color;
 
         settingsUI.SetActive(false);
         Time.timeScale = 1f;
+
+        actionsUI.SetActive(false);
+        creditsUI.SetActive(false);
 
         if (startMenuUI != null)
             startMenuUI.SetActive(true);
@@ -87,12 +104,14 @@ public class MenuScreen : MonoBehaviour
     {
         if (!isTransitioning)
         {
+            // Welcome text heartbeat.
             float t = (Mathf.Sin(Time.time * beatSpeed) + 1f) / 2f;
             float alpha = Mathf.Lerp(minAlpha, originalTextColor.a, t);
             targetText.color = new Color(originalTextColor.r, originalTextColor.g, originalTextColor.b, alpha);
 
             if ((Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && !hasShownStartUI)
             {
+                // Begin transition
                 isTransitioning = true;
                 hasShownStartUI = true;
 
@@ -102,9 +121,11 @@ public class MenuScreen : MonoBehaviour
                     startMenuUI = null;
                 }
 
+                // Animate blur 
                 settingsUI.SetActive(false);
                 Time.timeScale = 1f;
 
+                // End transition
                 startPos = transform.position;
                 startRot = transform.rotation;
                 transitionProgress = 0f;
@@ -117,6 +138,7 @@ public class MenuScreen : MonoBehaviour
 
             transitionProgress += Time.unscaledDeltaTime / transitionDuration;
 
+            // Interpolate position and rotation
             transform.position = Vector3.Lerp(startPos, desiredPosition, transitionProgress);
             transform.rotation = Quaternion.Slerp(startRot, Quaternion.LookRotation(target.position - transform.position), transitionProgress);
 
@@ -127,30 +149,58 @@ public class MenuScreen : MonoBehaviour
             {
                 isTransitioning = false;
                 cameraScript.enabled = true;
-                this.enabled = false;
-            }
+                actionsUI.SetActive(true);
+                //enabled = false;
+            }         
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isTransitioning)
+        {
+            toggleSettingsUI();
         }
     }
 
-    public void OnSettingsButtonPressed()
+    public void toggleSettingsUI()
     {
-        if (settingsUI != null && !settingsUI.activeSelf)
+        if(creditsUI.activeSelf)
+            creditsUI.SetActive(false);
+
+        if (!settingsUI.activeSelf)
         {
             settingsUI.SetActive(true);
+            actionsUI.SetActive(false);
+            blurMat.SetFloat("_Blur", initialBlurValue);
+            cameraScript.enabled = false;
             Time.timeScale = 0f; // Pause the Scene
         }
-    }
-
-    public void OnResumeButtonPressed()
-    {
-        if (settingsUI != null && settingsUI.activeSelf)
+        else
         {
             settingsUI.SetActive(false);
+            actionsUI.SetActive(true);
+            blurMat.SetFloat("_Blur", 0f);
+            cameraScript.enabled = true;
             Time.timeScale = 1f; // Resume the scene
         }
     }
 
-    public void OnGithubClick(){
+    public void OnGithubButtonPressed()
+    {
         Application.OpenURL("https://github.com/YuriBrandi/Proletheus");
     }
+
+    public void toggleCreditsUI()
+    {
+        if (!creditsUI.activeSelf)
+        {
+            settingsUI.SetActive(false);
+            creditsUI.SetActive(true);
+        }
+        else
+        {
+            settingsUI.SetActive(true);
+            creditsUI.SetActive(false);
+        }
+    }
+
+
 }

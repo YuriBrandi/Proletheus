@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class OrbitCamera : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class OrbitCamera : MonoBehaviour
     public float minYAngle = 0f; // Minimum vertical angle (prevent going below ground level)
     public float maxYAngle = 80f; // Maximum vertical angle
 
+    [Header("Dropdown detection")]
+    public TMP_Dropdown tmpDropdown;
+
     private float currentX = 0f; // Current horizontal angle
     private float currentY = 20f; // Current vertical angle (start slightly above ground level)
 
@@ -25,6 +29,10 @@ public class OrbitCamera : MonoBehaviour
 
     void Update()
     {
+
+        if (tmpDropdown.IsExpanded)
+            return;
+
         // Infinite mouse movement
         if (Input.GetMouseButton(0)) // Check if the left mouse button is held down
         {
@@ -73,4 +81,5 @@ public class OrbitCamera : MonoBehaviour
     {
         return target;
     }
+    
 }

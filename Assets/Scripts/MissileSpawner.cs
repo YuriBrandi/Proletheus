@@ -148,4 +148,16 @@ public class MissileSpawner : MonoBehaviour
 
         return result;
     }
+
+    public void setChosenDirection(int directionIndex)
+    {
+         if (directionIndex >= 0 && directionIndex < System.Enum.GetValues(typeof(Direction)).Length)
+        {
+            chosenDirection = (Direction)directionIndex;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid direction index!");
+        }
+    }
 }
