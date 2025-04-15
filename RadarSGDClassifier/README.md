@@ -1,142 +1,71 @@
-# 🧠 Radar Classifier – Training & Inferenza
+# Radar Classifier – Training & Inference
 
-  
-
-Sistema di classificazione binaria (nemico / non nemico) integrato in Unity, con training in tempo reale e inferenza embedded.
-
-  
+A real-time binary classification system (enemy / non-enemy) integrated into Unity, featuring live training and embedded inference.
 
 ---
 
-  
+## Training Mode
 
-## 🚀 Modalità Training
+### Objective
 
-  
+Train the radar in real time using 6 parallel maps within Unity, with live metric tracking through TensorBoard.
 
-### 🎯 Obiettivo
+### Steps
 
-Addestrare il radar in tempo reale utilizzando 6 mappe in parallelo, con visualizzazione su TensorBoard. 
+1. **Open Unity** and select the `TrainingScene`, which contains six synchronized maps.
+2. **Start the Python training server** by running:
+   ```bash
+   python online_training_server.py
+   ```
+3. **Run the scene in Unity**: the radar will begin classifying objects and learning from the results.
+4. **Stop the scene** to end the training session.
 
-  
+### Important
 
-### ✅ Istruzioni
+In the `SGDClassifier` component on the Radar Tower:
 
-  
+- Leave the `Json File` field **empty**.  
+  → This signals the system to enter **training mode**.
 
-1. **Apri Unity** e seleziona la scena `TrainingScene` (contiene 6 mappe parallele).
+### Output
 
-2. **Esegui il server Python** per il training:
+| Path        | File                    | Description                                  |
+|-------------|-------------------------|----------------------------------------------|
+| `models/`   | `trained_model.pkl`     | Trained model saved with joblib              |
+|             | `checkpoint.npz`        | Training state for resume capability         |
+| `runs/`     | *(TensorBoard logs)*    | Metric logs for real-time visualization      |
 
-   ```bash
+### Monitor Progress
 
-   python online_training_server.py
-
-   ```
-
-3. **Avvia la scena in Unity**: il radar inizierà a classificare oggetti e apprendere dai risultati.
-
-4. **Stoppa la scena** per terminare il training.
-
-  
-
-### ⚠️ Nota importante
-
-Nel componente `SGDClassifier` (sul radar tower):
-
-  
-
-- **Lascia il campo `Json File` vuoto**  
-
-  → Questo segnala al sistema che sei in modalità **training**.
-
-  
-
----
-
-  
-
-### 📦 Output generato
-
-  
-
-| Percorso        | File                        | Descrizione                                      |
-
-|----------------|-----------------------------|--------------------------------------------------|
-
-| `models/`      | `trained_model.pkl`         | Modello addestrato in formato `joblib`          |
-
-|                | `checkpoint.npz`            | Stato del training per riprendere successivamente |
-
-| `runs/`        | *(log TensorBoard)*         | File di log per il monitoraggio delle metriche  |
-
-  
-
----
-
-  
-
-### 📊 TensorBoard (visualizzazione live)
-
-  
-
-Per monitorare accuracy e loss:
-
-  
+To visualize accuracy and loss during training:
 
 ```bash
-
 tensorboard --logdir=runs/
-
 ```
-
-  
 
 ---
 
-  
+## Inference Mode
 
-## 🤖 Modalità Inferenza
+### Objective
 
-  
+Run radar classification directly in Unity with no Python dependency.
 
-### 🎯 Obiettivo
+### Steps
 
-Effettuare classificazioni direttamente in Unity senza connessione a Python.
+1. **Open Unity** and select the `MainScene`.
+2. **Export the model weights** from Python:
+   ```bash
+   python export_weights.py
+   ```
+   This will generate:  
+   `models/sgd_weights.json`
 
-  
+3. **Import the weights into Unity**:
+   - Move `sgd_weights.json` into the `Assets/ML/` folder.
+   - Assign it to the `Json File` field in the `SGDClassifier` script on the `RadarTowerPlaceholder` object.
 
-### ✅ Istruzioni
+   This activates **inference mode**.
 
-  
-
-1. **Apri Unity** e seleziona la scena `MainScene`
-2. **Esporta i pesi dal modello Python**:
-
-   ```bash
-
-   python export_weights.py
-
-   ```
-
-   Verrà generato:  
-
-   `models/sgd_weights.json`
-
-  
-
-2. **Importa il file in Unity**:
-
-   - Sposta `sgd_weights.json` nella cartella `Assets/ML/`
-
-   - Assegnalo nel campo `Json File` dello script `SGDClassifier` (presente su `RadarTowerPlaceholder`)
-
-  
-
-   ✅ Il sistema ora capisce che sei in modalità **inferenza**.
-
-  
-
-3. **Avvia la scena**  
-
-   → Il radar userà il modello addestrato per classificare in tempo reale.
+4. **Run the scene**  
+   → The radar will now classify objects in real time using the trained model.
