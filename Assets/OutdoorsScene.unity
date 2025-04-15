@@ -779,9 +779,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: interceptor_SE
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 944552850}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
       insertIndex: -1
@@ -811,6 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 164078666768026968, guid: 9d17bbdd14c7eca86bd26cb600db477c, type: 3}
   launchInterval: 0.5
+  spawnPoint: {fileID: 944552849}
 --- !u!1 &238098200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1754,37 @@ MonoBehaviour:
         materialPassIndex: 0
         materialPassName: Custom Pass 0
         fetchColorBuffer: 0
+--- !u!1 &482276589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482276590}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482276590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482276589}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472166129}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490266865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,9 +2851,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: interceptor_SW
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839133400}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
       insertIndex: -1
@@ -2844,6 +2890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 164078666768026968, guid: 9d17bbdd14c7eca86bd26cb600db477c, type: 3}
   launchInterval: 0.5
+  spawnPoint: {fileID: 1839133399}
 --- !u!1 &788842974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,6 +3350,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943919200}
   m_CullTransparentMesh: 1
+--- !u!1 &944552849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944552850}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944552850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944552849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 202927089}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1016981008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3418,8 +3496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missileTag: targetMissile
-  explosionEffect: {fileID: 0}
-  explosionSize: 0
+  explosionEffect: {fileID: 8926484042661614526, guid: 666f9b737e2515a4db0d4a96ad433fa4, type: 3}
+  explosionSize: 30
   vfxLifetime: 5
 --- !u!54 &1016981013
 Rigidbody:
@@ -3461,7 +3539,7 @@ GameObject:
   - component: {fileID: 1022411428}
   - component: {fileID: 1022411427}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4201,9 +4279,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: interceptor_NE
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1849152478}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
       insertIndex: -1
@@ -4233,6 +4318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 164078666768026968, guid: 9d17bbdd14c7eca86bd26cb600db477c, type: 3}
   launchInterval: 0.5
+  spawnPoint: {fileID: 1849152477}
 --- !u!1 &1205821303
 GameObject:
   m_ObjectHideFlags: 0
@@ -6461,6 +6547,37 @@ MonoBehaviour:
   beatSpeed: 2
   minAlpha: 0.2
   cameraScript: {fileID: 1823688469}
+--- !u!1 &1839133399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839133400}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1839133400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839133399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 787745572}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1840406612
 GameObject:
   m_ObjectHideFlags: 0
@@ -6685,6 +6802,37 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!1 &1849152477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849152478}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1849152478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849152477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.2, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1152855038}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864827675
 GameObject:
   m_ObjectHideFlags: 0
@@ -7602,9 +7750,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: interceptor_NW
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 482276590}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bf062aa1f4ddb40bec1e33398d9e92, type: 3}
       insertIndex: -1
@@ -7629,6 +7784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenceMissilePrefab: {fileID: 164078666768026968, guid: 9d17bbdd14c7eca86bd26cb600db477c, type: 3}
   launchInterval: 0.5
+  spawnPoint: {fileID: 482276589}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

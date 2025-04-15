@@ -8,6 +8,7 @@ public class InterceptorBehaviour : MonoBehaviour
     [Header("Settings")]
     public GameObject defenceMissilePrefab;
     public float launchInterval = 0.5f;
+    public GameObject spawnPoint;
 
     // Non dovrebbe servire più
     //public static event Action<Rigidbody> EnemyMissileDetected;
@@ -62,6 +63,8 @@ public class InterceptorBehaviour : MonoBehaviour
             }
         }
 
+        Debug.Log("Requesting launch from " + nearestIntercept.name);
+
         //EnemyMissileDetected.Invoke(enemyMissileRb);
         //nearestIntercept.LaunchDefenceMissile(enemyMissileRb);
 
@@ -79,8 +82,10 @@ public class InterceptorBehaviour : MonoBehaviour
     private void LaunchDefenceMissile(Rigidbody enemyMissileRb)
     {
 
+        Vector3 spawnPos = spawnPoint != null ? spawnPoint.transform.position : transform.position;
+
         // Istanzia un missile agente orientato verso l'alto
-        var missileAgent = Instantiate(defenceMissilePrefab, gameObject.transform.position, Quaternion.LookRotation(Vector3.up));
+        var missileAgent = Instantiate(defenceMissilePrefab, spawnPos, Quaternion.LookRotation(Vector3.up));
 
         // Inizializza l'agente con il missile nemico target
         var agent = missileAgent.GetComponent<DefenceMissileAgent>();

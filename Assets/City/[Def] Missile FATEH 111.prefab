@@ -377,15 +377,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -510,7 +510,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: c8b40401bf64f45c8babfdaa409431eb, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: defenceMissile
   TeamId: 0
   m_UseChildSensors: 0

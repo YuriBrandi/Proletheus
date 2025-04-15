@@ -160,13 +160,13 @@ public class DefenceMissileAgent : Agent
         if (isEnemyTarget(collision.rigidbody))
         {
             hasDestroyedTarget = true;
-            Debug.Log("Collision with target missile.");
+            Debug.Log("DefenceMissile collision with target missile.");
             AddReward(50.0f);
             CurriculumDebug.OnEnemyMissileDestroyed(true);
         }
         else if (!collision.gameObject.CompareTag(targetMissileTag))
         {
-            Debug.Log("Collision with non-target object.");
+            Debug.Log("DefenceMissile collision with non-target object: " + collision.gameObject.name + " on " + collision.transform.position);
             AddReward(-30f);
 
             if(collision.gameObject.CompareTag(aircraftTag))
