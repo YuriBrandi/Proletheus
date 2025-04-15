@@ -257,7 +257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108547763637783403
 Transform:
   m_ObjectHideFlags: 0
@@ -320,7 +320,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7048749436340973819}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -422,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_Name
       value: '[Def] Missile FATEH 111'
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
+      propertyPath: m_TagString
+      value: defenceMissile
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 0f076aaf6a334f9f18b349ea272a995d, type: 3}
       propertyPath: m_TagString

@@ -95,7 +95,7 @@ public class RadarDetector : MonoBehaviour
 
             int prediction;
 
-            Debug.Log("Collided with: " + observedHit.gameObject.name);
+            //Debug.Log("Collided with: " + observedHit.gameObject.name);
 
             //Se stiamo facendo inferenza, deve richiamare il metodo predict
             if (deterministicClassification)
@@ -116,7 +116,7 @@ public class RadarDetector : MonoBehaviour
             assignDebugLabel(observedHit.gameObject, prediction);
 
             // Logging/debug
-            //Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
+            Debug.Log($"{observedHit.name} → Prediction: {prediction} (Real: {isEnemy}) | " + (prediction == isEnemy ? "CORRECT" : "WRONG"));
 
             if (spawnInterval > 0) // If testing classifier with self-spawn, destroy objects (PHASE 1)
                 Destroy(observedHit.gameObject);
