@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 public class CurriculumDebug : MonoBehaviour
 {
     [Header("Settings")]
     [Tooltip("Numero minimo di episodi per calcolare la media stabile.")]
     public int minLessonLength = 100;
-    public Text statisticsText;
+    public TMP_Text statisticsText;
 
     private List<float> rewardHistory = new List<float>();
     public static event Action<float> UpdateRewardHistory;
@@ -108,11 +109,11 @@ public class CurriculumDebug : MonoBehaviour
             accuracy = $"{(enemyMissileNeutralized / sum * 100f):F2}%";
 
         statisticsText.text =
-            "<color=lime><b>[Accuracy Report]</b></color>\n" +
+            "<color=orange><b>[Accuracy Report]</b></color>\n" +
             $"<b>Total:</b> {enemyMissileHit + enemyMissileNeutralized}\n" +
             $"<color=#ADFF2F><b>Neutralized:</b> {enemyMissileNeutralized}</color>\n" +
             $"<color=red><b>Enemy Hits:</b> {enemyMissileHit}</color>\n" +
-            $"<color=cyan><b>Total Accuracy:</b> {accuracy}</color>\n" +
+            $"<color=blue><b>Total Accuracy:</b> {accuracy}</color>\n" +
             $"<color=#DA70D6><b>Accuracy ({CalculateAccuracyLastHundred()}/100 steps):</b> {accuracyInWindow}%</color>\n" +
             $"<color=yellow><b>Avg. Reward (last 100):</b> {averageReward:F2}</color>";
     }

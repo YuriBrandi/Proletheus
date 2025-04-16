@@ -13,6 +13,7 @@ public class MenuScreen : MonoBehaviour
     public GameObject startMenuUI;
     public GameObject actionsUI;
     public GameObject creditsUI;
+    public GameObject debugUI;
 
     [Header("Starting Text")]
     public TextMeshProUGUI targetText;
@@ -95,6 +96,7 @@ public class MenuScreen : MonoBehaviour
 
         actionsUI.SetActive(false);
         creditsUI.SetActive(false);
+        debugUI.SetActive(false);
 
         if (startMenuUI != null)
             startMenuUI.SetActive(true);
@@ -200,6 +202,11 @@ public class MenuScreen : MonoBehaviour
             settingsUI.SetActive(true);
             creditsUI.SetActive(false);
         }
+    }
+
+    public void toggleDebugUI(bool value)
+    {
+        debugUI.SetActive(value);
     }
 
 
