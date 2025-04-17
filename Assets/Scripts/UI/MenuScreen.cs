@@ -210,4 +210,10 @@ public class MenuScreen : MonoBehaviour
     }
 
 
+    public void setQualityLevel(int index)
+    {
+        QualitySettings.SetQualityLevel(index, false);
+    }
+
+
 }
