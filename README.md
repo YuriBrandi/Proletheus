@@ -21,7 +21,7 @@ Once classified, the *Threat Objects* are transmitted to grid of military interc
 
 ## Environment and Architecture
 
-In order to have a lighter environment *(URP) to train our objects in, we made a separate branch for training https://github.com/YuriBrandi/Proletheus/tree/training.
+In order to have a lighter environment *(URP)* to train our objects in, we made a separate branch for training https://github.com/YuriBrandi/Proletheus/tree/training.
 
 In this branch you can find every environment set up ready for each phase of the training.
 
