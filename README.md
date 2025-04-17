@@ -106,7 +106,7 @@ This step produces a *Pickle* model which is incompatible with [Sentis](https://
 
 The solution is to simply export the weights of the Pickle model to a *JSON* file. 
 
-Inference is done by explicitly executing the sigmoid function using the weights, bias and prediction features.
+Inference is done by explicitly executing the sigmoid function using the weights, bias and prediction features. This step produced a model with an accuracy of **~99.5%**
 
 ## Requirements
 - Unity 6 *(tested on 6000.0.46f1)*
