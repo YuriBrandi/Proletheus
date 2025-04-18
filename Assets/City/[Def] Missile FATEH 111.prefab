@@ -543,6 +543,7 @@ MonoBehaviour:
   raycastAngle: 20
   raycastDistance: 150
   drawGizmos: 1
+  expSpawner: {fileID: 9110540409836923292, guid: 01af543eefd75e55ca447871f910d849, type: 3}
 --- !u!114 &9182554868715246612
 MonoBehaviour:
   m_ObjectHideFlags: 0

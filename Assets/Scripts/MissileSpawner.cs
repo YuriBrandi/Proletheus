@@ -31,6 +31,9 @@ public class MissileSpawner : MonoBehaviour
     [Header("Debug Settings")]
     public bool drawMissilesGizmos = false;
 
+    [Header("Optional Attached Camera")]
+    public SecondaryCamera enemyCamera;
+
     private float timer = 0f;
 
 
@@ -77,17 +80,20 @@ public class MissileSpawner : MonoBehaviour
             return; 
         }
 
-        // Instanzia il missile prefab
         GameObject missileObject = Instantiate(missilePrefab, GetPointByDirection(chosenDirection, offset), Quaternion.identity);
 
-        // Aggiungi lo script Missile al GameObject istanziato
+        // Attach Missile script
         Missile missileScript = missileObject.AddComponent<Missile>();
 
-        // Randomizza la velocit� e l'altezza
+        // Randomizez height and velocity
         float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
-        // Inizializza il missile con i parametri necessari
+        // Initialize the missile with the needed parameters
         missileScript.Initialize(GetPointByDirection(chosenDirection, offset), GetRandomPointInCollider(targetCollider), height, drawMissilesGizmos);
+
+        // If there is a secondary cam, use it to attach the missile.
+        if (enemyCamera != null)
+            enemyCamera.AttachCamTo(missileObject);
     }
 
     Vector3 GetRandomPointInCollider(MeshCollider collider)

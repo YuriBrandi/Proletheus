@@ -10,6 +10,9 @@ public class InterceptorBehaviour : MonoBehaviour
     public float launchInterval = 0.5f;
     public GameObject spawnPoint;
 
+    [Header("Optional Attached Camera")]
+    public SecondaryCamera defenceCamera;
+
     // Non dovrebbe servire più
     //public static event Action<Rigidbody> EnemyMissileDetected;
 
@@ -26,12 +29,11 @@ public class InterceptorBehaviour : MonoBehaviour
 
     public void FixedUpdate()
     {
+        // If queue has elements launch with interval
         if (enemyMissileQueue.Count > 0 && (Time.time - lastLaunchTime >= launchInterval))
         {
-            
             LaunchDefenceMissile(enemyMissileQueue.Dequeue());
             lastLaunchTime = Time.time;
-
         }
     }
 
@@ -85,10 +87,13 @@ public class InterceptorBehaviour : MonoBehaviour
         Vector3 spawnPos = spawnPoint != null ? spawnPoint.transform.position : transform.position;
 
         // Istanzia un missile agente orientato verso l'alto
-        var missileAgent = Instantiate(defenceMissilePrefab, spawnPos, Quaternion.LookRotation(Vector3.up));
+        GameObject missileAgent = Instantiate(defenceMissilePrefab, spawnPos, Quaternion.LookRotation(Vector3.up));
 
         // Inizializza l'agente con il missile nemico target
         var agent = missileAgent.GetComponent<DefenceMissileAgent>();
         agent.Initialize(enemyMissileRb);
+
+        if (defenceCamera != null)
+            defenceCamera.AttachCamTo(missileAgent);
     }
 }

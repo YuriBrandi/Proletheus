@@ -28,6 +28,9 @@ public class DefenceMissileAgent : Agent
     [Header("Debug Settings")]
     public bool drawGizmos = false;
 
+    [Header("Optional Explosion Spawner")]
+    public ExplosionSpawner expSpawner;
+
     private Rigidbody agentRb;
     private Rigidbody enemyMissileRb;
     private float previousDistance;
@@ -108,7 +111,7 @@ public class DefenceMissileAgent : Agent
 
             if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, raycastDistance))
             {
-                if (!isEnemyTarget(hit.collider.attachedRigidbody) && !hit.collider.CompareTag("targetMissile"))
+                if (!isEnemyTarget(hit.collider.attachedRigidbody) && !hit.collider.CompareTag(targetMissileTag))
                 {
                     float collisionRiskPenalty = (raycastDistance - hit.distance) / raycastDistance;
                     AddReward(-2f * collisionRiskPenalty);
@@ -120,6 +123,8 @@ public class DefenceMissileAgent : Agent
                 AddReward(50.0f);
                 OnEpisodeFinish();
                 CurriculumDebug.OnEnemyMissileDestroyed(true);
+
+                MakeExplosion(this.transform.position);
                 Destroy(enemyMissileRb.gameObject); //TODO: gestire esplosione
                 Destroy(gameObject);
             }
@@ -128,7 +133,9 @@ public class DefenceMissileAgent : Agent
             {
                 Debug.Log("Target too far, ending episode. Current distance: " + currentDistance);
                 AddReward(-20.0f);
+
                 OnEpisodeFinish();
+                MakeExplosion(this.transform.position);
                 Destroy(gameObject);
             }
 
@@ -173,6 +180,9 @@ public class DefenceMissileAgent : Agent
                 collision.gameObject.SetActive(false);
         }
 
+        // Make explosion, regardless of target.
+        MakeExplosion(collision.transform.position);
+
         OnEpisodeFinish();
         Destroy(gameObject);
     }
@@ -180,6 +190,12 @@ public class DefenceMissileAgent : Agent
     private bool isEnemyTarget(Rigidbody rb)
     {
         return rb != null && rb == enemyMissileRb;
+    }
+
+    public void MakeExplosion(Vector3 point)
+    {
+        if (expSpawner != null)
+            expSpawner.SpawnExplosionVFX(point); //impact point
     }
     
 
