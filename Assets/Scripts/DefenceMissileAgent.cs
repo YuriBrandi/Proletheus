@@ -225,7 +225,7 @@ public class DefenceMissileAgent : Agent
 
         // Place label at midpoint of the line
         Vector3 midpoint = (transform.position + enemyMissileRb.position) / 2f;
-        Handles.Label(midpoint, $"Distance: {distance:F2} units");
+        //Handles.Label(midpoint, $"Distance: {distance:F2} units");
 
         // Label for classification
         string transLabel = "";
@@ -245,7 +245,7 @@ public class DefenceMissileAgent : Agent
                 break;
         }
 
-        Handles.Label(transform.position, $"Assigned Label: {transLabel}");
+        //Handles.Label(transform.position, $"Assigned Label: {transLabel}");
 
 
         // Draw a sphere at this object's position

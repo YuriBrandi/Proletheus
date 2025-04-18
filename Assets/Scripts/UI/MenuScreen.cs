@@ -209,6 +209,11 @@ public class MenuScreen : MonoBehaviour
         debugUI.SetActive(value);
     }
 
+    public void doExitGame()
+    {
+        Application.Quit();
+    }
+
 
     public void setQualityLevel(int index)
     {

@@ -133,7 +133,7 @@ public class Missile : MonoBehaviour
                 break;
         }
 
-        Handles.Label(transform.position, $"Assigned Label: {transLabel}");
+        //Handles.Label(transform.position, $"Assigned Label: {transLabel}");
 
     }
 }
