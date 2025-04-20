@@ -73,7 +73,7 @@ There are 6 lessons overall:
 
 ### Friendly Objects
 
-Friendly objects consist of a series of Flying Objects needed to make both the classification and the interception non-trivial.
+Friendly objects consist of a series of Flying Objects with stochastic features needed to make both the classification and the interception non-trivial.
 
 Note that defence missiles are also classified by the Radar and it's important not to have *false-positives* in this regard.
 
