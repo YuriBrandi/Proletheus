@@ -8,7 +8,7 @@
 This University work consists of a sophisticated Multi-ML-agent setup composed of:
 
 1. A minimal Custom-made architecture for a **Stochastic Gradient Descent (SGD) Classifier**.
-2. A native ML-agent curriculum-based **Proximal policy optimization (PPO)** model.
+2. A native ML-agent curriculum-based **Proximal Policy Optimization (PPO)** model.
 
 The first model allows for *Threat Objects* (i.e. missiles) to be discerned from friendly benign objects (i.e. aircrafts, birds etc.).
 
