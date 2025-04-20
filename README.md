@@ -75,6 +75,8 @@ There are 6 lessons overall:
 
 Friendly objects consist of a series of Flying Objects needed to make both the classification and the interception non-trivial.
 
+Note that defence missiles are also classified by the Radar and it's important not to have *false-positives* in this regard.
+
 <p align='left'> 
     <img src=md_images/airbus.png width=500>
     <img src=md_images/flock.png width=500>
@@ -116,6 +118,12 @@ Inference is done by explicitly executing the sigmoid function using the weights
 
 For the SGDClassifier training please refer to this guide https://github.com/YuriBrandi/Proletheus/tree/training/RadarSGDClassifier.
 
+
+## Releases
+
+Compiled ready-to-run builds are available here https://github.com/YuriBrandi/Proletheus/releases.
+
+A Vulkan build for Linux/Windows x86 and Metal universal app for MacOS are available.
 
 ## Credits
 - Models
