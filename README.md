@@ -49,6 +49,8 @@ When an object is classified as *enemy* it is transmitted by the Radar to the gr
 
 When the *defence missile* gets farther the target object, it receives a negative reward, else a positive one. This behaviour encourages fast stall-free interceptions.
 
+A final big reward is given when the Agent actually intercepts its target. It's crucial to balance the two types of reward to avoid the Agent to purposely take longer (often failing) trips.
+
 <p align='left'> 
     <img src=md_images/TrainingScheme2.png width=500>
 </p>
