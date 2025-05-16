@@ -5,7 +5,7 @@
 </p>
 
 
-This University work consists of a sophisticated Multi-ML-agent setup composed of:
+This University work consists of a minimalistic Multi-ML-agent setup composed of:
 
 1. A minimal Custom-made architecture for a **Stochastic Gradient Descent (SGD) Classifier**.
 2. A native ML-agent curriculum-based **Proximal Policy Optimization (PPO)** model.
