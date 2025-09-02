@@ -106,7 +106,7 @@ Note that a *deterministic* Classifier is still needed to make the Defence Missi
 
 Since previous attempts at using *PPO* to train a Classifier have been unsuccessful, we decided to create a custom setup for training an SGDClassifier using *scikit-learn*.
 
-This step produces a *Pickle* model which is incompatible with [Sentis](https://github.com/Unity-Technologies/ml-agents/blob/develop/docs/Sentis.md) model interpretation
+This step produces a *Pickle* model which is incompatible with [Sentis](https://github.com/Unity-Technologies/ml-agents/blob/develop/docs/Sentis.md) model interpretation.
 
 The solution is to simply export the weights of the Pickle model to a *JSON* file. 
 
