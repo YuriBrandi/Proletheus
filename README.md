@@ -104,9 +104,9 @@ The *PHASE 2* trains the ML-Radar *(green one)* exclusively. The Defence Missile
 
 Note that a *deterministic* Classifier is still needed to make the Defence Missiles work as expected while training the ML-Radar. Thus the training Radar does not collaborate, and only will during inference.
 
-Since previous attempts at using *PPO* to train a Classifier had failed miserably, we had to reinvent the wheel and create a custom setup for training an SGDClassifier using *scikit-learn*.
+Since previous attempts at using *PPO* to train a Classifier have been unsuccessful, we decided to create a custom setup for training an SGDClassifier using *scikit-learn*.
 
-This step produces a *Pickle* model which is incompatible with [Sentis](https://github.com/Unity-Technologies/ml-agents/blob/develop/docs/Sentis.md) model interpretation. Attempts at translating a *Pickle* to an *ONNX* in a format accepted by Sentis have also failed.
+This step produces a *Pickle* model which is incompatible with [Sentis](https://github.com/Unity-Technologies/ml-agents/blob/develop/docs/Sentis.md) model interpretation
 
 The solution is to simply export the weights of the Pickle model to a *JSON* file. 
 
