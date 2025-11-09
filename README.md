@@ -69,8 +69,8 @@ There are 6 lessons overall:
 1. Enemy Missiles come from North only
 2. E.M. come from North + South
 3. E.M. come from North + South + East
-4. E.M. come from North + South + East + West
-5. E.M. come from Everywhere (Angles included)
+4. E.M. come from all ordinal directions
+5. E.M. come from all ordinal and intercardinal directions
 6. Enabling friendly Flying Objects spawn (Aircrafts and Birds).
 
 ### Friendly Objects
