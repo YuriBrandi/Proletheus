@@ -37,26 +37,26 @@ writer = SummaryWriter(TENSORBOARD_LOGDIR)
 
 os.makedirs("models", exist_ok=True)
 
-# === Caricamento modello se esistente ===
+# === Load model if existing ===
 if os.path.exists(MODEL_PATH):
-    print(f"📂 Trovato modello esistente. Caricamento da {MODEL_PATH}...")
+    print(f" Existing model found. Loading from {MODEL_PATH}...")
     model = joblib.load(MODEL_PATH)
     first_fit = True
-    print("✅ Modello caricato.")
+    print("Model loaded.")
 else:
-    print("📄 Nessun modello trovato. Creo un nuovo SGDClassifier.")
+    print("No model found. Creating a new SGDClassifier.")
     model = SGDClassifier(loss="log_loss")
     first_fit = True
 
-# === Caricamento stato training se esistente ===
+# === Loading training state if existing ===
 if os.path.exists(STATE_PATH):
     state = np.load(STATE_PATH, allow_pickle=True)
     step_count = int(state["step_count"])
     correct_predictions = int(state["correct_predictions"])
     losses = state["losses"].tolist()
-    print(f"🔁 Stato ripreso: step={step_count}, accuracy={(correct_predictions / step_count) * 100:.2f}%")
+    print(f"State resumed: step={step_count}, accuracy={(correct_predictions / step_count) * 100:.2f}%")
 else:
-    print("🆕 Nessun checkpoint trovato, training da zero.")
+    print("No checkpoint found, starting new training.")
 
 classes = np.array([0, 1])  # 0 = notEnemy, 1 = Enemy
 
@@ -66,37 +66,36 @@ def save_model():
              step_count=step_count,
              correct_predictions=correct_predictions,
              losses=np.array(losses, dtype=float))
-    print(f"💾 Modello e stato salvati dopo {step_count} passi")
+    print(f"Model and state saved after {step_count} steps")
 
 def create_dashboard(step, correct, accuracy, loss, velocity, elapsed, conf_matrix):
     wrong = step - correct
     recent_correct = sum(recent_preds)
     recent_wrong = len(recent_preds) - recent_correct
 
-    # Barra progresso accuracy
+    # Progress bar with accuracy
     progress_bar = Progress(
-        TextColumn("📈 Accuracy"),
+        TextColumn("Accuracy"),
         BarColumn(bar_width=20),
         TextColumn(f"{accuracy:.2f}%")
     )
     progress_bar.add_task("", total=100, completed=accuracy)
 
-    # Info principali
+    # Main info
     stats = Table.grid()
-    stats.add_row(f"🔢 Step: {step} | ✔️ {correct} | ❌ {wrong}")
-    stats.add_row(f"🕒 {int(elapsed // 60)}m {int(elapsed % 60)}s | ⚡ {velocity:.2f} step/s")
-    stats.add_row(f"📉 Loss: {loss:.2f}%")
-    stats.add_row(f"🧠 Ultimi 100: ✔️ {recent_correct} | ❌ {recent_wrong}")
+    stats.add_row(f" Step: {step} | ✔️ {correct} | ❌ {wrong}")
+    stats.add_row(f" {int(elapsed // 60)}m {int(elapsed % 60)}s | {velocity:.2f} step/s")
+    stats.add_row(f" Loss: {loss:.2f}%")
+    stats.add_row(f"Last 100: ✔️ {recent_correct} | ❌ {recent_wrong}")
 
     # Confusion Matrix
-    cm = Table(title="🧩 Confusion Matrix", box=None)
+    cm = Table(title="Confusion Matrix", box=None)
     cm.add_column(" ", justify="right")
     cm.add_column("Pred 0", justify="center")
     cm.add_column("Pred 1", justify="center")
     cm.add_row("True 0", str(conf_matrix[0][0]), str(conf_matrix[0][1]))
     cm.add_row("True 1", str(conf_matrix[1][0]), str(conf_matrix[1][1]))
 
-    # Colonne affiancate
     columns = Columns([
         Panel(progress_bar.get_renderable(), title="Performance"),
         Panel(stats, title="Training Stats"),
@@ -107,14 +106,14 @@ def create_dashboard(step, correct, accuracy, loss, velocity, elapsed, conf_matr
 def handle_client(conn, addr, live):
     global first_fit, step_count, correct_predictions, losses
 
-    print(f"👤 Client connesso da {addr}")
+    print(f"Client connected from addr: {addr}")
     last_time = time.time()
 
     try:
         while True:
             data = conn.recv(1024).decode()
             if not data:
-                print(f"🔌 Client {addr} ha chiuso la connessione.")
+                print(f"Connection dropped from client {addr}.")
                 break
 
             parts = data.strip().split("|")
@@ -172,18 +171,18 @@ def handle_client(conn, addr, live):
             conn.send((str(pred) + "\n").encode())
 
     except Exception as e:
-        print(f"❌ Errore client {addr}: {e}")
+        print(f"❌ Client error {addr}: {e}")
 
     finally:
         conn.close()
-        print(f"❎ Connessione chiusa con {addr}")
+        print(f"❎ Connection closed with client {addr}")
 
 # === Avvio server principale ===
 server = socket.socket()
 server.bind((HOST, PORT))
 server.listen(MAX_CLIENTS)
 
-print(f"🧠 Server in ascolto su {HOST}:{PORT} (max {MAX_CLIENTS} client)")
+print(f"Server listening on {HOST}:{PORT} (max {MAX_CLIENTS} client)")
 
 threads = []
 
@@ -196,11 +195,11 @@ with Live(console=None, refresh_per_second=4) as live:
             threads.append(t)
 
             if len(threads) >= MAX_CLIENTS:
-                print(f"🚫 Raggiunto il massimo di {MAX_CLIENTS} client.")
+                print(f"Reached {MAX_CLIENTS} client limit.")
                 break
 
     except KeyboardInterrupt:
-        print("🛑 Interruzione manuale.")
+        print("🛑 Manual interrupt.")
 
     finally:
         server.close()
@@ -208,4 +207,4 @@ with Live(console=None, refresh_per_second=4) as live:
             t.join()
         save_model()
         writer.close()
-        print("✅ Server terminato.")
+        print("✅ Server terminated.")
