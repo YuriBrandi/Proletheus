@@ -15,7 +15,7 @@ from rich.panel import Panel
 from rich.progress import Progress, BarColumn, TextColumn
 from rich.layout import Layout
 
-# === Configurazione ===
+# === Config ===
 HOST, PORT = "localhost", 5005
 MAX_CLIENTS = 6
 SAVE_EVERY = 10000
@@ -24,7 +24,6 @@ MODEL_PATH = "models/trained_model.pkl"
 STATE_PATH = "models/checkpoint.npz"
 TENSORBOARD_LOGDIR = "runs/sgd_classifier_logs"
 
-# === Stato globale ===
 first_fit = True
 step_count = 0
 correct_predictions = 0
@@ -177,7 +176,7 @@ def handle_client(conn, addr, live):
         conn.close()
         print(f"❎ Connection closed with client {addr}")
 
-# === Avvio server principale ===
+# === Starting server ===
 server = socket.socket()
 server.bind((HOST, PORT))
 server.listen(MAX_CLIENTS)
